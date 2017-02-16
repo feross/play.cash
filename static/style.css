@@ -1,0 +1,26 @@
+/**
+ * Table of Styles
+ * http://tachyons.io/docs/table-of-styles/
+ *
+ * Table of Properties
+ * http://tachyons.io/docs/table-of-properties/
+ */
+
+/**
+ * Custom font faces
+ */
+body {
+  font-family: 'Varela Round', sans-serif;
+}
+#logo {
+  font-family: 'Bungee Shade', sans-serif;
+}
+
+/**
+ * Header nav links: Add light background on hover.
+ */
+#header nav a:hover,
+#header nav a:focus,
+#header nav a:active {
+  background-color: rgba(0, 0, 0, 0.1);
+}

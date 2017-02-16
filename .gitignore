@@ -1,0 +1,6 @@
+db/
+
+secret/*
+!secret/index-sample.js
+
+static/bundle.js
