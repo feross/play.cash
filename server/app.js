@@ -11,11 +11,13 @@ const path = require('path')
 const session = require('express-session')
 const url = require('url')
 
+const api = require('./api')
 const config = require('../config')
 const secret = require('../secret')
 
 function init (server, sessionStore) {
   const app = express()
+  server.on('request', app)
 
   // Set up templating
   var template = fs.readFileSync(path.join(config.root, 'server', 'index.mustache'), 'utf8')
@@ -97,6 +99,13 @@ function init (server, sessionStore) {
     res.render('index', { config: config })
   })
 
+  app.get('/api/search', (req, res) => {
+    api.search(req.query, (err, items) => {
+      if (err) return res.status(err.code || 500).json({ error: err.message })
+      res.json({ items: items })
+    })
+  })
+
   app.get('/500', (req, res, next) => {
     next(new Error('Manually visited /500'))
   })
@@ -108,10 +117,8 @@ function init (server, sessionStore) {
 
   app.use((err, req, res, next) => {
     console.error(err.stack)
-    const code = err.status || 500
-    res.locals.state.error = `${code}: ${http.STATUS_CODES[code]} (${err.message})`
+    const code = err.code || 500
+    res.locals.state.error = `${code}: ${http.STATUS_CODES[code]}`
     res.status(code).render('index')
   })
-
-  server.on('request', app)
 }

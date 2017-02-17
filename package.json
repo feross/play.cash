@@ -21,6 +21,7 @@
     "url": "https://github.com/feross/play/issues"
   },
   "dependencies": {
+    "async-lru": "^1.0.1",
     "compression": "^1.0.9",
     "connect-sqlite3": "^0.9.8",
     "cookie-parser": "^1.4.3",
@@ -29,22 +30,23 @@
     "express": "^4.8.5",
     "express-session": "^1.14.2",
     "mustache": "^2.3.0",
+    "simple-get": "^2.4.0",
     "simple-websocket": "^5.0.0",
+    "tachyons": "^4.5.5",
     "unlimited": "^1.2.0"
   },
   "devDependencies": {
     "browserify": "^14.0.0",
     "bubleify": "^0.7.0",
     "classnames": "^2.2.5",
-    "dependency-check": "^2.6.0",
+    "dependency-check": "^2.8.0",
     "nodemon": "^1.2.1",
     "preact": "^7.2.0",
     "preact-router": "^2.4.0",
     "randombytes": "^2.0.3",
     "simple-peer": "^6.0.7",
     "standard": "*",
-    "tachyons": "^4.5.5",
-    "uglify-js": "^2.7.4",
+    "uglify-js": "git+https://github.com/mishoo/UglifyJS2.git#harmony",
     "watchify": "^3.7.0"
   },
   "homepage": "https://play.one",
@@ -58,8 +60,8 @@
   "scripts": {
     "build": "browserify client | uglifyjs -c warnings=false -m > static/bundle.js",
     "size": "npm run size-js && npm run size-css",
-    "size-js": "npm run build && cat static/bundle.js | gzip | wc -c",
     "size-css": "cat node_modules/tachyons/css/tachyons.min.css static/style.css | gzip | wc -c",
+    "size-js": "npm run build && cat static/bundle.js | gzip | wc -c",
     "start": "node server",
     "test": "standard && dependency-check . && dependency-check . --unused --no-dev",
     "watch": "npm run watch-js & npm run watch-server",
