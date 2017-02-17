@@ -45,3 +45,8 @@ exports.wsOrigin = (isProd ? 'wss' : 'ws') + '://' + exports.hostname
  * Root path of project
  */
 exports.root = __dirname
+
+/**
+ * Time to wait in milliseconds before an API request is considered timed out.
+ */
+exports.apiTimeout = 30 * 1000

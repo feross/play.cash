@@ -100,9 +100,9 @@ function init (server, sessionStore) {
   })
 
   app.get('/api/search', (req, res) => {
-    api.search(req.query, (err, items) => {
+    api.search(req.query, (err, result) => {
       if (err) return res.status(err.code || 500).json({ error: err.message })
-      res.json({ items: items })
+      res.json({ result: result })
     })
   })
 

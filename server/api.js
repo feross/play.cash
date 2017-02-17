@@ -12,9 +12,9 @@ module.exports = {
 const debug = require('debug')('play:api')
 const get = require('simple-get')
 const querystring = require('querystring')
-const secret = require('../secret')
 
-const TIMEOUT = 30000
+const config = require('../config')
+const secret = require('../secret')
 
 /**
  * Search YouTube. Returns a collection of search results that match the query
@@ -88,7 +88,7 @@ function sendRequest (urlBase, params, cb) {
 
   const opts = {
     url: urlBase + '?' + querystring.stringify(params),
-    timeout: TIMEOUT
+    timeout: config.apiTimeout
   }
 
   get.concat(opts, onResponse)

@@ -4,6 +4,9 @@ const { h, render } = require('preact')
 const App = require('../components/App')
 const socket = require('./socket')
 
+// TODO: remove this
+window.api = require('./api')
+
 // Enable React Dev Tools (only in development to reduce bundle size)
 // require('preact/devtools')
 
