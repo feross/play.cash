@@ -7,6 +7,9 @@
     "email": "feross@feross.org",
     "url": "http://feross.org"
   },
+  "browser": {
+    "./secret/index.js": false
+  },
   "browserify": {
     "transform": [
       [
