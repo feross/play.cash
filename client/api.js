@@ -1,7 +1,7 @@
-const cacheify = require('../lib/cacheify')
+const memo = require('memo')
 
 module.exports = {
-  search: cacheify(search)
+  search: memo(search)
 }
 
 const debug = require('debug')('play:api')

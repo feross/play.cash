@@ -24,7 +24,6 @@
     "url": "https://github.com/feross/play/issues"
   },
   "dependencies": {
-    "async-lru": "^1.0.1",
     "compression": "^1.0.9",
     "connect-sqlite3": "^0.9.8",
     "cookie-parser": "^1.4.3",
@@ -32,6 +31,7 @@
     "downgrade": "^1.1.1",
     "express": "^4.8.5",
     "express-session": "^1.14.2",
+    "memo": "git+https://github.com/feross/memo.git",
     "mustache": "^2.3.0",
     "simple-get": "^2.4.0",
     "simple-websocket": "^5.0.0",

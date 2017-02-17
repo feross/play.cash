@@ -1,12 +1,12 @@
-const cacheify = require('../lib/cacheify')
+const memo = require('memo')
 
-const CACHE_OPTS = {
+const MEMO_OPTS = {
   max: 10 * 1000,
   maxAge: 6 * 60 * 60 * 1000 // 6 hours
 }
 
 module.exports = {
-  search: cacheify(search, CACHE_OPTS)
+  search: memo(search, MEMO_OPTS)
 }
 
 const debug = require('debug')('play:api')
