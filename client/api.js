@@ -1,4 +1,4 @@
-const memo = require('memo')
+const memo = require('memo-async-lru')
 
 module.exports = {
   search: memo(search)

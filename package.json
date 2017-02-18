@@ -31,7 +31,7 @@
     "downgrade": "^1.1.1",
     "express": "^4.8.5",
     "express-session": "^1.14.2",
-    "memo": "git+https://github.com/feross/memo.git",
+    "memo-async-lru": "^1.0.1",
     "mustache": "^2.3.0",
     "simple-get": "^2.4.0",
     "simple-websocket": "^5.0.0",

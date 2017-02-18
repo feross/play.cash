@@ -1,4 +1,4 @@
-const memo = require('memo')
+const memo = require('memo-async-lru')
 
 const MEMO_OPTS = {
   max: 10 * 1000,
