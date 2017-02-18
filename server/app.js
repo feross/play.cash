@@ -20,12 +20,12 @@ function init (server, sessionStore) {
   server.on('request', app)
 
   // Set up templating
-  var template = fs.readFileSync(path.join(config.root, 'server', 'index.mustache'), 'utf8')
+  const template = fs.readFileSync(path.join(config.root, 'server', 'index.mustache'), 'utf8')
   app.set('view engine', 'mustache')
   app.set('views', path.join(config.root, 'server'))
   app.engine('mustache', (templatePath, params, cb) => {
     params.state = JSON.stringify(params.state)
-    var html = mustache.render(template, params)
+    const html = mustache.render(template, params)
     cb(null, html)
   })
 
