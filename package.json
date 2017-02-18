@@ -50,7 +50,7 @@
     "standard": "*",
     "uglify-js": "git+https://github.com/mishoo/UglifyJS2.git#harmony",
     "watchify": "^3.7.0",
-    "yt-player": "^1.0.0"
+    "yt-player": "^1.1.0"
   },
   "homepage": "https://play.one",
   "license": "-",
@@ -66,7 +66,7 @@
     "size-css": "cat node_modules/tachyons/css/tachyons.min.css static/style.css | gzip | wc -c",
     "size-js": "npm run build && cat static/bundle.js | gzip | wc -c",
     "start": "node server",
-    "test": "standard && dependency-check . && dependency-check . --unused --no-dev",
+    "test": "standard && dependency-check . && dependency-check . --unused -i tachyons --no-dev",
     "watch": "npm run watch-js & npm run watch-server",
     "watch-js": "watchify client -o static/bundle.js -d -v",
     "watch-server": "DEBUG=play* nodemon server -e js,css,mustache -i static/"
