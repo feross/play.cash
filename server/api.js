@@ -55,7 +55,7 @@ function search (opts, cb) {
     // that can be played outside youtube.com. If you specify a value for this
     // parameter, you must also set the type parameter's value to video. Acceptable
     // values are: 'any', 'true'. (string)
-    videoSyndicated: 'true',
+    videoSyndicated: 'any',
 
     // The type parameter restricts a search query to only retrieve a particular
     // type of resource. The value is a comma-separated list of resource types. The
