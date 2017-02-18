@@ -49,7 +49,8 @@
     "simple-peer": "^6.0.7",
     "standard": "*",
     "uglify-js": "git+https://github.com/mishoo/UglifyJS2.git#harmony",
-    "watchify": "^3.7.0"
+    "watchify": "^3.7.0",
+    "yt-player": "^1.0.0"
   },
   "homepage": "https://play.one",
   "license": "-",

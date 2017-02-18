@@ -4,8 +4,24 @@ const { h, render } = require('preact')
 const App = require('../components/App')
 const socket = require('./socket')
 
-// TODO: remove this
-window.api = require('./api')
+// const api = require('./api')
+const Player = require('yt-player')
+
+const player = new Player('#player')
+window.player = player
+
+player.load('GKSRyLdjsPA')
+
+player.on('playing', () => {
+  player.pause()
+})
+
+// api.search({ q: 'poison alice cooper' }, (err, result) => {
+//   if (err) throw err
+//   const id = result[0].id
+//   const player = new Player('#player')
+//   player.load(id)
+// })
 
 // Enable React Dev Tools (only in development to reduce bundle size)
 // require('preact/devtools')
