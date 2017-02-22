@@ -95,15 +95,22 @@ function init (server, sessionStore) {
     next()
   })
 
-  app.get('/', (req, res) => {
-    res.render('index', { config: config })
-  })
+  // TODO: remove
+  // app.use(require('cors')({
+  //   origin: true,
+  //   credentials: true
+  // }))
 
   app.get('/api/search', (req, res) => {
     api.search(req.query, (err, result) => {
       if (err) return res.status(err.code || 500).json({ error: err.message })
       res.json({ result: result })
     })
+  })
+
+  // TODO: Return 404 error when there is no song match!
+  app.get('*', (req, res) => {
+    res.render('index', { config: config })
   })
 
   app.get('/500', (req, res, next) => {

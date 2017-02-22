@@ -17,6 +17,7 @@ class App extends Component {
   render (props) {
     // const parsedUrl = url.parse(props.state.url)
     // const PageName = routes
+    // <ErrorPage default type='404' />
 
     const state = props.state
     return (
@@ -28,6 +29,5 @@ class App extends Component {
     )
   }
 }
-          // <ErrorPage default type='404' />
 
 module.exports = App
