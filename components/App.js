@@ -6,24 +6,14 @@ const Footer = require('./Footer')
 const Header = require('./Header')
 
 const HomePage = require('./HomePage')
-// const ErrorPage = require('./ErrorPage')
-
-// const routes = {
-//   '/': HomePage,
-//   '/create': CreatePage
-// }
 
 class App extends Component {
   render (props) {
-    // const parsedUrl = url.parse(props.state.url)
-    // const PageName = routes
-    // <ErrorPage default type='404' />
-
-    const state = props.state
+    const store = props.store
     return (
       <div id='app' class='near-black f5'>
-        <Header userName={state.userName} />
-        <HomePage state={state} />
+        <Header userName={store.userName} />
+        <HomePage store={store} />
         <Footer />
       </div>
     )

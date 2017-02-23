@@ -7,9 +7,6 @@
     "email": "feross@feross.org",
     "url": "http://feross.org"
   },
-  "browser": {
-    "./secret/index.js": false
-  },
   "babel": {
     "plugins": [
       [
@@ -21,6 +18,9 @@
       ],
       "transform-object-rest-spread"
     ]
+  },
+  "browser": {
+    "./secret/index.js": false
   },
   "browserify": {
     "transform": [
@@ -57,9 +57,10 @@
     "randombytes": "^2.0.3",
     "simple-peer": "^6.0.7",
     "standard": "*",
+    "throttleit": "^1.0.0",
     "uglify-js": "git+https://github.com/mishoo/UglifyJS2.git#harmony",
     "watchify": "^3.7.0",
-    "yt-player": "^1.1.0"
+    "yt-player": "^2.0.0"
   },
   "homepage": "https://play.one",
   "license": "-",

@@ -24,7 +24,7 @@ function init (server, sessionStore) {
   app.set('view engine', 'mustache')
   app.set('views', path.join(config.root, 'server'))
   app.engine('mustache', (templatePath, params, cb) => {
-    params.state = JSON.stringify(params.state)
+    params.initialStore = JSON.stringify(params.initialStore)
     const html = mustache.render(template, params)
     cb(null, html)
   })
@@ -90,8 +90,8 @@ function init (server, sessionStore) {
   }))
 
   app.use((req, res, next) => {
-    res.locals.state = {}
-    res.locals.state.userName = req.session.user && req.session.user.userName
+    res.locals.initialStore = {}
+    res.locals.initialStore.userName = req.session.user && req.session.user.userName
     next()
   })
 
@@ -118,14 +118,14 @@ function init (server, sessionStore) {
   })
 
   app.get('*', (req, res) => {
-    res.locals.state.error = `404: ${http.STATUS_CODES[404]}`
+    res.locals.initialStore.error = `404: ${http.STATUS_CODES[404]}`
     res.status(404).render('index')
   })
 
   app.use((err, req, res, next) => {
     console.error(err.stack)
     const code = err.code || 500
-    res.locals.state.error = `${code}: ${http.STATUS_CODES[code]}`
+    res.locals.initialStore.error = `${code}: ${http.STATUS_CODES[code]}`
     res.status(code).render('index')
   })
 }
