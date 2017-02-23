@@ -10,14 +10,21 @@
   "browser": {
     "./secret/index.js": false
   },
+  "babel": {
+    "plugins": [
+      [
+        "transform-react-jsx",
+        {
+          "pragma": "jsx",
+          "useBuiltIns": true
+        }
+      ],
+      "transform-object-rest-spread"
+    ]
+  },
   "browserify": {
     "transform": [
-      [
-        "bubleify",
-        {
-          "jsx": "h"
-        }
-      ]
+      "babelify"
     ]
   },
   "bugs": {
@@ -39,8 +46,10 @@
     "unlimited": "^1.2.0"
   },
   "devDependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-plugin-transform-react-jsx": "^6.23.0",
+    "babelify": "^7.3.0",
     "browserify": "^14.0.0",
-    "bubleify": "^0.7.0",
     "classnames": "^2.2.5",
     "dependency-check": "^2.8.0",
     "nodemon": "^1.2.1",
