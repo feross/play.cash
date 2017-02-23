@@ -37,7 +37,7 @@ function init (server, sessionStore) {
     const extname = path.extname(url.parse(req.url).pathname)
 
     // Add cross-domain header for fonts, required by spec, Firefox, and IE.
-    if (['.eot', '.ttf', '.otf', '.woff', '.woff2'].indexOf(extname) >= 0) {
+    if (['.eot', '.ttf', '.otf', '.woff', '.woff2'].includes(extname)) {
       res.header('Access-Control-Allow-Origin', '*')
     }
 
