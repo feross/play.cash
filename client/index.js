@@ -43,7 +43,7 @@ function onUrlChange () {
   store.current.track = matches[2]
   update()
 
-  api.search({
+  api.video({
     q: `${store.current.artist} ${store.current.track}`,
     maxResults: 1
   }, (err, result) => {

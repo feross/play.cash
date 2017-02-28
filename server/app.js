@@ -11,7 +11,8 @@ const path = require('path')
 const session = require('express-session')
 const url = require('url')
 
-const api = require('./api')
+const apiSearch = require('./api-search')
+const apiVideo = require('./api-video')
 const config = require('../config')
 const secret = require('../secret')
 
@@ -95,14 +96,24 @@ function init (server, sessionStore) {
     next()
   })
 
-  // TODO: remove
-  // app.use(require('cors')({
-  //   origin: true,
-  //   credentials: true
-  // }))
+  const memo = require('memo-async-lru')
 
-  app.get('/api/search', (req, res) => {
-    api.search(req.query, (err, result) => {
+  const MEMO_OPTS = {
+    max: 10 * 1000,
+    maxAge: 6 * 60 * 60 * 1000 // 6 hours
+  }
+
+  const apiMethods = {
+    'search': memo(apiSearch, MEMO_OPTS),
+    'video': memo(apiVideo, MEMO_OPTS)
+  }
+
+  app.get('/api/:method', (req, res, next) => {
+    const method = apiMethods[req.params.method]
+    console.log(method)
+    if (!method) return next()
+
+    method(req.query, (err, result) => {
       if (err) return res.status(err.code || 500).json({ error: err.message })
       res.json({ result: result })
     })

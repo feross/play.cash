@@ -41,6 +41,7 @@
     "last-fm": "^1.0.0",
     "memo-async-lru": "^1.0.1",
     "mustache": "^2.3.0",
+    "run-parallel": "^1.1.6",
     "simple-get": "^2.4.0",
     "simple-websocket": "^5.0.0",
     "tachyons": "^4.5.5",

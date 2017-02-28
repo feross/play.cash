@@ -1,15 +1,6 @@
-const memo = require('memo-async-lru')
+module.exports = apiVideo
 
-const MEMO_OPTS = {
-  max: 10 * 1000,
-  maxAge: 6 * 60 * 60 * 1000 // 6 hours
-}
-
-module.exports = {
-  search: memo(search, MEMO_OPTS)
-}
-
-const debug = require('debug')('play:api')
+const debug = require('debug')('play:api-video')
 const get = require('simple-get')
 const querystring = require('querystring')
 
@@ -17,15 +8,21 @@ const config = require('../config')
 const secret = require('../secret')
 
 /**
- * Search YouTube. Returns a collection of search results that match the query
+ * Search YouTube. Returns a collection of video results that match the query
  * parameters.
+ *
+ * Options:
+ *   - q: The search query (required)
+ *   - maxResults: Max number of items in the result set, 0 to 50 (default: 5)
+ *
+ * Docs: https://developers.google.com/youtube/v3/docs/search/list
  */
-function search (opts, cb) {
+function apiVideo (opts, cb) {
   if (typeof opts.maxResults === 'string') {
     opts.maxResults = Number(opts.maxResults)
   }
 
-  debug('search: %o', opts)
+  debug('%o', opts)
 
   const url = 'https://www.googleapis.com/youtube/v3/search'
   const params = {
@@ -88,6 +85,10 @@ function sendRequest (urlBase, params, cb) {
 
   const opts = {
     url: urlBase + '?' + querystring.stringify(params),
+    headers: {
+      'User-Agent': config.apiUserAgent
+    },
+    json: true,
     timeout: config.apiTimeout
   }
 
@@ -95,11 +96,6 @@ function sendRequest (urlBase, params, cb) {
 
   function onResponse (err, res, data) {
     if (err) return cb(new Error('HTTP request error. ' + err.message))
-    try {
-      data = JSON.parse(data)
-    } catch (err) {
-      return cb(new Error('Invalid JSON in response. ' + err.message))
-    }
     if (data.error) {
       return cb(new Error('YouTube API Error. ' + data.error.message))
     }

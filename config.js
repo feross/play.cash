@@ -50,3 +50,8 @@ exports.root = __dirname
  * Time to wait in milliseconds before an API request is considered timed out.
  */
 exports.apiTimeout = 30 * 1000
+
+/**
+ * User agent for API requests
+ */
+exports.apiUserAgent = 'Play/1.0.0 (http://play.one)'

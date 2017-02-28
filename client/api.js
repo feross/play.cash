@@ -1,7 +1,7 @@
 const memo = require('memo-async-lru')
 
 module.exports = {
-  search: memo(search)
+  video: memo(video)
 }
 
 const debug = require('debug')('play:api')
@@ -14,9 +14,9 @@ const config = require('../config')
  * Search YouTube. Returns a collection of search results that match the query
  * parameters.
  */
-function search (opts, cb) {
-  debug('search: %o', opts)
-  const url = '/api/search'
+function video (opts, cb) {
+  debug('video: %o', opts)
+  const url = '/api/video'
   sendRequest(url, opts, cb)
 }
 
