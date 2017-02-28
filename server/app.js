@@ -110,7 +110,6 @@ function init (server, sessionStore) {
 
   app.get('/api/:method', (req, res, next) => {
     const method = apiMethods[req.params.method]
-    console.log(method)
     if (!method) return next()
 
     method(req.query, (err, result) => {

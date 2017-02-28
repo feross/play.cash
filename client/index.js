@@ -58,5 +58,6 @@ function cleanupUrl (url) {
 }
 
 // for debugging
+window.api = api
 window.store = store
 window.update = update

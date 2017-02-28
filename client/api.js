@@ -1,6 +1,7 @@
 const memo = require('memo-async-lru')
 
 module.exports = {
+  search: memo(search),
   video: memo(video)
 }
 
@@ -10,19 +11,20 @@ const querystring = require('querystring')
 
 const config = require('../config')
 
-/**
- * Search YouTube. Returns a collection of search results that match the query
- * parameters.
- */
+function search (opts, cb) {
+  debug('search: %o', opts)
+  sendRequest('/api/search', opts, cb)
+}
+
 function video (opts, cb) {
   debug('video: %o', opts)
-  const url = '/api/video'
-  sendRequest(url, opts, cb)
+  sendRequest('/api/video', opts, cb)
 }
 
 function sendRequest (urlBase, params, cb) {
   const opts = {
     url: urlBase + '?' + querystring.stringify(params),
+    json: true,
     timeout: config.apiTimeout
   }
 
@@ -30,11 +32,6 @@ function sendRequest (urlBase, params, cb) {
 
   function onResponse (err, res, data) {
     if (err) return cb(new Error('HTTP request error. ' + err.message))
-    try {
-      data = JSON.parse(data)
-    } catch (err) {
-      return cb(new Error('Invalid JSON in response. ' + err.message))
-    }
     if (data.error) {
       return cb(new Error('Server API Error. ' + data.error))
     }
