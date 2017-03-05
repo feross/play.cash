@@ -31,6 +31,7 @@
     "url": "https://github.com/feross/play/issues"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "compression": "^1.0.9",
     "connect-sqlite3": "^0.9.8",
     "cookie-parser": "^1.4.3",
@@ -41,25 +42,24 @@
     "last-fm": "^1.0.0",
     "memo-async-lru": "^1.0.1",
     "mustache": "^2.3.0",
+    "preact": "^7.2.0",
     "simple-get": "^2.4.0",
     "simple-websocket": "^5.0.0",
     "tachyons": "^4.5.5",
-    "unlimited": "^1.2.0"
+    "throttleit": "^1.0.0",
+    "unlimited": "^1.2.0",
+    "yt-player": "^2.0.0"
   },
   "devDependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-plugin-transform-react-jsx": "^6.23.0",
     "babelify": "^7.3.0",
     "browserify": "^14.0.0",
-    "classnames": "^2.2.5",
     "dependency-check": "^2.8.0",
     "nodemon": "^1.2.1",
-    "preact": "^7.2.0",
     "standard": "^10.0.0-beta.0",
-    "throttleit": "^1.0.0",
     "uglify-js": "git+https://github.com/mishoo/UglifyJS2.git#harmony",
-    "watchify": "^3.7.0",
-    "yt-player": "^2.0.0"
+    "watchify": "^3.7.0"
   },
   "homepage": "https://play.one",
   "license": "-",
