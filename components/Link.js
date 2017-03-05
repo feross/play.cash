@@ -1,13 +1,22 @@
-const { Component, h } = require('preact') /** @jsx h */
+const { h } = require('preact') /** @jsx h */
 
-class Link extends Component {
-  render (props) {
-    return (
-      <a href={props.href} class='blue hover-light-blue link'>
-        {props.children}
-      </a>
-    )
-  }
+const c = require('classnames')
+
+const Link = (props) => {
+  const { href = '#', children, onClick, class: className } = props
+
+  return (
+    <a
+      class={c('blue hover-light-blue link', className)}
+      href={href}
+      onClick={e => {
+        if (href === '#') e.preventDefault()
+        onClick()
+      }}
+    >
+      {children}
+    </a>
+  )
 }
 
 module.exports = Link
