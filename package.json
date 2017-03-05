@@ -70,14 +70,14 @@
     "url": "git://github.com/feross/play.git"
   },
   "scripts": {
-    "build": "browserify client | uglifyjs -c warnings=false -m > static/bundle.js",
+    "build": "browserify src | uglifyjs -c warnings=false -m > static/bundle.js",
     "size": "npm run size-js && npm run size-css",
     "size-css": "cat node_modules/tachyons/css/tachyons.min.css static/style.css | gzip | wc -c",
     "size-js": "npm run build && cat static/bundle.js | gzip | wc -c",
     "start": "node server",
     "test": "standard && dependency-check . && dependency-check . --unused -i tachyons --no-dev",
     "watch": "npm run watch-js & npm run watch-server",
-    "watch-js": "watchify client -o static/bundle.js -d -v",
+    "watch-js": "watchify src -o static/bundle.js -d -v",
     "watch-server": "DEBUG=play* nodemon server -e js,css,mustache -i static/"
   }
 }
