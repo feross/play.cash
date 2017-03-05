@@ -1,37 +1,18 @@
 const { Component, h } = require('preact') /** @jsx h */
 
 const Sheet = require('./Sheet')
-const YouTubePlayer = require('./YouTubePlayer')
+const Input = require('./Input')
 
 class HomePage extends Component {
   render (props) {
-    const { current, player } = props.store
+    const { current } = props
     return (
-      <main id='main' class='mw8 mt3 ma-100 center'>
-        <YouTubePlayer
-          videoId={player.videoId}
-          playing={player.playing}
-          volume={player.volume}
-          playbackRate={player.playbackRate}
-          width={player.width}
-          height={player.height}
-          captions={false}
-          controls={false}
-          fullscreen={false}
-          annotations={false}
-          related={false}
-          info={false}
-          autoplay
-          modestBranding
-          onError={() => console.log('onError')}
-          onUnplayable={() => console.log('onUnplayable')}
-          onPlaying={() => console.log('onPlaying')}
-          onPaused={() => console.log('onPaused')}
-          onDuration={() => console.log('onDuration')}
-          onTimeupdate={() => console.log('onTimeupdate')}
-        />
+      <main id='main' class='relative mw8 mt6 ma-100 center'>
         <Sheet class='tc'>
           <h1 class='f1'>{current.track} - {current.artist}</h1>
+          <Input
+            placeholder='Defend Gotham'
+          />
         </Sheet>
       </main>
     )
