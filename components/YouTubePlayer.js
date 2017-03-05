@@ -92,7 +92,7 @@ class YouTubePlayer extends Component {
   }
 
   render (props) {
-    const { style, width, height, className } = props
+    const { style, width, height, class: className } = props
 
     return (
       <div style={{ ...style, width, height }} class={className}>
