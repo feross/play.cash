@@ -10,7 +10,7 @@ module.exports = {
     width: window.innerWidth,
     height: window.innerHeight,
     videoId: null,
-    playing: true,
+    playing: false,
     volume: 0,
     playbackRate: 1
   }

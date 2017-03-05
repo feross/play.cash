@@ -3,7 +3,7 @@ const { h, render } = require('preact') /** @jsx h */
 const throttle = require('throttleit')
 
 // Enable React Dev Tools (only in development to reduce bundle size)
-// require('preact/devtools')
+require('preact/devtools')
 
 const api = require('./api')
 // const socket = require('./socket')
