@@ -52,9 +52,9 @@ function onUrlChange () {
   })
 }
 
-function cleanupUrl (url) {
-  return url.replace('%20', '-')
-}
+// function cleanupUrl (url) {
+//   return url.replace('%20', '-')
+// }
 
 // for debugging
 window.api = api
