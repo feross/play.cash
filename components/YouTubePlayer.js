@@ -31,8 +31,8 @@ class YouTubePlayer extends Component {
     this.onTimeupdate = this.onTimeupdate.bind(this)
   }
 
-  ref (container) {
-    this.container = container
+  ref (elem) {
+    this.elem = elem
   }
 
   shouldComponentUpdate (nextProps) {
@@ -50,40 +50,40 @@ class YouTubePlayer extends Component {
   /**
    * Invoke player methods based on incoming props
    */
-  componentWillReceiveProps (nextProps) {
+  componentDidUpdate (prevProps) {
+    console.log('componentDidUpdate')
     const { videoId, playing, volume, playbackRate } = this.props
 
-    if (videoId !== nextProps.videoId && nextProps.videoId) {
-      if (!this.player) this.createPlayer(nextProps)
-      this.player.load(nextProps.videoId)
-      this.player.setVolume(nextProps.volume)
-      this.player.setPlaybackRate(nextProps.playbackRate)
+    if (videoId && prevProps.videoId !== videoId) {
+      if (!this.player) this.createPlayer(this.props)
+      this.player.load(videoId, playing)
+      this.player.setVolume(volume)
+      this.player.setPlaybackRate(playbackRate)
     }
 
-    if (videoId && !nextProps.videoId) {
-      this.player.stop()
-    }
-
-    if (videoId && !playing && nextProps.playing) {
+    if (videoId && !prevProps.playing && playing) {
       this.player.play()
     }
 
-    if (videoId && playing && !nextProps.playing) {
+    if (videoId && prevProps.playing && !playing) {
       this.player.pause()
     }
 
-    if (videoId && volume !== nextProps.volume) {
-      this.player.setVolume(nextProps.volume)
+    if (videoId && prevProps.volume !== volume) {
+      this.player.setVolume(volume)
     }
 
-    if (videoId && playbackRate !== nextProps.playbackRate) {
-      this.player.setPlaybackRate(nextProps.playbackRate)
+    if (videoId && prevProps.playbackRate !== playbackRate) {
+      this.player.setPlaybackRate(playbackRate)
+    }
+
+    if (prevProps.videoId && !videoId) {
+      this.player.stop()
     }
   }
 
   componentDidMount () {
-    const props = this.props
-    this.componentWillReceiveProps(props)
+    this.componentDidUpdate(YouTubePlayer.defaultProps)
   }
 
   componentWillUnmount () {
