@@ -102,11 +102,12 @@ class YouTubePlayer extends Component {
   }
 
   createPlayer (props) {
-    const { width: _, height: _2, ...restProps } = props // eslint-disable-line
-    this.player = new YTPlayer(this.container, {
+    const { playerOpts } = props
+    this.player = new YTPlayer(this.elem, {
       width: '100%',
       height: '100%',
-      ...restProps
+      autoplay: props.playing,
+      ...playerOpts
     })
 
     this.player.on('error', this.onError)
