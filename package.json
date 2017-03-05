@@ -58,7 +58,7 @@
     "preact": "^7.2.0",
     "randombytes": "^2.0.3",
     "simple-peer": "^6.0.7",
-    "standard": "*",
+    "standard": "^10.0.0-beta.0",
     "throttleit": "^1.0.0",
     "uglify-js": "git+https://github.com/mishoo/UglifyJS2.git#harmony",
     "watchify": "^3.7.0",
