@@ -18,7 +18,6 @@ init()
 
 function init () {
   Object.assign(store, window.initialStore) // Server can set initial store
-  update()
   onUrlChange()
   // if (store.userName) {
   //   socket.init(store.game, update)
