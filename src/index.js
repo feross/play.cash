@@ -1,6 +1,9 @@
 const { h, render } = require('preact') /** @jsx h */
 const { Provider } = require('preact-redux')
 
+// Preact Dev Tools are excluded in production to reduce bundle size
+require('preact/devtools')
+
 const throttle = require('throttleit')
 
 const App = require('./containers/App')
@@ -8,9 +11,6 @@ const { playerResize } = require('./actions')
 const api = require('./api')
 const configureStore = require('./configureStore')
 const store = configureStore()
-
-// Enable React Dev Tools (only in development to reduce bundle size)
-require('preact/devtools')
 
 // const URL_RE = /^\/([^/]+)\/([^/]+)/
 

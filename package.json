@@ -20,7 +20,9 @@
     ]
   },
   "browser": {
-    "./secret/index.js": false
+    "./secret/index.js": false,
+    "preact/devtools": false,
+    "redux-logger": false
   },
   "browserify": {
     "transform": [
