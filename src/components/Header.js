@@ -1,6 +1,6 @@
 const { Component, h } = require('preact') /** @jsx h */
 
-const config = require('../config')
+const config = require('../../config')
 
 const Button = require('./Button')
 

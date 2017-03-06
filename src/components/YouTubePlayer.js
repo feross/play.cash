@@ -51,7 +51,6 @@ class YouTubePlayer extends Component {
    * Invoke player methods based on incoming props
    */
   componentDidUpdate (prevProps) {
-    console.log('componentDidUpdate')
     const { videoId, playing, volume, playbackRate } = this.props
 
     if (videoId && prevProps.videoId !== videoId) {

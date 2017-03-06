@@ -1,7 +1,8 @@
 const { Component, h } = require('preact') /** @jsx h */
+const { connect } = require('preact-redux')
 
-const Sheet = require('./Sheet')
-const Input = require('./Input')
+const Sheet = require('../components/Sheet')
+const Input = require('../components/Input')
 
 class HomePage extends Component {
   render (props) {
@@ -19,4 +20,8 @@ class HomePage extends Component {
   }
 }
 
-module.exports = HomePage
+const mapStateToProps = (state) => ({
+  current: state.current
+})
+
+module.exports = connect(mapStateToProps)(HomePage)
