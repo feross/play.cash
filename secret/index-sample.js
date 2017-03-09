@@ -9,3 +9,6 @@ exports.lastfm = {
   key: '',
   secret: ''
 }
+
+// SongFacts API
+exports.songfacts = ''
