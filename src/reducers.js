@@ -1,11 +1,35 @@
 const { combineReducers } = require('redux')
 const { reducer: location } = require('./redux-location')
 
-const current = (state = {
-  track: 'Stay', // TODO: change to null
-  artist: 'Kygo' // TODO: change to null
-}, action) => {
+const currentTrack = (state = null, action) => {
   switch (action.type) {
+    default:
+      return state
+  }
+}
+
+const tracks = (state = {}, action) => {
+  switch (action.type) {
+    case 'REQUEST_TRACK':
+      const track = action.track
+      const trackId = track.artist + '~' + track.track
+      return {
+        ...state,
+        [trackId]: {
+          isLoading: true
+        }
+      }
+    case 'RECEIVE_TRACK': {
+      const track = action.track
+      const trackId = track.artist + '~' + track.track
+      return {
+        ...state,
+        [trackId]: {
+          isLoading: false,
+          videoId: action.videoId
+        }
+      }
+    }
     default:
       return state
   }
@@ -32,7 +56,8 @@ const player = (state = {
 }
 
 const rootReducer = combineReducers({
-  current,
+  currentTrack,
+  tracks,
   player,
   location
 })
