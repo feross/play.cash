@@ -20,9 +20,7 @@
     ]
   },
   "browser": {
-    "./secret/index.js": false,
-    "preact/devtools": false,
-    "redux-logger": false
+    "./secret/index.js": false
   },
   "browserify": {
     "transform": [
@@ -76,7 +74,7 @@
     "url": "git://github.com/feross/play.git"
   },
   "scripts": {
-    "build": "NODE_ENV=production browserify src | babili > static/bundle.js",
+    "build": "NODE_ENV=production browserify -i preact/devtools -i redux-logger src | babili > static/bundle.js",
     "size": "npm run size-js && npm run size-css",
     "size-css": "cat node_modules/tachyons/css/tachyons.min.css static/style.css | gzip | wc -c",
     "size-js": "npm run build && cat static/bundle.js | gzip | wc -c",
