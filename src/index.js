@@ -1,40 +1,38 @@
 const { h, render } = require('preact') /** @jsx h */
-const { Provider } = require('preact-redux')
+const throttle = require('throttleit')
 
 require('preact/devtools') // Excluded in production
 
-const throttle = require('throttleit')
-
 const App = require('./containers/App')
-const { playerResize } = require('./actions')
-const configureStore = require('./configure-store')
-const loc = require('./redux-location')
+const Location = require('./location')
+const store = require('./store')
 
-const store = window.store = configureStore()
+let root = null
 
-loc.addRoute('/', 'home')
-loc.addRoute('/:artist/:track', 'track')
-loc.addRoute('/about', 'about')
+const routes = [
+  ['home', '/'],
+  ['track', '/:artist/:track'],
+  ['about', '/about']
+]
 
-loc.on('dispatch', (action) => store.dispatch(action))
-loc.replace(window.location.pathname)
+const loc = new Location(routes, (loc) => {
+  store.dispatch('LOCATION_CHANGE', loc)
+})
+
+update()
+store.on('update', update)
 
 window.addEventListener('resize', throttle(onResize, 250))
 
-let root = null
-update()
-
 function update () {
-  const elem = (
-    <Provider store={store}>
-      <App />
-    </Provider>
-  )
-  root = render(elem, document.body, root)
+  root = render(<App />, document.body, root)
 }
 
 function onResize () {
   const width = window.innerWidth
   const height = window.innerHeight
-  store.dispatch(playerResize(width, height))
+  store.dispatch('PLAYER_RESIZE', { width, height })
 }
+
+window.loc = loc
+window.store = store

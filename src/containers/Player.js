@@ -1,5 +1,6 @@
 const { Component, h } = require('preact') /** @jsx h */
-const { connect } = require('preact-redux')
+
+const store = require('../store')
 
 const YouTubePlayer = require('../components/YouTubePlayer')
 
@@ -15,7 +16,7 @@ const PLAYER_OPTS = {
 
 class Player extends Component {
   render (props) {
-    const { player } = props
+    const { player } = store
     return (
       <div id='player' class='fixed top-0'>
         <YouTubePlayer
@@ -38,8 +39,4 @@ class Player extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  player: state.player
-})
-
-module.exports = connect(mapStateToProps)(Player)
+module.exports = Player

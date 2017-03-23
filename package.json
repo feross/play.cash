@@ -43,10 +43,6 @@
     "memo-async-lru": "^1.0.1",
     "mustache": "^2.3.0",
     "preact": "^7.2.0",
-    "preact-redux": "^2.0.0",
-    "redux": "^3.6.0",
-    "redux-logger": "^2.8.2",
-    "redux-thunk": "^2.2.0",
     "simple-get": "^2.4.0",
     "simple-websocket": "^5.0.0",
     "tachyons": "^4.5.5",
@@ -74,7 +70,7 @@
     "url": "git://github.com/feross/play.git"
   },
   "scripts": {
-    "build": "NODE_ENV=production browserify -i preact/devtools -i redux-logger src | babili > static/bundle.js",
+    "build": "NODE_ENV=production browserify -i preact/devtools src | babili > static/bundle.js",
     "size": "npm run size-js && npm run size-css",
     "size-css": "cat node_modules/tachyons/css/tachyons.min.css static/style.css | gzip | wc -c",
     "size-js": "npm run build && cat static/bundle.js | gzip | wc -c",

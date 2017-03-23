@@ -1,30 +1,29 @@
 const { Component, h } = require('preact') /** @jsx h */
-const { connect } = require('preact-redux')
 
-const { fetchTrack } = require('../actions')
+const store = require('../store')
 
 const Input = require('../components/Input')
 const Sheet = require('../components/Sheet')
 
 class TrackPage extends Component {
-  componentDidMount () {
-    const { dispatch, currentTrack } = this.props
-    dispatch(fetchTrack(currentTrack))
-  }
+  // componentDidMount () {
+  //   store.dispatch('FETCH_TRACK', store.currentTrack)
+  // }
 
-  componentDidUpdate (prevProps) {
-    const { dispatch, currentTrack } = this.props
-    if (currentTrack !== prevProps.currentTrack) {
-      dispatch(fetchTrack(currentTrack))
-    }
-  }
+  // componentDidUpdate (prevProps) {
+  //   const { dispatch, currentTrack } = this.props
+  //   if (currentTrack !== prevProps.currentTrack) {
+  //     dispatch(fetchTrack(currentTrack))
+  //   }
+  // }
 
   render (props) {
-    const { currentTrack } = props
+    const { location } = store
     return (
       <div id='home-page'>
         <Sheet class='tc relative mw8 mt6 ma-100 center'>
-          <h1 class='f2'>current track: {currentTrack.track} - {currentTrack.artist}</h1>
+          <h1 class='f2'>track: {location.params.track}</h1>
+          <h1 class='f2'>artist: {location.params.artist}</h1>
           <Input
             placeholder='Defend Gotham'
           />
@@ -34,8 +33,4 @@ class TrackPage extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  currentTrack: state.currentTrack
-})
-
-module.exports = connect(mapStateToProps)(TrackPage)
+module.exports = TrackPage

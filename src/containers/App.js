@@ -1,5 +1,6 @@
 const { Component, h } = require('preact') /** @jsx h */
-const { connect } = require('preact-redux')
+
+const store = require('../store')
 
 const Header = require('../components/Header')
 const HomePage = require('./HomePage')
@@ -12,10 +13,10 @@ const PAGES = {
 }
 
 class App extends Component {
-
-
   render (props) {
-    const Page = PAGES[props.location.name]
+    const { location } = store
+
+    const Page = PAGES[location.name]
     const $page = Page ? <Page /> : null
 
     return (
@@ -28,8 +29,4 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  location: state.location
-})
-
-module.exports = connect(mapStateToProps)(App)
+module.exports = App
