@@ -1,29 +1,27 @@
 const { h, render } = require('preact') /** @jsx h */
 const { Provider } = require('preact-redux')
 
-// Preact Dev Tools are excluded in production to reduce bundle size
-require('preact/devtools')
+require('preact/devtools') // Excluded in production
 
 const throttle = require('throttleit')
 
 const App = require('./containers/App')
 const { playerResize } = require('./actions')
-const api = require('./api')
 const configureStore = require('./configureStore')
-const store = configureStore()
+const loc = require('./redux-location')
 
-// const URL_RE = /^\/([^/]+)\/([^/]+)/
+const store = window.store = configureStore()
+
+loc.addRoute('/', 'home')
+loc.addRoute('/:artist/:track', 'track')
+loc.addRoute('/about', 'about')
+loc.on('dispatch', (action) => store.dispatch(action))
+loc.replace(window.location.pathname)
+
+window.addEventListener('resize', throttle(onResize, 250))
 
 let root = null
-init()
-
-function init () {
-  update()
-  onUrlChange()
-  // if (store.userName) {
-  //   socket.init(store.game, update)
-  // }
-}
+update()
 
 function update () {
   const elem = (
@@ -34,13 +32,10 @@ function update () {
   root = render(elem, document.body, root)
 }
 
-window.addEventListener('resize', throttle(onResize, 250))
-
 function onResize () {
   const width = window.innerWidth
   const height = window.innerHeight
   store.dispatch(playerResize(width, height))
-  // update()
 }
 
 function onUrlChange () {
@@ -59,12 +54,3 @@ function onUrlChange () {
   //   update()
   // })
 }
-
-// function cleanupUrl (url) {
-//   return url.replace('%20', '-')
-// }
-
-// for debugging
-window.api = api
-window.store = store
-window.update = update

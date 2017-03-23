@@ -1,4 +1,5 @@
 const { combineReducers } = require('redux')
+const { reducer: location } = require('./redux-location')
 
 const current = (state = {
   track: 'Stay', // TODO: change to null
@@ -32,7 +33,8 @@ const player = (state = {
 
 const rootReducer = combineReducers({
   current,
-  player
+  player,
+  location
 })
 
 module.exports = rootReducer

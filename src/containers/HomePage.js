@@ -1,26 +1,28 @@
 const { Component, h } = require('preact') /** @jsx h */
 const { connect } = require('preact-redux')
 
-const Sheet = require('../components/Sheet')
 const Input = require('../components/Input')
+const Sheet = require('../components/Sheet')
 
 class HomePage extends Component {
   render (props) {
-    const { current } = props
+    const { current, location } = props
     return (
-      <main id='main' class='relative mw8 mt6 ma-100 center'>
-        <Sheet class='tc'>
-          <h1 class='f1'>{current.track} - {current.artist}</h1>
+      <div id='home-page'>
+        <Sheet class='tc relative mw8 mt6 ma-100 center'>
+          <h1 class='f2'>current track: {current.track} - {current.artist}</h1>
+          <h1 class='f2'>location: {location.name} {JSON.stringify(location.params)}</h1>
           <Input
             placeholder='Defend Gotham'
           />
         </Sheet>
-      </main>
+      </div>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
+  location: state.location,
   current: state.current
 })
 

@@ -1,20 +1,32 @@
 const { Component, h } = require('preact') /** @jsx h */
+const { connect } = require('preact-redux')
 
-// const Footer = require('./Footer')
 const Header = require('../components/Header')
 const HomePage = require('./HomePage')
 const Player = require('./Player')
 
+const PAGES = {
+  'home': HomePage,
+  'track': HomePage
+}
+
 class App extends Component {
   render (props) {
+    const Page = PAGES[props.location.name]
+    const $page = Page ? <Page /> : null
+
     return (
       <div id='app' class='near-black f5'>
         <Player />
         <Header />
-        <HomePage />
+        {$page}
       </div>
     )
   }
 }
 
-module.exports = App
+const mapStateToProps = (state) => ({
+  location: state.location
+})
+
+module.exports = connect(mapStateToProps)(App)
