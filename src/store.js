@@ -1,24 +1,27 @@
+const api = require('./api')
 const debug = require('debug')('play:store')
 const EventEmitter = require('events')
 
 const store = new EventEmitter()
 
-Object.assign(store, {
+const defaultStore = {
   location: {
     name: null,
     params: {}
   },
   player: {
-    width: window.innerWidth,
-    height: window.innerHeight,
-    videoId: 'WUG2guLUtuo', // TODO: change to null
-    playing: false, // TODO: change to true
+    width: 0,
+    height: 0,
+    videoId: null,
+    playing: true,
     volume: 0,
     playbackRate: 1
   },
   currentTrack: null,
   tracks: {}
-})
+}
+
+Object.assign(store, defaultStore)
 
 store.dispatch = (type, data) => {
   debug('%s %o', type, data)
@@ -30,9 +33,25 @@ store.dispatch = (type, data) => {
       store.player.width = data.width
       store.player.height = data.height
       break
+    case 'FETCH_TRACK':
+      api.video({
+        q: data.artist + ' ' + data.track,
+        maxResults: 1
+      }, (err, result) => {
+        if (err) throw err // TODO
+        const video = result[0]
+        if (!video) throw err // TODO
+        store.player.videoId = video.id
+        update()
+      })
+      break
     default:
       throw new Error('Unrecognized dispatch action', type, data)
   }
+  update()
+}
+
+function update () {
   store.emit('update')
 }
 

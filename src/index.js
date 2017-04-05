@@ -1,5 +1,6 @@
 const { h, render } = require('preact') /** @jsx h */
 const throttle = require('throttleit')
+const debug = require('debug')('play:index')
 
 require('preact/devtools') // Excluded in production
 
@@ -22,9 +23,11 @@ const loc = new Location(routes, (loc) => {
 update()
 store.on('update', update)
 
+onResize()
 window.addEventListener('resize', throttle(onResize, 250))
 
 function update () {
+  debug('update')
   root = render(<App />, document.body, root)
 }
 
