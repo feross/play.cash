@@ -11,8 +11,7 @@ const path = require('path')
 const session = require('express-session')
 const url = require('url')
 
-const apiSearch = require('./api-search')
-const apiVideo = require('./api-video')
+const api = require('./api')
 const config = require('../config')
 const secret = require('../secret')
 
@@ -96,20 +95,8 @@ function init (server, sessionStore) {
     next()
   })
 
-  const memo = require('memo-async-lru')
-
-  const MEMO_OPTS = {
-    max: 10 * 1000,
-    maxAge: 6 * 60 * 60 * 1000 // 6 hours
-  }
-
-  const apiMethods = {
-    'search': memo(apiSearch, MEMO_OPTS),
-    'video': memo(apiVideo, MEMO_OPTS)
-  }
-
   app.get('/api/:method', (req, res, next) => {
-    const method = apiMethods[req.params.method]
+    const method = api[req.params.method]
     if (!method) return next()
 
     method(req.query, (err, result) => {

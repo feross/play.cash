@@ -1,6 +1,6 @@
 module.exports = apiSearch
 
-const debug = require('debug')('play:api-metadata')
+const debug = require('debug')('play:api-search')
 const LastFM = require('last-fm')
 
 const config = require('../config')

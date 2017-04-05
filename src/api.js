@@ -1,15 +1,14 @@
-const memo = require('memo-async-lru')
-
-module.exports = {
-  search: memo(search),
-  video: memo(video)
-}
-
 const debug = require('debug')('play:api')
 const get = require('simple-get')
+const memo = require('memo-async-lru')
 const querystring = require('querystring')
 
 const config = require('../config')
+
+function facts (opts, cb) {
+  debug('facts: %o', opts)
+  sendRequest('/api/facts', opts, cb)
+}
 
 function search (opts, cb) {
   debug('search: %o', opts)
@@ -38,3 +37,12 @@ function sendRequest (urlBase, params, cb) {
     cb(null, data.result)
   }
 }
+
+const api = {
+  facts: memo(facts),
+  search: memo(search),
+  video: memo(video)
+}
+
+module.exports = api
+window.api = api
