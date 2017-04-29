@@ -1,7 +1,7 @@
 const memo = require('memo-async-lru')
 
 const apiFacts = require('./api-facts')
-const apiSearch = require('./api-search')
+const apiMusic = require('./api-music')
 const apiVideo = require('./api-video')
 
 const MEMO_OPTS = {
@@ -11,7 +11,7 @@ const MEMO_OPTS = {
 
 const api = {
   facts: memo(apiFacts, MEMO_OPTS),
-  search: memo(apiSearch, MEMO_OPTS),
+  music: memo(apiMusic, MEMO_OPTS),
   video: memo(apiVideo, MEMO_OPTS)
 }
 

@@ -10,9 +10,9 @@ function facts (opts, cb) {
   sendRequest('/api/facts', opts, cb)
 }
 
-function search (opts, cb) {
-  debug('search: %o', opts)
-  sendRequest('/api/search', opts, cb)
+function music (opts, cb) {
+  debug('music: %o', opts)
+  sendRequest('/api/music', opts, cb)
 }
 
 function video (opts, cb) {
@@ -40,7 +40,7 @@ function sendRequest (urlBase, params, cb) {
 
 const api = {
   facts: memo(facts),
-  search: memo(search),
+  music: memo(music),
   video: memo(video)
 }
 
