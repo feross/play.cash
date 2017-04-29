@@ -43,7 +43,7 @@
     "last-fm": "^1.0.0",
     "memo-async-lru": "^1.0.1",
     "mustache": "^2.3.0",
-    "preact": "^7.2.0",
+    "preact": "^8.1.0",
     "sbd": "^1.0.12",
     "simple-get": "^2.4.0",
     "simple-websocket": "^5.0.0",
