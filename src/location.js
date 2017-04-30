@@ -58,10 +58,13 @@ class Location {
       const matches = route.regexp.exec(pathname)
       if (!matches) continue
 
-      // Found a matching route!
+      // Found a matching route
       ret.name = route.name
       matches.slice(1).forEach((paramValue, paramIndex) => {
         const param = route.keys[paramIndex].name
+        // Remove URL encoding from the param values. Accommodates whitespace in both
+        // x-www-form-urlencoded and regular percent-encoded form.
+        paramValue = decodeURIComponent(paramValue.replace(/\+/g, ' '))
         ret.params[param] = paramValue
       })
       break
