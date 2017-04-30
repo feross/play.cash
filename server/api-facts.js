@@ -10,8 +10,8 @@ const SongFacts = require('./songfacts-scrape')
 const songfacts = new SongFacts(secret.songfacts, config.apiUserAgent)
 
 /**
- * Search Last.fm. Returns a collection of search results that match the
- * query parameters.
+ * Search SongFacts. Returns a collection of facts for the given `track` and
+ * `artist` query parameters.
  */
 function apiFacts (opts, cb) {
   debug('%o', opts)
