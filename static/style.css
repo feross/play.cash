@@ -24,3 +24,8 @@ body {
 #header nav a:active {
   background-color: rgba(0, 0, 0, 0.1);
 }
+
+/* Perfectly position content sheet below the header bar */
+.content-sheet {
+  margin-top: 100px;
+}

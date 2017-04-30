@@ -1,18 +1,18 @@
 const { Component, h } = require('preact') /** @jsx h */
 
-const Input = require('../components/Input')
-const Sheet = require('../components/Sheet')
+const store = require('../store')
+
+const Album = require('../components/Album')
+const ContentSheet = require('../components/ContentSheet')
+const Heading = require('../components/Heading')
 
 class HomePage extends Component {
   render (props) {
     return (
-      <div id='home-page'>
-        <Sheet class='tc relative mw8 mt6 ma-100 center'>
-          <Input
-            placeholder='Defend Gotham'
-          />
-        </Sheet>
-      </div>
+      <ContentSheet>
+        <Heading class='tc'>Albums</Heading>
+        <Heading class='tc'>Artists</Heading>
+      </ContentSheet>
     )
   }
 }
