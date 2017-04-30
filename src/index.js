@@ -10,8 +10,7 @@ const store = require('./store')
 
 const ROUTES = [
   ['home', '/'],
-  ['track', '/:artist/:track'],
-  ['about', '/about']
+  ['track', '/:artist/:track']
 ]
 
 store.onupdate = update
