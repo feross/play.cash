@@ -21,30 +21,52 @@ const store = {
 store.dispatch = (type, data) => {
   debug('%s %o', type, data)
   switch (type) {
-    case 'LOCATION_CHANGE':
+    case 'LOCATION_CHANGE': {
       store.location = data
       return update()
-    case 'PLAYER_RESIZE':
+    }
+
+    case 'PLAYER_RESIZE': {
       store.player.width = data.width
       store.player.height = data.height
       return update()
-    case 'FETCH_TRACK':
-      api.video({
-        q: data.artist + ' ' + data.track,
-        maxResults: 1
-      }, (err, result) => {
+    }
+
+    case 'FETCH_TRACK': {
+      const q = data.artist + ' ' + data.track
+      api.video({ q, maxResults: 1 }, (err, result) => {
         store.dispatch('FETCH_TRACK_DONE', { err, result })
       })
       return
-    case 'FETCH_TRACK_DONE':
+    }
+
+    case 'FETCH_TRACK_DONE': {
       const { err, result } = data
       if (err) throw err // TODO
-      const video = result[0]
-      if (!video) throw err // TODO
+      const [video] = result
+      if (!video) throw new Error('No track found') // TODO
+
       store.player.videoId = video.id
       return update()
-    default:
+    }
+
+    case 'FETCH_SEARCH': {
+      api.music({ ...data, method: 'search' }, (err, result) => {
+        store.dispatch('FETCH_SEARCH_DONE', { err, result })
+      })
+      return
+    }
+
+    case 'FETCH_SEARCH_DONE': {
+      const { err, result } = data
+      if (err) throw err // TODO
+      console.log(result) // TODO
+      return update()
+    }
+
+    default: {
       throw new Error('Unrecognized dispatch action', type, data)
+    }
   }
 }
 
