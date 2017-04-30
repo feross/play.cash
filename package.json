@@ -80,6 +80,6 @@
     "test": "standard && dependency-check . && dependency-check . --unused -i tachyons --no-dev",
     "watch": "npm run watch-js & npm run watch-server",
     "watch-js": "watchify src -o static/bundle.js -d -v",
-    "watch-server": "DEBUG=play* nodemon server -e js,css,mustache -i static/"
+    "watch-server": "DEBUG=play* nodemon server -e js,css,mustache -i static/ -i src/"
   }
 }
