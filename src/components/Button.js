@@ -18,9 +18,7 @@ const Button = (props) => {
     pill = false,
     color = 'blue',
     href,
-    children,
-    onClick,
-    class: className
+    onClick
   } = props
 
   let cls = ['link bw2 dib grow']
@@ -37,14 +35,14 @@ const Button = (props) => {
 
   return (
     <a
-      class={c(cls, className)}
+      class={c(cls, props.class)}
       href={href}
       onClick={e => {
         if (href === '#') e.preventDefault()
         onClick()
       }}
     >
-      {children}
+      {props.children}
     </a>
   )
 }

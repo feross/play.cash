@@ -3,18 +3,21 @@ const { h } = require('preact') /** @jsx h */
 const c = require('classnames')
 
 const Link = (props) => {
-  const { href = '#', children, onClick, class: className } = props
+  const {
+    href = '#',
+    onClick
+  } = props
 
   return (
     <a
-      class={c('blue hover-light-blue link', className)}
+      class={c('blue hover-light-blue link', props.class)}
       href={href}
       onClick={e => {
         if (href === '#') e.preventDefault()
         onClick()
       }}
     >
-      {children}
+      {props.children}
     </a>
   )
 }

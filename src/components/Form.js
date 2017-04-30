@@ -3,8 +3,10 @@ const { h } = require('preact') /** @jsx h */
 const c = require('classnames')
 
 const Form = (props) => {
-  const $label = props.label
-    ? <legend class='f3 fw6 ph0 mh0'>{props.label}</legend>
+  const { label } = props
+
+  const $label = label
+    ? <legend class='f3 fw6 ph0 mh0'>{label}</legend>
     : null
 
   return (
