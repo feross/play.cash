@@ -5,7 +5,7 @@ const c = require('classnames')
 const Link = (props) => {
   const {
     href = '#',
-    onClick
+    onClick = () => {}
   } = props
 
   return (

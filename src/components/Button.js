@@ -18,7 +18,7 @@ const Button = (props) => {
     pill = false,
     color = 'blue',
     href,
-    onClick
+    onClick = () => {}
   } = props
 
   let cls = ['link bw2 dib grow']
