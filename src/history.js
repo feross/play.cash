@@ -5,18 +5,18 @@ const EventEmitter = require('events')
 class History extends EventEmitter {
   constructor () {
     super()
-    this._onpopstate = this._onpopstate.bind(this)
-    window.addEventListener('popstate', this._onpopstate)
+    this._onChange = this._onChange.bind(this)
+    window.addEventListener('popstate', this._onChange)
   }
 
   push (pathname) {
     window.history.pushState(undefined, undefined, pathname)
-    this._onpopstate()
+    this._onChange()
   }
 
   replace (pathname) {
     window.history.replaceState(undefined, undefined, pathname)
-    this._onpopstate()
+    this._onChange()
   }
 
   go (n) {
@@ -24,11 +24,11 @@ class History extends EventEmitter {
   }
 
   destroy () {
-    window.removeEventListener('popstate', this._onpopstate)
-    this._onpopstate = null
+    window.removeEventListener('popstate', this._onChange)
+    this._onChange = null
   }
 
-  _onpopstate (e) {
+  _onChange (e) {
     this.emit('change', window.location.pathname)
   }
 }

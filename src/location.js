@@ -1,17 +1,23 @@
+// TODO: publish to npm
+
 const History = require('./history')
 const pathToRegexp = require('path-to-regexp')
 
 class Location {
   constructor (routes, onChange) {
-    this._routes = []
-    routes.forEach(route => this._addRoute(route[0], route[1]))
+    this._routes = routes.map(route => {
+      const [name, path] = route
+      const keys = []
+      const regexp = pathToRegexp(path, keys)
+      return { name, path, keys, regexp }
+    })
+    this._onChange = onChange
+    this._onHistoryChange = this._onHistoryChange.bind(this)
 
     this._history = new History()
-    this._history.on('change', (pathname) => {
-      const loc = this._parse(pathname)
-      onChange(loc)
-    })
+    this._history.on('change', this._onHistoryChange)
 
+    // Trigger an initial 'change' event
     this.replace(window.location.pathname)
   }
 
@@ -27,10 +33,19 @@ class Location {
     this._history.go(n)
   }
 
-  _addRoute (name, path) {
-    const keys = []
-    const route = { path, name, keys, regexp: pathToRegexp(path, keys) }
-    this._routes.push(route)
+  destroy () {
+    this._history.removeListener('change', this._onHistoryChange)
+    this._history.destroy()
+
+    this._routes = null
+    this._onChange = null
+    this._onHistoryChange = null
+    this._history = null
+  }
+
+  _onHistoryChange (pathname) {
+    const loc = this._parse(pathname)
+    this._onChange(loc)
   }
 
   _parse (pathname) {
