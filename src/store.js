@@ -13,8 +13,8 @@ const defaultStore = {
     width: 0,
     height: 0,
     videoId: null,
-    playing: true,
-    volume: 0,
+    playing: false,
+    volume: 100,
     playbackRate: 1
   },
   currentTrack: null,
