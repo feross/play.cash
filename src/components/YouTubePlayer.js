@@ -22,17 +22,16 @@ class YouTubePlayer extends Component {
 
   constructor (props) {
     super(props)
-    this.ref = this.ref.bind(this)
-    this.onError = this.onError.bind(this)
-    this.onUnplayable = this.onUnplayable.bind(this)
-    this.onPlaying = this.onPlaying.bind(this)
-    this.onPaused = this.onPaused.bind(this)
-    this.onCued = this.onCued.bind(this)
-    this.onTimeupdate = this.onTimeupdate.bind(this)
-  }
+    this.player = null
+    this.elem = null
 
-  ref (elem) {
-    this.elem = elem
+    this._ref = this._ref.bind(this)
+    this._onError = this._onError.bind(this)
+    this._onUnplayable = this._onUnplayable.bind(this)
+    this._onPlaying = this._onPlaying.bind(this)
+    this._onPaused = this._onPaused.bind(this)
+    this._onDuration = this._onDuration.bind(this)
+    this._onTimeupdate = this._onTimeupdate.bind(this)
   }
 
   shouldComponentUpdate (nextProps) {
@@ -54,7 +53,7 @@ class YouTubePlayer extends Component {
     const { videoId, playing, volume, playbackRate } = this.props
 
     if (videoId && prevProps.videoId !== videoId) {
-      if (!this.player) this.createPlayer(this.props)
+      if (!this.player) this._createPlayer(this.props)
       this.player.load(videoId, playing)
       this.player.setVolume(volume)
       this.player.setPlaybackRate(playbackRate)
@@ -77,7 +76,7 @@ class YouTubePlayer extends Component {
     }
 
     if (prevProps.videoId && !videoId) {
-      this.player.stop()
+      this._destroyPlayer()
     }
   }
 
@@ -88,19 +87,24 @@ class YouTubePlayer extends Component {
   componentWillUnmount () {
     this.player.destroy()
     this.player = null
+    this.elem = null
   }
 
   render (props) {
-    const { style, width, height, class: className } = props
+    const { style, width, height } = props
 
     return (
-      <div style={{ ...style, width, height }} class={className}>
-        <div ref={this.ref} />
+      <div style={{ ...style, width, height }} class={props.class}>
+        <div ref={this._ref} />
       </div>
     )
   }
 
-  createPlayer (props) {
+  _ref (elem) {
+    this.elem = elem
+  }
+
+  _createPlayer (props) {
     const { playerOpts } = props
     this.player = new YTPlayer(this.elem, {
       width: '100%',
@@ -109,45 +113,48 @@ class YouTubePlayer extends Component {
       ...playerOpts
     })
 
-    this.player.on('error', this.onError)
-    this.player.on('unplayable', this.onUnplayable)
-    this.player.on('playing', this.onPlaying)
-    this.player.on('paused', this.onPaused)
-    this.player.on('cued', this.onCued)
-    this.player.on('timeupdate', this.onTimeupdate)
+    this.player.on('error', this._onError)
+    this.player.on('unplayable', this._onUnplayable)
+    this.player.on('playing', this._onPlaying)
+    this.player.on('paused', this._onPaused)
+    this.player.on('cued', this._onDuration)
+    this.player.on('timeupdate', this._onTimeupdate)
   }
 
-  destroyPlayer () {
-    this.player.removeListener('error', this.onError)
-    this.player.removeListener('unplayable', this.onUnplayable)
-    this.player.removeListener('playing', this.onPlaying)
-    this.player.removeListener('paused', this.onPaused)
-    this.player.removeListener('cued', this.onCued)
-    this.player.removeListener('timeupdate', this.onTimeupdate)
+  _destroyPlayer () {
+    this.player.removeListener('error', this._onError)
+    this.player.removeListener('unplayable', this._onUnplayable)
+    this.player.removeListener('playing', this._onPlaying)
+    this.player.removeListener('paused', this._onPaused)
+    this.player.removeListener('cued', this._onDuration)
+    this.player.removeListener('timeupdate', this._onTimeupdate)
+    this.player.destroy()
+
+    this.player = null
   }
 
-  onError (err) {
+  _onError (err) {
     this.props.onError(err)
   }
 
-  onUnplayable () {
+  _onUnplayable () {
     this.props.onUnplayable()
   }
 
-  onPlaying () {
+  _onPlaying () {
     this.props.onPlaying()
   }
 
-  onPaused () {
+  _onPaused () {
     this.props.onPaused()
   }
 
-  onCued () {
+  _onDuration () {
     const duration = this.player.getDuration()
     this.props.onDuration(duration)
   }
 
-  onTimeupdate (seconds) {
+  _onTimeupdate (seconds) {
     this.props.onTimeupdate(seconds)
   }
 }
