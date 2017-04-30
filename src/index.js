@@ -8,25 +8,25 @@ const loadScript = require('load-script2')
 const Location = require('./location')
 const store = require('./store')
 
-let root = null
-
-const routes = [
+const ROUTES = [
   ['home', '/'],
   ['track', '/:artist/:track'],
   ['about', '/about']
 ]
 
-const loc = new Location(routes, (loc) => {
+store.onupdate = update
+
+let root = null
+
+const loc = new Location(ROUTES, (loc) => {
   store.dispatch('LOCATION_CHANGE', loc)
 })
-
-update()
-store.on('update', update)
 
 onResize()
 window.addEventListener('resize', throttle(onResize, 250))
 
 function update () {
+  debug('update')
   root = render(<App />, document.body, root)
 }
 
@@ -38,8 +38,9 @@ function onResize () {
 
 /** DEVELOPMENT */
 
-window.loc = loc
 window.store = store
+window.loc = loc
+window.update = update
 
 // React Developer Tools (Excluded in production)
 require('preact/devtools')
