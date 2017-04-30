@@ -49,25 +49,24 @@ class Location {
   }
 
   _parse (pathname) {
+    const ret = {
+      name: null,
+      params: {},
+      pathname
+    }
     for (const route of this._routes) {
       const matches = route.regexp.exec(pathname)
       if (!matches) continue
 
-      const params = {}
+      // Found a matching route!
+      ret.name = route.name
       matches.slice(1).forEach((paramValue, paramIndex) => {
         const param = route.keys[paramIndex].name
-        params[param] = paramValue
+        ret.params[param] = paramValue
       })
-
-      return {
-        name: route.name,
-        params
-      }
+      break
     }
-    return {
-      name: null,
-      params: {}
-    }
+    return ret
   }
 }
 
