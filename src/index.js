@@ -1,5 +1,4 @@
 const { h, render } = require('preact') /** @jsx h */
-const throttle = require('throttleit')
 
 const App = require('./containers/App')
 const config = require('../config')
@@ -21,18 +20,10 @@ const loc = new Location(ROUTES, (loc) => {
   store.dispatch('LOCATION_CHANGE', loc)
 })
 
-onResize()
-window.addEventListener('resize', throttle(onResize, 250))
 
 function update () {
   debug('update')
   root = render(<App />, document.body, root)
-}
-
-function onResize () {
-  const width = window.innerWidth
-  const height = window.innerHeight
-  store.dispatch('PLAYER_RESIZE', { width, height })
 }
 
 /** DEVELOPMENT */
