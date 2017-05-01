@@ -1,4 +1,4 @@
-const debug = require('debug')('play:api')
+const debug = require('debug')('api')
 const get = require('simple-get')
 const memo = require('memo-async-lru')
 const querystring = require('querystring')
