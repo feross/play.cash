@@ -20,6 +20,8 @@ const loc = new Location(ROUTES, (loc) => {
   store.dispatch('LOCATION_CHANGE', loc)
 })
 
+console.timeEnd('render')
+window.addEventListener('load', () => console.timeEnd('load'))
 
 function update () {
   debug('update')
