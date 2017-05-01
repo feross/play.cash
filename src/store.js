@@ -70,8 +70,12 @@ function dispatch (type, data) {
   }
 }
 
+let updating = false
+
 function update () {
-  store.onupdate()
+  if (updating) return
+  // Support calls to dispatch() during an update(), but don't recurse infinitely
+  updating = true; store.update(); updating = false
 }
 
 // Add `dispatch()` function. Not enumerable (not app data). Not writable (prevent accidents).
