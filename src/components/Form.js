@@ -1,5 +1,4 @@
 const { h } = require('preact') /** @jsx h */
-
 const c = require('classnames')
 
 const Form = (props) => {

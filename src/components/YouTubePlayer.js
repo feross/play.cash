@@ -1,5 +1,6 @@
-const { Component, h } = require('preact') /** @jsx h */
+// publish to npm
 
+const { Component, h } = require('preact') /** @jsx h */
 const YTPlayer = require('yt-player')
 
 class YouTubePlayer extends Component {
