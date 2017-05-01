@@ -8,12 +8,12 @@ const loadScript = require('load-script2')
 const Location = require('./location')
 const store = require('./store')
 
+store.update = update
+
 const ROUTES = [
   ['home', '/'],
   ['track', '/:artist/:track']
 ]
-
-store.onupdate = update
 
 let root = null
 
