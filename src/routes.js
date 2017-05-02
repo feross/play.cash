@@ -5,6 +5,7 @@
 
 const routes = [
   ['home', '/'],
+  ['artist', '/:name', true],
   ['track', '/:artist/:name', true]
 ]
 

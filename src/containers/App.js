@@ -7,11 +7,13 @@ const Player = require('./Player')
 // const Footer = require('../components/Footer')
 
 const HomePage = require('./HomePage')
+const ArtistPage = require('./ArtistPage')
 const TrackPage = require('./TrackPage')
 const NotFoundPage = require('./NotFoundPage')
 
 const PAGES = {
   'home': HomePage,
+  'artist': ArtistPage,
   'track': TrackPage,
   'not-found': NotFoundPage
 }
