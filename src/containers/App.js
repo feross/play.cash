@@ -2,7 +2,7 @@ const { h } = require('preact') /** @jsx h */
 
 const store = require('../store')
 
-const Header = require('./Header')
+const Header = require('../components/Header')
 const Player = require('./Player')
 // const Footer = require('../components/Footer')
 
