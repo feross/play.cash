@@ -21,19 +21,22 @@ const loc = new Location(ROUTES, (loc) => {
   store.dispatch('LOCATION_CHANGE', loc)
 })
 
-console.timeEnd('render')
-window.addEventListener('load', () => console.timeEnd('load'))
-
 function update () {
   debug('update')
   root = render(<App />, document.body, root)
 }
 
-/** DEVELOPMENT */
+/**
+ * DEVELOPMENT
+ */
 
 window.store = store
 window.loc = loc
 window.update = update
+
+// Page load speed
+console.timeEnd('render')
+window.addEventListener('load', () => console.timeEnd('load'))
 
 // React Developer Tools (Excluded in production)
 require('preact/devtools')
@@ -41,7 +44,10 @@ require('preact/devtools')
 // Live Reload
 if (!config.isProd) {
   navigator.getBattery().then(function (battery) {
-    if (battery.charging) loadScript('http://livejs.com/live.js', () => debug('Live Reload'))
-    else debug('Live Reload disabled (on battery power)')
+    if (battery.charging && window.localStorage.live !== 'false') {
+      loadScript('http://livejs.com/live.js', () => debug('Live Reload'))
+    } else {
+      debug('Live Reload disabled (on battery power, or disabled via `localStorage.live`)')
+    }
   })
 }
