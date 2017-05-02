@@ -5,7 +5,7 @@ const Image = (props) => {
 
   const sources = typeof src === 'string' ? [src] : src
   const srcset = sizes
-    ? sources.map((source, i) => `${source} ${sizes[i]}w`).join(', ')
+    ? sources.slice(0, sizes.length).map((source, i) => `${source} ${sizes[i]}w`).join(', ')
     : null
 
   return (
