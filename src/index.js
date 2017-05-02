@@ -6,18 +6,14 @@ const loadScript = require('load-script2')
 const App = require('./containers/App')
 const config = require('../config')
 const Location = require('./lib/location')
+const routes = require('./routes')
 const store = require('./store')
 
 store.update = update
 
-const ROUTES = [
-  ['home', '/'],
-  ['track', '/:artist/:track']
-]
-
 let root = null
 
-const loc = new Location(ROUTES, (loc) => {
+const loc = new Location(routes, (loc) => {
   store.dispatch('LOCATION_CHANGE', loc)
 })
 
