@@ -6,10 +6,14 @@ const Header = require('./Header')
 const Player = require('./Player')
 // const Footer = require('../components/Footer')
 
+const HomePage = require('./HomePage')
+const TrackPage = require('./TrackPage')
+const NotFoundPage = require('./NotFoundPage')
+
 const PAGES = {
-  'home': require('./HomePage'),
-  'track': require('./TrackPage'),
-  'not-found': require('./NotFoundPage')
+  'home': HomePage,
+  'track': TrackPage,
+  'not-found': NotFoundPage
 }
 
 const App = (props) => {

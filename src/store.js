@@ -14,8 +14,9 @@ const store = {
     volume: 100,
     playbackRate: 1
   },
+  music: {},
   currentTrack: null,
-  tracks: {}
+  errors: []
 }
 
 function dispatch (type, data) {
@@ -51,7 +52,7 @@ function dispatch (type, data) {
     }
 
     case 'FETCH_SEARCH': {
-      api.music({ ...data, method: 'search' }, (err, result) => {
+      api.music({ method: 'search', ...data }, (err, result) => {
         dispatch('FETCH_SEARCH_DONE', { err, result })
       })
       return
@@ -61,6 +62,20 @@ function dispatch (type, data) {
       const { err, result } = data
       if (err) throw err // TODO
       console.log(result) // TODO
+      return update()
+    }
+
+    case 'FETCH_CHART_TOP_ARTISTS': {
+      api.music({ method: 'chartTopArtists', ...data }, (err, result) => {
+        dispatch('FETCH_CHART_TOP_ARTISTS_DONE', { err, result })
+      })
+      return
+    }
+
+    case 'FETCH_CHART_TOP_ARTISTS_DONE': {
+      const { err, result } = data
+      if (err) return store.errors.push(err)
+      store.music.chartTopArtists = result.result
       return update()
     }
 
