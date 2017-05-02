@@ -65,7 +65,7 @@ function dispatch (type, data) {
     }
 
     default: {
-      throw new Error('Unrecognized dispatch action', type, data)
+      throw new Error('Unrecognized dispatch action ' + type)
     }
   }
 }
