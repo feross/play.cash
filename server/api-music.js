@@ -3,6 +3,7 @@ module.exports = apiMusic
 const debug = require('debug')('play:api-music')
 const LastFM = require('last-fm')
 
+const entity = require('../src/entity')
 const config = require('../config')
 const secret = require('../secret')
 
@@ -43,9 +44,22 @@ const lastfm = new LastFM(secret.lastfm.key, config.apiUserAgent)
  */
 function apiMusic (opts, cb) {
   debug('%o', opts)
-  if (METHODS.has(opts.method)) {
-    lastfm[opts.method](opts, cb)
-  } else {
-    cb(new Error('Invalid or missing `method` parameter'))
+  if (!METHODS.has(opts.method)) {
+    return cb(new Error('Invalid or missing `method` parameter'))
   }
+
+  lastfm[opts.method](opts, (err, data) => {
+    if (err) return cb(err)
+    if (data.result) {
+      const results = Array.isArray(data.result)
+        ? data.result
+        : [data.result]
+
+      results.forEach(result => {
+        const url = entity.encode(result)
+        if (url) result.url = url
+      })
+    }
+    cb(null, data)
+  })
 }
