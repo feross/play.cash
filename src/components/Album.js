@@ -10,7 +10,7 @@ const Album = (props) => {
   return (
     <Link href={href} class={c('db link dim tc', props.class)}>
       <Image
-        class='w-100 db ba b--black-10 br4'
+        class='w-100 db ba b--black-10'
         src={images}
         sizes={sizes}
         sizeHint={sizeHint}
