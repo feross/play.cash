@@ -2,7 +2,6 @@ const { Component, h } = require('preact') /** @jsx h */
 
 const store = require('../store')
 
-const Album = require('../components/Album')
 const PlayArtist = require('../components/PlayArtist')
 const ContentSheet = require('../components/ContentSheet')
 const Heading = require('../components/Heading')
