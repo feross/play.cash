@@ -17,7 +17,7 @@ class HomePage extends Component {
 
     const $chartTopArtists = chartTopArtists.map(artist => {
       return (
-        <PlayArtist sizeHint='20vw' {...artist} class='fl w-50 w-25-m w-20-l pa2' />
+        <PlayArtist class='fl w-50 w-25-m w-20-l pa2' {...artist} />
       )
     })
 
