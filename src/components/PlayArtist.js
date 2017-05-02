@@ -1,6 +1,6 @@
 const { h } = require('preact') /** @jsx h */
 
-const Artist = require('../components/Artist')
+const Artist = require('./Artist')
 
 const slug = require('../lib/slug')
 

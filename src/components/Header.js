@@ -1,10 +1,9 @@
 const { h } = require('preact') /** @jsx h */
 
 const config = require('../../config')
-// const store = require('../store')
 
-const Button = require('../components/Button')
-const Input = require('../components/Input')
+const Button = require('./Button')
+const Input = require('./Input')
 
 const Header = (props) => {
   let $login
