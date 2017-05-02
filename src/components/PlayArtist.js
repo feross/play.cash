@@ -2,7 +2,7 @@ const { h } = require('preact') /** @jsx h */
 
 const Artist = require('./Artist')
 
-const slug = require('../lib/slug')
+const entity = require('../entity')
 
 const PlayArtist = (props) => {
   const {
@@ -11,7 +11,7 @@ const PlayArtist = (props) => {
     sizeHint = '20vw'
   } = props
 
-  const href = '/' + slug.encode(name)
+  const href = entity.encode({ type: 'artist', name })
 
   return (
     <Artist
