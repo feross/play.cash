@@ -1,7 +1,7 @@
 const { h } = require('preact') /** @jsx h */
 const c = require('classnames')
 
-const Link = require('./Link') // TODO: convert to use Link
+// const Link = require('./Link') // TODO: convert to use Link
 
 /**
  * Basic Button
