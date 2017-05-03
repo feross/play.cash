@@ -13,14 +13,14 @@ const store = {
     width: 0,
     height: 0,
     videoId: null,
-    playing: false,
+    playing: true,
     volume: 100,
     playbackRate: 1
   },
   artists: {},
   charts: {
-    topArtists: [],
-    topTracks: []
+    topArtistUrls: [],
+    topTrackUrls: []
   },
   currentTrack: null,
   errors: []
@@ -42,7 +42,9 @@ function dispatch (type, data) {
     }
 
     case 'FETCH_TRACK': {
-      const q = data.artist + ' ' + data.name
+      const track = data
+      store.currentTrackUrl = track.url
+      const q = track.artistName + ' ' + track.name
       api.video({ q, maxResults: 1 }, (err, result) => {
         dispatch('FETCH_TRACK_DONE', { err, result })
       })
@@ -58,18 +60,18 @@ function dispatch (type, data) {
       return update()
     }
 
-    case 'FETCH_SEARCH': {
-      api.music({ method: 'search', ...data }, (err, result) => {
-        dispatch('FETCH_SEARCH_DONE', { err, result })
-      })
-      return
-    }
-    case 'FETCH_SEARCH_DONE': {
-      const { err, result } = data
-      if (err) throw err // TODO
-      console.log(result) // TODO
-      return update()
-    }
+    // case 'FETCH_SEARCH': {
+    //   api.music({ method: 'search', ...data }, (err, result) => {
+    //     dispatch('FETCH_SEARCH_DONE', { err, result })
+    //   })
+    //   return
+    // }
+    // case 'FETCH_SEARCH_DONE': {
+    //   const { err, result } = data
+    //   if (err) throw err // TODO
+    //   console.log(result) // TODO
+    //   return update()
+    // }
 
     case 'FETCH_CHART_TOP_ARTISTS': {
       api.music({ method: 'chartTopArtists', ...data }, (err, result) => {
@@ -83,7 +85,7 @@ function dispatch (type, data) {
 
       const artists = result.result // TODO
       addArtists(artists)
-      store.charts.topArtists = artists.map(artist => artist.url)
+      store.charts.topArtistUrls = artists.map(artist => artist.url)
 
       return update()
     }
@@ -101,7 +103,7 @@ function dispatch (type, data) {
       const tracks = result.result // TODO
       addTracks(tracks)
 
-      store.charts.topTracks = tracks.map(track => track.url)
+      store.charts.topTrackUrls = tracks.map(track => track.url)
 
       return update()
     }
@@ -119,8 +121,8 @@ function dispatch (type, data) {
       const albums = result.result // TODO
       addAlbums(albums)
 
-      const artist = addArtist({ type: 'artist', name: result.meta.query.artist })
-      artist.topAlbums = albums.map(album => album.url)
+      const artist = addArtist({ type: 'artist', name: result.meta.query.name })
+      artist.topAlbumUrls = albums.map(album => album.url)
 
       return update()
     }
@@ -131,23 +133,22 @@ function dispatch (type, data) {
   }
 }
 
-// function getArtist (name) {
-//   const url = entity.encode({ type: 'artist', name })
-//   return store.artists[url]
-// }
-
 function addArtist (artist) {
   if (artist.type !== 'artist') throw new Error('Invalid artist')
   if (!artist.url) artist.url = entity.encode(artist)
 
-  // Defaults on all artists
-  Object.assign(artist, {
+  const artistDefaults = {
     albums: {},
-    topAlbums: []
-  })
+    tracks: {},
+    topAlbumUrls: []
+  }
 
-  store.artists[artist.url] = Object.assign(artist, store.artists[artist.url])
-  return artist
+  store.artists[artist.url] = Object.assign(
+    artistDefaults,
+    artist,
+    store.artists[artist.url]
+  )
+  return store.artists[artist.url]
 }
 
 function addArtists (artists) {
@@ -158,14 +159,28 @@ function addAlbum (album) {
   if (album.type !== 'album') throw new Error('Invalid album')
   if (!album.url) album.url = entity.encode(album)
 
-  const artist = addArtist({ type: 'artist', name: album.artist })
+  const artist = addArtist({ type: 'artist', name: album.artistName })
 
   artist.albums[album.url] = Object.assign(album, artist.albums[album.url])
-  return album
+  return artist.albums[album.url]
 }
 
 function addAlbums (albums) {
   return albums.map(addAlbum)
+}
+
+function addTrack (track) {
+  if (track.type !== 'track') throw new Error('Invalid track')
+  if (!track.url) track.url = entity.encode(track)
+
+  const artist = addArtist({ type: 'artist', name: track.artistName })
+
+  artist.tracks[track.url] = Object.assign(artist.tracks[track.url] || {}, track)
+  return track
+}
+
+function addTracks (tracks) {
+  return tracks.map(addTrack)
 }
 
 let updating = false

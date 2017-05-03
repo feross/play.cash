@@ -1,24 +1,19 @@
 const { h } = require('preact') /** @jsx h */
 
-const entity = require('../entity')
-
 const Artist = require('./Artist')
 
 const PlayArtist = (props) => {
   const {
-    name,
-    images,
+    artist,
     sizeHint = '20vw'
   } = props
-
-  const href = entity.encode({ type: 'artist', name })
 
   return (
     <Artist
       class={props.class}
-      name={name}
-      href={href}
-      images={images}
+      name={artist.name}
+      href={artist.url}
+      images={artist.images}
       sizes={[34, 64, 174, 300]}
       sizeHint={sizeHint}
     />

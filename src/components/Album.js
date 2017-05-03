@@ -5,7 +5,7 @@ const Image = require('./Image')
 const Link = require('./Link')
 
 const Album = (props) => {
-  const { name, artist, href, images, sizes, sizeHint } = props
+  const { name, artistName, href, images, sizes, sizeHint } = props
 
   return (
     <Link href={href} class={c('db link dim tc', props.class)}>
@@ -14,13 +14,13 @@ const Album = (props) => {
         src={images}
         sizes={sizes}
         sizeHint={sizeHint}
-        alt={artist + ' ' + name + ' Album Cover'}
+        alt={artistName + ' ' + name + ' Album Cover'}
       />
       <dl class='mt2 f6 lh-copy'>
         <dt class='clip'>Title</dt>
         <dd class='ml0 black truncate w-100'>{name}</dd>
         <dt class='clip'>Artist</dt>
-        <dd class='ml0 gray truncate w-100'>{artist}</dd>
+        <dd class='ml0 gray truncate w-100'>{artistName}</dd>
       </dl>
     </Link>
   )

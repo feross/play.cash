@@ -6,8 +6,8 @@
 const routes = [
   ['home', '/'],
   ['artist', '/:name', true],
-  ['track', '/:artist/:name', true],
-  ['album', '/:artist/album/:name', true]
+  ['track', '/:artistName/:name', true],
+  ['album', '/:artistName/album/:name', true]
 ]
 
 module.exports = routes

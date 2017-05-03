@@ -42,7 +42,7 @@ class Router {
     return ret
   }
 
-  create (name, data) {
+  toUrl (name, data) {
     return this._compilers[name](data)
   }
 }

@@ -15,26 +15,26 @@ const entities = new Set(routes.filter(route => route[2]).map(route => route[0])
  * Convert an entity object (artist, album, etc.) to a url.
  *
  *   encode({ type: 'artist', name: 'Ed Sheeran' }) // '/Ed-Sheeran'
- *   encode({ type: 'track', name: 'Believe', artist: 'Cher' }) // '/Cher/Believe'
+ *   encode({ type: 'track', name: 'Believe', artistName: 'Cher' }) // '/Cher/Believe'
  */
 
 function encode (data) {
   switch (data.type) {
-    case 'album': {
-      const name = slug.encode(data.name)
-      const artist = slug.encode(data.artist)
-      return router.create('album', { name, artist })
-    }
-
     case 'artist': {
       const name = slug.encode(data.name)
-      return router.create('artist', { name })
+      return router.toUrl('artist', { name })
     }
 
     case 'track': {
       const name = slug.encode(data.name)
-      const artist = slug.encode(data.artist)
-      return router.create('track', { name, artist })
+      const artistName = slug.encode(data.artistName)
+      return router.toUrl('track', { name, artistName })
+    }
+
+    case 'album': {
+      const name = slug.encode(data.name)
+      const artistName = slug.encode(data.artistName)
+      return router.toUrl('album', { name, artistName })
     }
 
     default: {
@@ -46,8 +46,11 @@ function encode (data) {
 /**
  * Convert a url to an entity object.
  *
- *   decode('/Ed-Sheeran') // { type: 'artist', name: 'Ed Sheeran' }
- *   decode('/Cher/Believe') // { type: 'track', name: 'Believe', artist: 'Cher' }
+ *   decode('/Ed-Sheeran')
+ *     // { type: 'artist', name: 'Ed Sheeran', url: '/Ed-Sheeran' }
+ *
+ *   decode('/Cher/Believe')
+ *     // { type: 'track', name: 'Believe', artistName: 'Cher', url: '/Cher/Believe' }
  */
 
 function decode (pathname) {

@@ -1,6 +1,7 @@
 const { Component, h } = require('preact') /** @jsx h */
 
 const store = require('../store')
+const { getAlbum } = require('../store-getters')
 
 const PlayAlbum = require('../components/PlayAlbum')
 const ContentSheet = require('../components/ContentSheet')
@@ -9,7 +10,7 @@ const Heading = require('../components/Heading')
 class ArtistPage extends Component {
   componentDidMount () {
     const { entity } = store
-    store.dispatch('FETCH_ARTIST_TOP_ALBUMS', { artist: entity.name, limit: 10 })
+    store.dispatch('FETCH_ARTIST_TOP_ALBUMS', { name: entity.name, limit: 10 })
   }
 
   render (props) {
@@ -19,8 +20,8 @@ class ArtistPage extends Component {
 
     let $albums = []
     if (artist) {
-      $albums = artist.topAlbums
-        .map(url => artist.albums[url])
+      $albums = artist.topAlbumUrls
+        .map(getAlbum)
         .map(album => <PlayAlbum class='fl w-50 w-25-m w-20-l pa2' {...album} />)
     }
 
