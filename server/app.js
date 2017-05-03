@@ -100,7 +100,10 @@ function init (server, sessionStore) {
     if (!method) return next()
 
     method(req.query, (err, result) => {
-      if (err) return res.status(err.code || 500).json({ error: err.message })
+      if (err) {
+        const code = typeof err.code === 'number' ? err.code : 500
+        return res.status(code).json({ error: err.message })
+      }
       res.json({ result: result })
     })
   })
@@ -121,7 +124,7 @@ function init (server, sessionStore) {
 
   app.use((err, req, res, next) => {
     console.error(err.stack)
-    const code = err.code || 500
+    const code = typeof err.code === 'number' ? err.code : 500
     res.locals.initialStore.error = `${code}: ${http.STATUS_CODES[code]}`
     res.status(code).render('index')
   })
