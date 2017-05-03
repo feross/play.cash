@@ -12,7 +12,8 @@ const Track = (props) => {
       defaultColor={false}
       href={href}
     >
-      <span>{name}</span>
+      <i class='material-icons fl nt1 nl1'>play_arrow</i>
+      <span class='ml2'>{name}</span>
       <span class='pl2 black-40'>{artistName}</span>
     </Link>
   )

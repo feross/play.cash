@@ -22,7 +22,7 @@ class ArtistPage extends Component {
     if (artist) {
       $albums = artist.topAlbumUrls
         .map(getAlbum)
-        .map(album => <PlayAlbum class='fl w-50 w-25-m w-20-l pa2' {...album} />)
+        .map(album => <PlayAlbum class='fl w-50 w-25-m w-20-l pa2' album={album} />)
     }
 
     return (
