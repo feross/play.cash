@@ -8,7 +8,11 @@ const Artist = (props) => {
   const { name, href, images, sizes, sizeHint } = props
 
   return (
-    <Link href={href} class={c('db link dim tc', props.class)}>
+    <Link
+      href={href}
+      class={c('db grow no-underline tc', props.class)}
+      defaultStyle={false}
+    >
       <Image
         class='w-100 db ba b--black-10 br4'
         src={images}

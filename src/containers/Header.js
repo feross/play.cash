@@ -1,33 +1,23 @@
 const { h } = require('preact') /** @jsx h */
 
 const config = require('../../config')
+const store = require('../store')
 
-const Button = require('./Button')
-const Input = require('./Input')
+const Button = require('../components/Button')
+const Input = require('../components/Input')
 
 const Header = (props) => {
-  let $login
-  if (props.userName) {
-    $login = (
+  let $showVideoButton = null
+  if (store.player.videoId && (!store.entity || store.entity.type !== 'track')) {
+    $showVideoButton = (
       <Button
         pill
         fill
         color='purple'
-        href='/auth/twitter/logout'
+        href={store.currentTrackUrl}
         class='mb0'
       >
-        Logout ({props.userName})
-      </Button>
-    )
-  } else {
-    $login = (
-      <Button
-        pill
-        fill
-        color='gold'
-        href='/auth/twitter'
-      >
-        Login with Twitter
+        Show Video
       </Button>
     )
   }
@@ -44,7 +34,7 @@ const Header = (props) => {
           />
         </div>
         <nav>
-          {$login}
+          {$showVideoButton}
         </nav>
       </div>
     </header>

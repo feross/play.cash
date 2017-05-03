@@ -5,7 +5,8 @@ const Album = require('./Album')
 const PlayAlbum = (props) => {
   const {
     album,
-    sizeHint = '20vw'
+    sizeHint = '20vw',
+    simple
   } = props
 
   const images = album.images.length > 0
@@ -21,6 +22,7 @@ const PlayAlbum = (props) => {
       images={images}
       sizes={[34, 64, 174, 300]}
       sizeHint={sizeHint}
+      simple={simple}
     />
   )
 }

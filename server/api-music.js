@@ -50,10 +50,11 @@ function apiMusic (opts, cb) {
 
   lastfm[opts.method](opts, (err, data) => {
     if (err) return cb(err)
-    if (data.result) {
-      const results = Array.isArray(data.result)
-        ? data.result
-        : [data.result]
+    const result = data.result || data.tracks
+    if (result) {
+      const results = Array.isArray(result)
+        ? result
+        : [result]
 
       results.forEach(result => {
         const url = entity.encode(result)

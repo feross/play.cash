@@ -16,16 +16,24 @@ body {
   font-family: 'Bungee Shade', sans-serif;
 }
 
-/**
- * Header nav links: Add light background on hover.
- */
-#header nav a:hover,
-#header nav a:focus,
-#header nav a:active {
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
 /* Perfectly position content sheet below the header bar */
 .content-sheet {
   margin-top: 100px;
+}
+
+.grow {
+  transition:transform 0.15s ease-out;
+}
+
+.grow:active {
+  transform: scale(.90);
+  transition:transform 0.1s ease-out;
+}
+
+.text-outline {
+  text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
 }

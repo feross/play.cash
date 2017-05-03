@@ -4,15 +4,15 @@ const c = require('classnames')
 const Link = (props) => {
   const {
     href = '#',
-    defaultColor = true,
+    defaultStyle = true,
     onClick = () => {}
   } = props
 
-  const colorCls = defaultColor && 'blue hover-light-blue'
+  const cls = defaultStyle && 'link blue hover-light-blue'
 
   return (
     <a
-      class={c('link', colorCls, props.class)}
+      class={c(cls, props.class)}
       href={href}
       onClick={e => {
         if (href === '#') e.preventDefault()

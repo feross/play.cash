@@ -2,7 +2,7 @@ const { h } = require('preact') /** @jsx h */
 
 const store = require('../store')
 
-const Header = require('../components/Header')
+const Header = require('../containers/Header')
 const Player = require('./Player')
 // const Footer = require('../components/Footer')
 
@@ -26,7 +26,7 @@ const App = (props) => {
   const Page = PAGES[location.name] || PAGES['not-found']
 
   return (
-    <div id='app' class='near-black f5'>
+    <div id='app' class='black-90 f5'>
       <Player />
       <Header />
       <Page />

@@ -16,7 +16,7 @@ const PlayTrackList = (props) => {
   })
 
   return (
-    <div class={c('db pl0 ba b--light-silver br2 bg-white-70', props.class)}>
+    <div class={c('db pl0 ba b--light-silver br2 bg-white', props.class)}>
       {$tracks}
     </div>
   )

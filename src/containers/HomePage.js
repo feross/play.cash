@@ -11,7 +11,7 @@ const Heading = require('../components/Heading')
 class HomePage extends Component {
   componentDidMount () {
     store.dispatch('FETCH_CHART_TOP_ARTISTS', { limit: 10 })
-    store.dispatch('FETCH_CHART_TOP_TRACKS', { limit: 10 })
+    store.dispatch('FETCH_CHART_TOP_TRACKS', { limit: 30 })
   }
 
   render (props) {
@@ -22,12 +22,7 @@ class HomePage extends Component {
       .map(artist => <PlayArtist class='fl w-50 w-25-m w-20-l pa2' artist={artist} />)
 
     const topTracks = topTrackUrls.map(getTrack)
-
-    const $topTracksList = (
-      <PlayTrackList
-        tracks={topTracks}
-      />
-    )
+    const $topTracks = <PlayTrackList tracks={topTracks} />
 
     return (
       <ContentSheet>
@@ -37,7 +32,7 @@ class HomePage extends Component {
         </div>
         <Heading class='tc'>Top Songs</Heading>
         <div class='cf'>
-          {$topTracksList}
+          {$topTracks}
         </div>
       </ContentSheet>
     )

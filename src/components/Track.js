@@ -8,12 +8,15 @@ const Track = (props) => {
 
   return (
     <Link
-      class={c('db pa3 bb b--light-silver black-80 hover-bg-lightest-blue', props.class)}
-      defaultColor={false}
+      class={c(
+        'db pa3 truncate link bb b--light-silver black-80 hover-bg-lightest-blue',
+        props.class
+      )}
       href={href}
+      defaultStyle={false}
     >
-      <i class='material-icons fl nt1 nl1'>play_arrow</i>
-      <span class='ml2'>{name}</span>
+      <i class='material-icons fl nt1 nl1 absolute'>play_arrow</i>
+      <span class='ml4'>{name}</span>
       <span class='pl2 black-40'>{artistName}</span>
     </Link>
   )

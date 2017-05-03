@@ -13,7 +13,7 @@ const store = {
     width: 0,
     height: 0,
     videoId: null,
-    playing: true,
+    playing: false,
     volume: 100,
     playbackRate: 1
   },
@@ -22,7 +22,7 @@ const store = {
     topArtistUrls: [],
     topTrackUrls: []
   },
-  currentTrack: null,
+  currentTrackUrl: null,
   errors: []
 }
 
@@ -43,12 +43,12 @@ function dispatch (type, data) {
 
     case 'FETCH_TRACK': {
       const track = data
-      store.currentTrackUrl = track.url
       const q = track.artistName + ' ' + track.name
       api.video({ q, maxResults: 1 }, (err, result) => {
         dispatch('FETCH_TRACK_DONE', { err, result })
       })
-      return
+      store.currentTrackUrl = track.url
+      return update()
     }
     case 'FETCH_TRACK_DONE': {
       const { err, result } = data
@@ -59,6 +59,10 @@ function dispatch (type, data) {
       store.player.videoId = video.id
       return update()
     }
+
+    /**
+     * SEARCH
+     */
 
     // case 'FETCH_SEARCH': {
     //   api.music({ method: 'search', ...data }, (err, result) => {
@@ -73,6 +77,88 @@ function dispatch (type, data) {
     //   return update()
     // }
 
+    /**
+     * ALBUM
+     */
+
+    case 'FETCH_ALBUM_INFO': {
+      api.music({ method: 'albumInfo', ...data }, (err, result) => {
+        dispatch('FETCH_ALBUM_INFO_DONE', { err, result })
+      })
+      return
+    }
+    case 'FETCH_ALBUM_INFO_DONE': {
+      const { err, result } = data
+      if (err) return store.errors.push(err)
+
+      const album = result
+      addAlbum(album)
+
+      return update()
+    }
+
+    /**
+     * ARTIST
+     */
+
+    case 'FETCH_ARTIST_INFO': {
+      api.music({ method: 'artistInfo', ...data }, (err, result) => {
+        dispatch('FETCH_ARTIST_INFO_DONE', { err, result })
+      })
+      return
+    }
+    case 'FETCH_ARTIST_INFO_DONE': {
+      const { err, result } = data
+      if (err) return store.errors.push(err)
+
+      const artist = result
+      addArtist(artist)
+
+      return update()
+    }
+
+    case 'FETCH_ARTIST_TOP_ALBUMS': {
+      api.music({ method: 'artistTopAlbums', ...data }, (err, result) => {
+        dispatch('FETCH_ARTIST_TOP_ALBUMS_DONE', { err, result })
+      })
+      return
+    }
+    case 'FETCH_ARTIST_TOP_ALBUMS_DONE': {
+      const { err, result } = data
+      if (err) return store.errors.push(err)
+
+      const albums = result.result
+      addAlbums(albums)
+
+      const artist = addArtist({ type: 'artist', name: result.meta.query.name })
+      artist.topAlbumUrls = albums.map(album => album.url)
+
+      return update()
+    }
+
+    case 'FETCH_ARTIST_TOP_TRACKS': {
+      api.music({ method: 'artistTopTracks', ...data }, (err, result) => {
+        dispatch('FETCH_ARTIST_TOP_TRACKS_DONE', { err, result })
+      })
+      return
+    }
+    case 'FETCH_ARTIST_TOP_TRACKS_DONE': {
+      const { err, result } = data
+      if (err) return store.errors.push(err)
+
+      const tracks = result.result
+      addTracks(tracks)
+
+      const artist = addArtist({ type: 'artist', name: result.meta.query.name })
+      artist.topTrackUrls = tracks.map(track => track.url)
+
+      return update()
+    }
+
+    /**
+     * CHART
+     */
+
     case 'FETCH_CHART_TOP_ARTISTS': {
       api.music({ method: 'chartTopArtists', ...data }, (err, result) => {
         dispatch('FETCH_CHART_TOP_ARTISTS_DONE', { err, result })
@@ -83,7 +169,7 @@ function dispatch (type, data) {
       const { err, result } = data
       if (err) return store.errors.push(err)
 
-      const artists = result.result // TODO
+      const artists = result.result
       addArtists(artists)
       store.charts.topArtistUrls = artists.map(artist => artist.url)
 
@@ -100,29 +186,10 @@ function dispatch (type, data) {
       const { err, result } = data
       if (err) return store.errors.push(err)
 
-      const tracks = result.result // TODO
+      const tracks = result.result
       addTracks(tracks)
 
       store.charts.topTrackUrls = tracks.map(track => track.url)
-
-      return update()
-    }
-
-    case 'FETCH_ARTIST_TOP_ALBUMS': {
-      api.music({ method: 'artistTopAlbums', ...data }, (err, result) => {
-        dispatch('FETCH_ARTIST_TOP_ALBUMS_DONE', { err, result })
-      })
-      return
-    }
-    case 'FETCH_ARTIST_TOP_ALBUMS_DONE': {
-      const { err, result } = data
-      if (err) return store.errors.push(err)
-
-      const albums = result.result // TODO
-      addAlbums(albums)
-
-      const artist = addArtist({ type: 'artist', name: result.meta.query.name })
-      artist.topAlbumUrls = albums.map(album => album.url)
 
       return update()
     }
@@ -140,13 +207,14 @@ function addArtist (artist) {
   const artistDefaults = {
     albums: {},
     tracks: {},
+    topTrackUrls: [],
     topAlbumUrls: []
   }
 
   store.artists[artist.url] = Object.assign(
     artistDefaults,
-    artist,
-    store.artists[artist.url]
+    store.artists[artist.url],
+    artist
   )
   return store.artists[artist.url]
 }
@@ -159,9 +227,16 @@ function addAlbum (album) {
   if (album.type !== 'album') throw new Error('Invalid album')
   if (!album.url) album.url = entity.encode(album)
 
-  const artist = addArtist({ type: 'artist', name: album.artistName })
+  const albumDefaults = {
+    tracks: []
+  }
 
-  artist.albums[album.url] = Object.assign(album, artist.albums[album.url])
+  const artist = addArtist({ type: 'artist', name: album.artistName })
+  artist.albums[album.url] = Object.assign(
+    albumDefaults,
+    artist.albums[album.url],
+    album
+  )
   return artist.albums[album.url]
 }
 
