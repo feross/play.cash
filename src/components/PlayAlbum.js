@@ -14,6 +14,8 @@ const PlayAlbum = (props) => {
 
   const href = entity.encode({ type: 'album', name, artist })
 
+  if (images.length === 0) images.push('/img/default-album.svg')
+
   return (
     <Album
       class={props.class}
