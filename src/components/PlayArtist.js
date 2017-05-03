@@ -1,8 +1,8 @@
 const { h } = require('preact') /** @jsx h */
 
-const Artist = require('./Artist')
-
 const entity = require('../entity')
+
+const Artist = require('./Artist')
 
 const PlayArtist = (props) => {
   const {
