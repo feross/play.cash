@@ -32,8 +32,13 @@ body {
 
 .text-outline {
   text-shadow:
-    -1px -1px 0 #000,
-    1px -1px 0 #000,
-    -1px 1px 0 #000,
-    1px 1px 0 #000;
+    -1px -1px 0 rgba(0, 0, 0, 0.1),
+    1px -1px 0 rgba(0, 0, 0, 0.1),
+    -1px 1px 0 rgba(0, 0, 0, 0.1),
+    1px 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Smaller max-width 9 */
+.mw9 {
+  max-width: 70rem
 }

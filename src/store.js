@@ -13,7 +13,7 @@ const store = {
     width: 0,
     height: 0,
     videoId: null,
-    playing: false,
+    playing: true,
     volume: 100,
     playbackRate: 1
   },
@@ -33,6 +33,11 @@ function dispatch (type, data) {
       store.location = data
       store.entity = entity.decode(data.pathname)
       return update()
+    }
+
+    case 'SHOW_TRACK_PAGE': {
+      window.loc.push(store.currentTrackUrl)
+      return
     }
 
     case 'PLAYER_RESIZE': {

@@ -12,10 +12,7 @@ class TrackPage extends Component {
 
   render (props) {
     const { location } = store
-    return (
-      <ContentSheet>
-      </ContentSheet>
-    )
+    return null
   }
 }
 

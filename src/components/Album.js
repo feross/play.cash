@@ -6,26 +6,27 @@ const Link = require('./Link')
 
 const Album = (props) => {
   const {
-    name,
-    artistName,
-    href,
-    images,
-    sizes,
-    sizeHint,
-    simple
+    album,
+    sizes = [34, 64, 174, 300],
+    sizeHint = '20vw',
+    metadata = true
   } = props
+
+  const images = album.images.length > 0
+    ? album.images
+    : '/img/default-album.svg'
 
   const $image = (
     <Image
-      class='w-100 db ba b--black-10'
+      class='w-100 db ba b--moon-gray'
       src={images}
       sizes={sizes}
       sizeHint={sizeHint}
-      alt={artistName + ' ' + name + ' Album Cover'}
+      alt={album.artistName + ' ' + album.name + ' Album Cover'}
     />
   )
 
-  if (simple) {
+  if (!metadata) {
     return (
       <div class={props.class}>
         {$image}
@@ -35,16 +36,16 @@ const Album = (props) => {
 
   return (
     <Link
-      href={href}
+      href={album.url}
       class={c('db no-underline grow tc', props.class)}
       defaultStyle={false}
     >
       {$image}
       <dl class='mt2 f6 lh-copy'>
         <dt class='clip'>Title</dt>
-        <dd class='ml0 black truncate w-100'>{name}</dd>
+        <dd class='ml0 black truncate w-100'>{album.name}</dd>
         <dt class='clip'>Artist</dt>
-        <dd class='ml0 gray truncate w-100'>{artistName}</dd>
+        <dd class='ml0 gray truncate w-100'>{album.artistName}</dd>
       </dl>
     </Link>
   )

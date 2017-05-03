@@ -39,7 +39,7 @@ class Input extends Component {
         <input
           id={this.id}
           type={type}
-          class='input-reset ba b--black-20 pa2 mb2 db w-100'
+          class='input-reset ba b--black-20 pa2 br-pill pl2 outline-0 db w-100'
           placeholder={placeholder}
           required={required}
           aria-describedby={descId}

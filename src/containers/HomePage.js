@@ -3,8 +3,8 @@ const { Component, h } = require('preact') /** @jsx h */
 const store = require('../store')
 const { getArtist, getTrack } = require('../store-getters')
 
-const PlayArtist = require('../components/PlayArtist')
-const PlayTrackList = require('../components/PlayTrackList')
+const Artist = require('../components/Artist')
+const TrackList = require('../components/TrackList')
 const ContentSheet = require('../components/ContentSheet')
 const Heading = require('../components/Heading')
 
@@ -19,10 +19,10 @@ class HomePage extends Component {
 
     const $topArtists = topArtistUrls
       .map(getArtist)
-      .map(artist => <PlayArtist class='fl w-50 w-25-m w-20-l pa2' artist={artist} />)
+      .map(artist => <Artist class='fl w-50 w-25-m w-20-l pa2' artist={artist} />)
 
     const topTracks = topTrackUrls.map(getTrack)
-    const $topTracks = <PlayTrackList tracks={topTracks} />
+    const $topTracks = <TrackList tracks={topTracks} />
 
     return (
       <ContentSheet>

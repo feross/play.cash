@@ -6,8 +6,8 @@ const { getArtistByName, getAlbum } = require('../store-getters')
 const ContentSheet = require('../components/ContentSheet')
 const Link = require('../components/Link')
 const LoadingSheet = require('../components/LoadingSheet')
-const PlayAlbum = require('../components/PlayAlbum')
-const PlayTrackList = require('../components/PlayTrackList')
+const Album = require('../components/Album')
+const TrackList = require('../components/TrackList')
 
 class AlbumPage extends Component {
   componentDidMount () {
@@ -26,11 +26,11 @@ class AlbumPage extends Component {
     return (
       <ContentSheet>
         <div class='cf'>
-          <PlayAlbum
+          <Album
             class='fl mw5 pr4'
             album={album}
             sizeHint='50vw'
-            simple
+            metadata={false}
           />
           <div class='fl w-50'>
             <h5 class='tracked ttu'>Album</h5>
@@ -41,7 +41,7 @@ class AlbumPage extends Component {
             </div>
           </div>
         </div>
-        <PlayTrackList tracks={album.tracks} />
+        <TrackList tracks={album.tracks} />
       </ContentSheet>
     )
   }
