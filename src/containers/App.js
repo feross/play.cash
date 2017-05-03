@@ -9,12 +9,14 @@ const Player = require('./Player')
 const HomePage = require('./HomePage')
 const ArtistPage = require('./ArtistPage')
 const TrackPage = require('./TrackPage')
+const AlbumPage = require('./AlbumPage')
 const NotFoundPage = require('./NotFoundPage')
 
 const PAGES = {
   'home': HomePage,
   'artist': ArtistPage,
   'track': TrackPage,
+  'album': AlbumPage,
   'not-found': NotFoundPage
 }
 

@@ -18,7 +18,7 @@ const loc = new Location(routes, (loc) => {
 })
 
 function update () {
-  debug('update')
+  // debug('update')
   root = render(<App />, document.body, root)
 }
 

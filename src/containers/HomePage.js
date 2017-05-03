@@ -12,19 +12,17 @@ class HomePage extends Component {
   }
 
   render (props) {
-    const { chartTopArtists = [] } = store.music
+    const { topArtists } = store.charts
 
-    const $chartTopArtists = chartTopArtists.map(artist => {
-      return (
-        <PlayArtist class='fl w-50 w-25-m w-20-l pa2' {...artist} />
-      )
-    })
+    const $topArtists = topArtists
+      .map(url => store.artists[url])
+      .map(artist => <PlayArtist class='fl w-50 w-25-m w-20-l pa2' {...artist} />)
 
     return (
       <ContentSheet>
         <Heading class='tc'>Top Artists</Heading>
         <div class='cf'>
-          {$chartTopArtists}
+          {$topArtists}
         </div>
       </ContentSheet>
     )

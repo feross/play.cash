@@ -1,22 +1,34 @@
 const { Component, h } = require('preact') /** @jsx h */
 
+const store = require('../store')
+
 const PlayAlbum = require('../components/PlayAlbum')
 const ContentSheet = require('../components/ContentSheet')
 const Heading = require('../components/Heading')
 
 class ArtistPage extends Component {
+  componentDidMount () {
+    const { entity } = store
+    store.dispatch('FETCH_ARTIST_TOP_ALBUMS', { artist: entity.name, limit: 10 })
+  }
+
   render (props) {
+    const { entity } = store
+
+    const artist = store.artists[entity.url]
+
+    let $albums = []
+    if (artist) {
+      $albums = artist.topAlbums
+        .map(url => artist.albums[url])
+        .map(album => <PlayAlbum class='fl w-50 w-25-m w-20-l pa2' {...album} />)
+    }
+
     return (
       <ContentSheet>
         <Heading class='tc'>Top Albums</Heading>
         <div class='cf'>
-          <div class='fl w-50 w-25-m w-20-l pa2'>
-            <PlayAlbum
-              name='Blonde'
-              artist='Frank Ocean'
-              images='http://is4.mzstatic.com/image/thumb/Music62/v4/93/8f/75/938f7536-0188-f9ba-4585-0a77ceaebf0a/source/400x40000bb.png'
-            />
-          </div>
+          {$albums}
         </div>
       </ContentSheet>
     )

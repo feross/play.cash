@@ -18,7 +18,7 @@ const PLAYER_OPTS = {
 class Player extends Component {
   constructor (props) {
     super(props)
-    this._onResizeThrottled = throttle(this._onResize.bind(this), 250)
+    this._onResizeThrottled = throttle(this._onResize.bind(this), 500)
   }
 
   componentWillMount () {

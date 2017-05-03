@@ -14,7 +14,7 @@ class TrackPage extends Component {
     const { location } = store
     return (
       <ContentSheet>
-        <h1 class='f2'>track: {location.params.track}</h1>
+        <h1 class='f2'>name: {location.params.name}</h1>
         <h1 class='f2'>artist: {location.params.artist}</h1>
         <h1 class='f2'>videoId: {store.player.videoId}</h1>
       </ContentSheet>
