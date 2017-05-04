@@ -10,11 +10,11 @@
  * Custom font faces
  */
 body {
-  font-family: -apple-system-body, -apple-system, BlinkMacSystemFont, 'proxima-nova', Helvetica, sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 400;
 }
 #logo {
-  font-family: -apple-system-body, -apple-system, BlinkMacSystemFont, 'proxima-nova', Helvetica, sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 .grow {

@@ -49,7 +49,9 @@ const Album = (props) => {
       )
     }
 
-    $metadata = <dl class='mt2 f6 lh-copy'>{$metadata}</dl>
+    $metadata = (
+      <dl class='mt2 f5 lh-copy'>{$metadata}</dl>
+    )
   }
 
   const $contents = [$image, $metadata]
