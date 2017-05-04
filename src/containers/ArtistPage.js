@@ -59,7 +59,7 @@ class ArtistPage extends Component {
           style={{
             'background-image': `url(${coverImage}), linear-gradient(#AAA, #999)`,
             height: '60vh',
-            'background-position': 'center 20%; center center'
+            'background-position': 'center 20%, center center'
           }}
         >
           <div class='absolute bottom-2 left-2 w-80'>
