@@ -1,7 +1,13 @@
 const { h } = require('preact') /** @jsx h */
 
 const Image = (props) => {
-  const { src, sizes, sizeHint, alt } = props
+  const {
+    src,
+    sizes,
+    sizeHint,
+    alt,
+    ...rest
+  } = props
 
   const sources = typeof src === 'string' ? [src] : src
   const srcset = sizes
@@ -14,7 +20,7 @@ const Image = (props) => {
       srcset={srcset}
       sizes={sizeHint}
       alt={alt}
-      class={props.class}
+      {...rest}
     />
   )
 }

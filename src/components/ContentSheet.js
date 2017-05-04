@@ -6,15 +6,15 @@ const store = require('../store')
 const Sheet = require('./Sheet')
 
 class ContentSheet extends Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this._onClick = this._onClick.bind(this)
   }
 
   render (props) {
     return (
       <div
-        class='content-sheet mh3 relative'
+        class='content-sheet ma4 relative'
         onClick={this._onClick}
       >
         <Sheet class={c('mw9 center', props.class)}>

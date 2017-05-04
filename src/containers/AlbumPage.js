@@ -27,9 +27,9 @@ class AlbumPage extends Component {
       <ContentSheet>
         <div class='cf'>
           <Album
-            class='fl mw5 pr4'
+            class='fl w-30 pr4'
             album={album}
-            sizeHint='50vw'
+            sizeHint='30vw'
             metadata={false}
           />
           <div class='fl w-50'>

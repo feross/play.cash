@@ -14,7 +14,8 @@ class Input extends Component {
       label,
       desc,
       value,
-      onChange
+      onChange,
+      ...rest
     } = props
 
     const $optional = !required
@@ -34,7 +35,7 @@ class Input extends Component {
       : null
 
     return (
-      <div class={props.class}>
+      <div {...rest}>
         {$label}
         <input
           id={this.id}

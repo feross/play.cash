@@ -32,10 +32,10 @@ body {
 
 .text-outline {
   text-shadow:
-    -1px -1px 0 rgba(0, 0, 0, 0.1),
-    1px -1px 0 rgba(0, 0, 0, 0.1),
-    -1px 1px 0 rgba(0, 0, 0, 0.1),
-    1px 1px 0 rgba(0, 0, 0, 0.1);
+    -1px -1px 5px rgba(0, 0, 0, 0.15),
+    1px -1px 5px rgba(0, 0, 0, 0.15),
+    -1px 1px 5px rgba(0, 0, 0, 0.15),
+    1px 1px 5px rgba(0, 0, 0, 0.15);
 }
 
 /* Smaller max-width 9 */

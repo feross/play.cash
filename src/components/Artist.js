@@ -1,7 +1,7 @@
 const { h } = require('preact') /** @jsx h */
 const c = require('classnames')
 
-const Image = require('./Image')
+const ProgressiveImage = require('./ProgressiveImage')
 const Link = require('./Link')
 
 const Artist = (props) => {
@@ -22,7 +22,7 @@ const Artist = (props) => {
       class={c('db grow no-underline tc', props.class)}
       defaultStyle={false}
     >
-      <Image
+      <ProgressiveImage
         class='w-100 db ba b--moon-gray br4'
         src={images}
         sizes={sizes}

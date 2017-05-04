@@ -1,7 +1,7 @@
 const { h } = require('preact') /** @jsx h */
 const c = require('classnames')
 
-const Image = require('./Image')
+const ProgressiveImage = require('./ProgressiveImage')
 const Link = require('./Link')
 
 const Album = (props) => {
@@ -9,7 +9,8 @@ const Album = (props) => {
     album,
     sizes = [34, 64, 174, 300],
     sizeHint = '20vw',
-    metadata = true
+    metadata = true,
+    ...rest
   } = props
 
   const images = album.images.length > 0
@@ -17,7 +18,7 @@ const Album = (props) => {
     : '/img/default-album.svg'
 
   const $image = (
-    <Image
+    <ProgressiveImage
       class='w-100 db ba b--moon-gray'
       src={images}
       sizes={sizes}
@@ -27,11 +28,7 @@ const Album = (props) => {
   )
 
   if (!metadata) {
-    return (
-      <div class={props.class}>
-        {$image}
-      </div>
-    )
+    return <div {...rest}>{$image}</div>
   }
 
   return (

@@ -92,10 +92,15 @@ class YouTubePlayer extends Component {
   }
 
   render (props) {
-    const { style, width, height } = props
+    const {
+      style,
+      width,
+      height,
+      ...rest
+    } = props
 
     return (
-      <div style={{ ...style, width, height }} class={props.class}>
+      <div style={{ ...style, width, height }} {...rest}>
         <div ref={this._ref} />
       </div>
     )
