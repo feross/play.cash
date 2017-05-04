@@ -88,19 +88,17 @@ class YouTubePlayer extends Component {
   componentWillUnmount () {
     this.player.destroy()
     this.player = null
-    this.elem = null
   }
 
   render (props) {
     const {
       style,
       width,
-      height,
-      ...rest
+      height
     } = props
 
     return (
-      <div style={{ ...style, width, height }} {...rest}>
+      <div style={{ ...style, width, height }} class={props.class}>
         <div ref={this._ref} />
       </div>
     )

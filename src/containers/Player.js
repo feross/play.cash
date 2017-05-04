@@ -45,12 +45,6 @@ class Player extends Component {
           width={player.width}
           height={player.height}
           playerOpts={PLAYER_OPTS}
-          onError={() => console.log('onError')}
-          onUnplayable={() => console.log('onUnplayable')}
-          onPlaying={() => console.log('onPlaying')}
-          onPaused={() => console.log('onPaused')}
-          onDuration={() => console.log('onDuration')}
-          onTimeupdate={() => console.log('onTimeupdate')}
         />
       </div>
     )
