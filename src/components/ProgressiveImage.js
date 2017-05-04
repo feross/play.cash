@@ -6,83 +6,73 @@ const Image = require('./Image')
 class ProgressiveImage extends Component {
   constructor (props) {
     super(props)
+
     this.state = {
       thumbLoaded: false,
-      finalLoading: false,
-      finalLoaded: false
+      finalLoading: false
     }
+
     this._onThumbLoad = this._onThumbLoad.bind(this)
-    this._onFinalLoad = this._onFinalLoad.bind(this)
   }
 
   componentDidMount () {
     ProgressiveImage.thumbLoading += 1
   }
 
+  componentWillUnmount () {
+    this.elem = null
+  }
+
   render (props) {
     const { src, sizes, sizeHint, alt } = props
 
     const sources = typeof src === 'string' ? [src] : src
-    const srcset = sizes
-      ? sources.slice(0, sizes.length).map((source, i) => `${source} ${sizes[i]}w`).join(', ')
-      : null
 
-    const thumbSource = sources[0]
-
-    let images = []
-    if (!this.state.finalLoaded) {
-      images.push(
-        <Image
-          src={thumbSource}
-          alt={alt}
-          class={props.class}
-          onLoad={this._onThumbLoad}
-          onError={this._onThumbLoad}
-        />
-      )
-    }
-
+    let $finalImage = null
     if (this.state.thumbLoaded && this.state.finalLoading) {
-      images.push(
+      $finalImage = (
         <Image
-          src={sources[0]}
-          srcset={srcset}
-          sizes={sizeHint}
+          class={c('absolute top-0', props.class)}
+          src={sources}
+          sizes={sizes}
+          sizeHint={sizeHint}
           alt={alt}
-          class={c({
-            clip: !this.state.finalLoaded
-          }, props.class)}
-          onLoad={this._onFinalLoad}
         />
       )
     }
 
-    return <div>{images}</div>
+    return (
+      <div
+        class='relative'
+      >
+        <Image
+          class={c(props.class)}
+          src={sources[0]}
+          alt={alt}
+          onLoad={this._onThumbLoad}
+        />
+        {$finalImage}
+      </div>
+    )
   }
 
   _onThumbLoad () {
+    if (this.state.thumbLoaded) return
+
     ProgressiveImage.thumbLoading -= 1
-    if (ProgressiveImage.thumbLoading === 0) {
-      ProgressiveImage.callbacks.forEach(cb => cb())
-      ProgressiveImage.callbacks = []
-    }
 
     const finalLoading = ProgressiveImage.thumbLoading === 0
 
-    if (!finalLoading) {
+    if (finalLoading) {
+      ProgressiveImage.callbacks.forEach(cb => cb())
+      ProgressiveImage.callbacks = []
+    } else {
       ProgressiveImage.callbacks.push(() => {
         this.setState({ finalLoading: true })
       })
     }
 
-    this.setState({
-      thumbLoaded: true,
-      finalLoading: finalLoading
-    })
-  }
-
-  _onFinalLoad () {
-    this.setState({ finalLoaded: true })
+    this.setState({ thumbLoaded: true, finalLoading })
   }
 }
 
