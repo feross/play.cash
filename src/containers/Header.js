@@ -25,16 +25,16 @@ const Header = (props) => {
   return (
     <header id='header' class='fixed z-1 top-0 w-100 bg-gold o-90 shadow-1'>
       <div class='mw9 center pv3 ph1 ph3-ns'>
-        <h1 id='logo' class='dib w-third ma0'>
+        <h1 id='logo' class='dib w-third v-mid ma0'>
           <a class='link white' href='/'>{config.name}</a>
         </h1>
-        <div class='dib w-third nt2 v-mid'>
+        <div class='dib w-third v-mid'>
           <Search
             class='search w-100'
             placeholder='Search for Songs, Artists, or Albums...'
           />
         </div>
-        <nav class='dib w-third tr'>
+        <nav class='dib w-third v-mid tr'>
           {$showVideoButton}
         </nav>
       </div>
