@@ -14,7 +14,7 @@ class ContentSheet extends Component {
   render (props) {
     return (
       <div
-        class='content-sheet ma4 relative'
+        class='content-sheet pa4 relative'
         onClick={this._onClick}
       >
         <Sheet class={c('mw9 center', props.class)}>
@@ -24,8 +24,10 @@ class ContentSheet extends Component {
     )
   }
 
-  _onClick () {
-    store.dispatch('SHOW_TRACK_PAGE')
+  _onClick (e) {
+    if (e.target.classList.contains('content-sheet')) {
+      store.dispatch('SHOW_TRACK_PAGE')
+    }
   }
 }
 
