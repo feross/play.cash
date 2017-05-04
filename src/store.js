@@ -17,6 +17,7 @@ const store = {
     volume: 100,
     playbackRate: 1
   },
+  searchValue: '',
   artists: {},
   charts: {
     topArtistUrls: [],
@@ -29,16 +30,29 @@ const store = {
 function dispatch (type, data) {
   debug('%s %o', type, data)
   switch (type) {
+    /**
+     * NAVIGATION
+     */
+
+    case 'LOCATION_PUSH': {
+      window.loc.push(data)
+      return
+    }
+
+    // case 'LOCATION_REPLACE': {
+    //   window.loc.replace(data)
+    //   return
+    // }
+
     case 'LOCATION_CHANGE': {
       store.location = data
       store.entity = entity.decode(data.pathname)
       return update()
     }
 
-    case 'SHOW_TRACK_PAGE': {
-      window.loc.push(store.currentTrackUrl)
-      return
-    }
+    /**
+     * PLAYER
+     */
 
     case 'PLAYER_RESIZE': {
       store.player.width = data.width
@@ -46,41 +60,39 @@ function dispatch (type, data) {
       return update()
     }
 
-    case 'FETCH_TRACK': {
-      const track = data
-      const q = track.artistName + ' ' + track.name
-      api.video({ q, maxResults: 1 }, (err, result) => {
-        dispatch('FETCH_TRACK_DONE', { err, result })
-      })
-      store.currentTrackUrl = track.url
-      return update()
-    }
-    case 'FETCH_TRACK_DONE': {
-      const { err, result } = data
-      if (err) throw err // TODO
-      const [video] = result
-      if (!video) throw new Error('No track found') // TODO
-
-      store.player.videoId = video.id
-      return update()
-    }
-
     /**
      * SEARCH
      */
 
-    // case 'FETCH_SEARCH': {
-    //   api.music({ method: 'search', ...data }, (err, result) => {
-    //     dispatch('FETCH_SEARCH_DONE', { err, result })
-    //   })
-    //   return
-    // }
-    // case 'FETCH_SEARCH_DONE': {
-    //   const { err, result } = data
-    //   if (err) throw err // TODO
-    //   console.log(result) // TODO
-    //   return update()
-    // }
+    case 'SEARCH_INPUT': {
+      const q = data
+
+      if (q === '') {
+        window.loc.go(-1)
+        return
+      }
+
+      const searchUrl = entity.encode({ type: 'search', q })
+      if (store.location.name === 'search') {
+        window.loc.replace(searchUrl)
+      } else {
+        window.loc.push(searchUrl)
+      }
+      return update()
+    }
+
+    case 'FETCH_SEARCH': {
+      api.music({ method: 'search', ...data }, (err, result) => {
+        dispatch('FETCH_SEARCH_DONE', { err, result })
+      })
+      return
+    }
+    case 'FETCH_SEARCH_DONE': {
+      const { err, result } = data
+      if (err) throw err // TODO
+      console.log(result) // TODO
+      return update()
+    }
 
     /**
      * ALBUM
@@ -196,6 +208,29 @@ function dispatch (type, data) {
 
       store.charts.topTrackUrls = tracks.map(track => track.url)
 
+      return update()
+    }
+
+    /**
+     * TRACK
+     */
+
+    case 'FETCH_TRACK': {
+      const track = data
+      const q = track.artistName + ' ' + track.name
+      api.video({ q, maxResults: 1 }, (err, result) => {
+        dispatch('FETCH_TRACK_DONE', { err, result })
+      })
+      store.currentTrackUrl = track.url
+      return update()
+    }
+    case 'FETCH_TRACK_DONE': {
+      const { err, result } = data
+      if (err) throw err // TODO
+      const [video] = result
+      if (!video) throw new Error('No track found') // TODO
+
+      store.player.videoId = video.id
       return update()
     }
 

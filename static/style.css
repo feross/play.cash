@@ -16,11 +16,6 @@ body {
   font-family: 'Bungee Shade', sans-serif;
 }
 
-/* Perfectly position content sheet below the header bar */
-.content-sheet {
-  margin-top: 100px;
-}
-
 .grow {
   transition:transform 0.15s ease-out;
 }

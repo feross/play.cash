@@ -37,6 +37,11 @@ function encode (data) {
       return router.toUrl('album', { name, artistName })
     }
 
+    case 'search': {
+      const q = slug.encode(data.q)
+      return router.toUrl('search', { q })
+    }
+
     default: {
       return null
     }

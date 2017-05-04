@@ -5,6 +5,7 @@
 
 const routes = [
   ['home', '/'],
+  ['search', '/search/:q', true],
   ['artist', '/:name', true],
   ['track', '/:artistName/:name', true],
   ['album', '/:artistName/album/:name', true]

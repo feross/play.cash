@@ -4,11 +4,11 @@ const config = require('../../config')
 const store = require('../store')
 
 const Button = require('../components/Button')
-const Input = require('../components/Input')
+const Search = require('./Search')
 
 const Header = (props) => {
   let $showVideoButton = null
-  if (store.player.videoId && (!store.entity || store.entity.type !== 'track')) {
+  if (store.player.videoId && (store.location.name !== 'track')) {
     $showVideoButton = (
       <Button
         pill
@@ -24,15 +24,17 @@ const Header = (props) => {
 
   return (
     <header id='header' class='fixed z-1 top-0 w-100 bg-gold o-90 shadow-1'>
-      <div class='mw9 center pv3 ph1 ph3-ns flex flex-wrap flex-column flex-row-ns justify-between-ns items-center'>
-        <h1 id='logo' class='ma0'>
+      <div class='mw9 center pv3 ph1 ph3-ns'>
+        <h1 id='logo' class='dib w-third ma0'>
           <a class='link white' href='/'>{config.name}</a>
         </h1>
-        <Input
-          class='search br2 w-50 br3 mt1'
-          placeholder='Search for Songs, Artists, or Albums...'
-        />
-        <nav>
+        <div class='dib w-third nt2 v-mid'>
+          <Search
+            class='search w-100'
+            placeholder='Search for Songs, Artists, or Albums...'
+          />
+        </div>
+        <nav class='dib w-third tr'>
           {$showVideoButton}
         </nav>
       </div>
