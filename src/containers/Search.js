@@ -11,21 +11,16 @@ class Search extends Component {
   }
 
   render (props) {
-    const {
-      type = 'text',
-      placeholder
-    } = props
-
     const value = this._getStoreValue()
 
     return (
       <input
-        type={type}
+        type='text'
         class={c(
           'input-reset ba b--black-20 ph3 pv2 br-pill outline-0 db',
           props.class
         )}
-        placeholder={placeholder}
+        placeholder={'Search for songs, artists...'}
         value={value}
         onInput={this._onInput}
         onKeyPress={this._onKeyPress}
@@ -38,11 +33,11 @@ class Search extends Component {
 
     return (entity && entity.type === 'search')
       ? entity.q
-      : ''
+      : store.lastSearch
   }
 
   _getInputValue (e) {
-    return e.target.value.trim()
+    return e.target.value
   }
 
   _onInput (e) {

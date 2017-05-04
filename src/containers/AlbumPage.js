@@ -5,7 +5,7 @@ const { getArtistByName, getAlbum } = require('../store-getters')
 
 const ContentSheet = require('../components/ContentSheet')
 const Link = require('../components/Link')
-const LoadingSheet = require('../components/LoadingSheet')
+const Loader = require('../components/Loader')
 const Album = require('../components/Album')
 const TrackList = require('../components/TrackList')
 
@@ -19,9 +19,17 @@ class AlbumPage extends Component {
     const { entity } = store
     const album = getAlbum(entity.url)
 
-    if (!album || !album.images) return <LoadingSheet />
+    if (!album || !album.images) {
+      return <ContentSheet><Loader /></ContentSheet>
+    }
+
+    let $content = <Loader />
 
     const artist = getArtistByName(album.artistName)
+
+    if (album.tracks.length > 0) {
+      $content = <TrackList class='mt4' tracks={album.tracks} />
+    }
 
     return (
       <ContentSheet>
@@ -30,18 +38,20 @@ class AlbumPage extends Component {
             class='fl w-30 pr4'
             album={album}
             sizeHint='30vw'
-            metadata={false}
+            showName={false}
+            showArtistName={false}
+            showLink={false}
           />
           <div class='fl w-50'>
             <h5 class='tracked ttu'>Album</h5>
             <h1>{album.name}</h1>
             <h4>By <Link href={artist.url}>{artist.name}</Link></h4>
-            <div class='lh-copy measure h4 overflow-hidden'>
+            <div class='lh-copy measure'>
               {album.summary}
             </div>
           </div>
         </div>
-        <TrackList tracks={album.tracks} />
+        {$content}
       </ContentSheet>
     )
   }

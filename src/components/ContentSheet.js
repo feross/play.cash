@@ -12,12 +12,16 @@ class ContentSheet extends Component {
   }
 
   render (props) {
+    const cls = store.player.videoId
+      ? 'bg-white-30'
+      : 'bg-white-80'
+
     return (
       <div
         class='content-sheet mt5 pa4 relative'
         onClick={this._onClick}
       >
-        <Sheet class={c('mw9 center', props.class)}>
+        <Sheet class={c('mw9 center', cls, props.class)}>
           {props.children}
         </Sheet>
       </div>

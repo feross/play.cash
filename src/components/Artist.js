@@ -29,7 +29,7 @@ const Artist = (props) => {
         sizeHint={sizeHint}
         alt={artist.name + ' Image'}
       />
-      <dl class='mt2 f6 lh-copy'>
+      <dl class='mt2 f6 ttu lh-copy'>
         <dt class='clip'>Title</dt>
         <dd class='ml0 black truncate w-100'>{artist.name}</dd>
       </dl>

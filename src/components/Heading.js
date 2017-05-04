@@ -3,7 +3,7 @@ const c = require('classnames')
 
 const Heading = (props) => {
   return (
-    <h2 class={c('fw4 pv0 mv3', props.class)}>
+    <h2 class={c('f3 fw6 pv0 mv3', props.class)}>
       {props.children}
     </h2>
   )

@@ -50,7 +50,7 @@ function apiMusic (opts, cb) {
 
   lastfm[opts.method](opts, (err, data) => {
     if (err) return cb(err)
-    const result = data.result || data.tracks
+    const result = data.result || data.artists || data.albums || data.tracks
     if (result) {
       const results = Array.isArray(result)
         ? result

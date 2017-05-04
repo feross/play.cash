@@ -17,7 +17,8 @@ const store = {
     volume: 100,
     playbackRate: 1
   },
-  searchValue: '',
+  searches: {},
+  lastSearch: '',
   artists: {},
   charts: {
     topArtistUrls: [],
@@ -67,30 +68,43 @@ function dispatch (type, data) {
     case 'SEARCH_INPUT': {
       const q = data
 
+      store.lastSearch = q
+
       if (q === '') {
         window.loc.go(-1)
         return
       }
 
       const searchUrl = entity.encode({ type: 'search', q })
+
       if (store.location.name === 'search') {
         window.loc.replace(searchUrl)
       } else {
         window.loc.push(searchUrl)
       }
+
+      dispatch('FETCH_SEARCH', { q })
+
       return update()
     }
 
     case 'FETCH_SEARCH': {
-      api.music({ method: 'search', ...data }, (err, result) => {
+      api.music({
+        method: 'search',
+        artistsLimit: 3,
+        albumsLimit: 15,
+        tracksLimit: 30,
+        ...data
+      }, (err, result) => {
         dispatch('FETCH_SEARCH_DONE', { err, result })
       })
       return
     }
     case 'FETCH_SEARCH_DONE': {
       const { err, result } = data
-      if (err) throw err // TODO
-      console.log(result) // TODO
+      if (err) return store.errors.push(err)
+      const search = result.result
+      addSearch(search)
       return update()
     }
 
@@ -296,6 +310,34 @@ function addTrack (track) {
 
 function addTracks (tracks) {
   return tracks.map(addTrack)
+}
+
+function addSearch (search) {
+  if (!search.url) search.url = entity.encode(search)
+
+  addArtists(search.artists)
+  addTracks(search.tracks)
+  addAlbums(search.albums)
+  addEntity(search.top)
+
+  store.searches[search.url] = Object.assign(
+    store.searches[search.url] || {},
+    {
+      type: 'search',
+      q: search.q,
+      artists: search.artists.map(artist => artist.url),
+      tracks: search.tracks.map(track => track.url),
+      albums: search.albums.map(album => album.url),
+      top: search.top.url
+    }
+  )
+  return search
+}
+
+function addEntity (entity) {
+  if (entity.type === 'artist') addArtist(entity)
+  if (entity.type === 'track') addTrack(entity)
+  if (entity.type === 'album') addAlbum(entity)
 }
 
 let updating = false
