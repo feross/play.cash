@@ -1,5 +1,5 @@
 const debug = require('debug')('api')
-const get = require('simple-get')
+const fetchConcat = require('./lib/simple-fetch')
 const memo = require('memo-async-lru')
 const querystring = require('querystring')
 
@@ -27,10 +27,13 @@ function sendRequest (urlBase, params, cb) {
     timeout: config.apiTimeout
   }
 
-  get.concat(opts, onResponse)
+  fetchConcat(opts, onResponse)
 
   function onResponse (err, res, data) {
     if (err) return cb(new Error('HTTP request error. ' + err.message))
+    if (res.statusCode !== 200) {
+      return cb(new Error('HTTP Non-200 Response. ' + res.statusCode))
+    }
     if (data.error) {
       return cb(new Error('Server API Error. ' + data.error))
     }
