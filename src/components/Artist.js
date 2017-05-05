@@ -23,7 +23,7 @@ const Artist = (props) => {
       defaultStyle={false}
     >
       <ProgressiveImage
-        class='w-100 db ba b--moon-gray br4'
+        class='w-100 db ba b--black-10 br4'
         src={images}
         sizes={sizes}
         sizeHint={sizeHint}

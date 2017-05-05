@@ -21,7 +21,7 @@ const Album = (props) => {
 
   const $image = (
     <ProgressiveImage
-      class='w-100 db ba b--moon-gray'
+      class='w-100 db ba b--black-20'
       src={images}
       sizes={sizes}
       sizeHint={sizeHint}

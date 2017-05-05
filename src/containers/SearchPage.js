@@ -54,7 +54,7 @@ class SearchPage extends Component {
     return (
       <ContentSheet class='cf'>
         <h1>
-          <span class='silver'>Showing results for </span>
+          <span class='black-30'>Showing results for </span>
           <span>{q}</span>
         </h1>
         {$content}

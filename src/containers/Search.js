@@ -20,6 +20,7 @@ class Search extends Component {
           'input-reset ba b--black-20 ph3 pv2 br-pill outline-0 db',
           props.class
         )}
+        spellCheck='false'
         placeholder={'Search for songs, artists...'}
         value={value}
         onInput={this._onInput}

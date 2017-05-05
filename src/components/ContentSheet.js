@@ -13,7 +13,7 @@ class ContentSheet extends Component {
 
   render (props) {
     const cls = store.player.videoId
-      ? 'bg-white-30'
+      ? 'bg-white-40'
       : 'bg-white-80'
 
     return (
