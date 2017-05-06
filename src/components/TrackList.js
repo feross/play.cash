@@ -22,7 +22,7 @@ const TrackList = (props) => {
     return (
       <Link
         class={c(
-          'db pa3 truncate link color-inherit hover-bg-lightest-blue',
+          'db pa3 truncate link color-inherit hover-bg-washed-red',
           cls
         )}
         href={track.url}

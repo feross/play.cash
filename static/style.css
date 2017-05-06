@@ -1,39 +1,18 @@
 /**
- * Table of Styles
- * http://tachyons.io/docs/table-of-styles/
- *
- * Table of Properties
- * http://tachyons.io/docs/table-of-properties/
+ * Additional tachyon-like styles
  */
 
-/**
- * Custom font faces
- */
-body {
+.body-font {
   font-family: 'Muli', sans-serif;
-  font-weight: 400;
+  font-weight: 600;
 }
 
-.logo img {
-  width: 48px;
-  position: absolute;
-  margin-top: -4px;
-  margin-left: -4px;
-}
-
-.logo div {
+.logo-font {
   font-family: 'Damion', cursive;
-  font-size: 32px;
-  margin-left: 55px;
 }
 
-.grow {
-  transition:transform 0.15s ease-out;
-}
-
-.grow:active {
-  transform: scale(.90);
-  transition:transform 0.1s ease-out;
+.fact-font {
+  font-family: 'Sriracha', sans-serif;
 }
 
 .text-outline {
@@ -44,7 +23,123 @@ body {
     1px 1px 5px rgba(0, 0, 0, 0.15);
 }
 
+/**
+ * Tweaks to tachyons built-in styles
+ */
+
+.grow {
+  transition:transform 0.15s ease-out;
+}
+
+.grow:active {
+  transform: scale(.90);
+  transition:transform 0.1s ease-out;
+}
+
 /* Smaller max-width 9 */
 .mw9 {
   max-width: 70rem
+}
+
+/**
+ * Specific styles (minimize the number of these!)
+ */
+
+.fact-drop-cap {
+  font-size: 120px;
+  position: absolute;
+  top: -60px;
+  left: -35px;
+
+  text-shadow:
+    -1px -1px 1px rgba(255, 255, 255, 1),
+    1px -1px 1px rgba(255, 255, 255, 1),
+    -1px 1px 1px rgba(255, 255, 255, 1),
+    1px 1px 1px rgba(255, 255, 255, 1);
+}
+
+.fact {
+  border-style: solid;
+  border-width: 0.67rem;
+  border-color: #000000;
+  border-image-source: url('/img/border-image.png');
+  border-image-slice: 4% 4.5% fill;
+  border-image-width: 0.67rem;
+  border-image-outset: 0.45rem 0.35rem;
+  border-image-repeat: round;
+  padding: 11px 16px 9px 17px;
+  hyphens: auto;
+  font-size: 19px;
+  text-align: justify;
+}
+
+@media screen and (min-width: 100em) {
+  .fact {
+    padding: 13px 18px 11px 19px;
+    font-size: 23px;
+  }
+}
+
+/**
+ * Animations (adapted from animate.css)
+ */
+
+.animate-bounce-in,
+.animate-bounce-out {
+  animation-fill-mode: both;
+}
+
+@keyframes animateBounceIn {
+  from, 20%, 40%, 60%, 80%, to {
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  0% {
+    opacity: 0;
+    transform: scale3d(.3, .3, .3);
+  }
+
+  20% {
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  40% {
+    transform: scale3d(.95, .95, .95);
+  }
+
+  70% {
+    opacity: 1;
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.animate-bounce-in {
+  animation-name: animateBounceIn;
+  animation-duration: .6s;
+}
+
+@keyframes animateBounceOut {
+  20% {
+    transform: scale3d(.9, .9, .9);
+  }
+
+  50%, 55% {
+    opacity: 1;
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale3d(.3, .3, .3);
+  }
+}
+
+.animate-bounce-out {
+  animation-name: animateBounceOut;
+  animation-duration: .4s;
 }

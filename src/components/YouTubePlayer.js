@@ -26,12 +26,14 @@ class YouTubePlayer extends Component {
     this.player = null
     this.elem = null
 
+    this._waitingForDuration = false
+
     this._ref = this._ref.bind(this)
     this._onError = this._onError.bind(this)
     this._onUnplayable = this._onUnplayable.bind(this)
     this._onPlaying = this._onPlaying.bind(this)
     this._onPaused = this._onPaused.bind(this)
-    this._onDuration = this._onDuration.bind(this)
+    this._onCued = this._onCued.bind(this)
     this._onTimeupdate = this._onTimeupdate.bind(this)
   }
 
@@ -55,6 +57,7 @@ class YouTubePlayer extends Component {
 
     if (videoId && prevProps.videoId !== videoId) {
       if (!this.player) this._createPlayer(this.props)
+      this._waitingForDuration = true
       this.player.load(videoId, playing)
       this.player.setVolume(volume)
       this.player.setPlaybackRate(playbackRate)
@@ -121,7 +124,7 @@ class YouTubePlayer extends Component {
     this.player.on('unplayable', this._onUnplayable)
     this.player.on('playing', this._onPlaying)
     this.player.on('paused', this._onPaused)
-    this.player.on('cued', this._onDuration)
+    this.player.on('cued', this._onCued)
     this.player.on('timeupdate', this._onTimeupdate)
   }
 
@@ -130,7 +133,7 @@ class YouTubePlayer extends Component {
     this.player.removeListener('unplayable', this._onUnplayable)
     this.player.removeListener('playing', this._onPlaying)
     this.player.removeListener('paused', this._onPaused)
-    this.player.removeListener('cued', this._onDuration)
+    this.player.removeListener('cued', this._onCued)
     this.player.removeListener('timeupdate', this._onTimeupdate)
     this.player.destroy()
 
@@ -142,10 +145,11 @@ class YouTubePlayer extends Component {
   }
 
   _onUnplayable () {
-    this.props.onUnplayable()
+    this.props.onUnplayable(this.props.videoId)
   }
 
   _onPlaying () {
+    this._onCued()
     this.props.onPlaying()
   }
 
@@ -153,13 +157,15 @@ class YouTubePlayer extends Component {
     this.props.onPaused()
   }
 
-  _onDuration () {
-    const duration = this.player.getDuration()
-    this.props.onDuration(duration)
+  _onCued () {
+    if (this._waitingForDuration) {
+      const duration = this.player.getDuration()
+      this.props.onDuration(duration)
+    }
   }
 
-  _onTimeupdate (seconds) {
-    this.props.onTimeupdate(seconds)
+  _onTimeupdate (time) {
+    this.props.onTimeupdate(time)
   }
 }
 

@@ -5,7 +5,7 @@ const sbd = require('sbd')
 
 const config = require('../config')
 const secret = require('../secret')
-const SongFacts = require('./songfacts-scrape')
+const SongFacts = require('./songfacts')
 
 const songfacts = new SongFacts(secret.songfacts, config.apiUserAgent)
 

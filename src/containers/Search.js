@@ -8,6 +8,7 @@ class Search extends Component {
     super(props)
     this._onInput = this._onInput.bind(this)
     this._onKeyPress = this._onKeyPress.bind(this)
+    this._onFocus = this._onFocus.bind(this)
   }
 
   render (props) {
@@ -25,6 +26,7 @@ class Search extends Component {
         value={value}
         onInput={this._onInput}
         onKeyPress={this._onKeyPress}
+        onFocus={this._onFocus}
       />
     )
   }
@@ -50,8 +52,13 @@ class Search extends Component {
   _onKeyPress (e) {
     if (e.key === 'Enter') {
       const value = this._getInputValue(e)
-      this._dispatch(value)
+      if (value.trim() !== '') this._dispatch.value()
     }
+  }
+
+  _onFocus (e) {
+    const value = this._getInputValue(e)
+    if (value.trim() !== '') this._dispatch(value)
   }
 
   _dispatch (value) {

@@ -19,6 +19,7 @@ class Player extends Component {
   constructor (props) {
     super(props)
     this._onResizeThrottled = throttle(this._onResize.bind(this), 500)
+    this._onTimeupdate = this._onTimeupdate.bind(this)
   }
 
   componentWillMount () {
@@ -45,6 +46,12 @@ class Player extends Component {
           width={player.width}
           height={player.height}
           playerOpts={PLAYER_OPTS}
+          onError={this._onError}
+          onUnplayable={this._onUnplayable}
+          onPlaying={this._onPlaying}
+          onPaused={this._onPaused}
+          onDuration={this._onDuration}
+          onTimeupdate={this._onTimeupdate}
         />
       </div>
     )
@@ -54,6 +61,30 @@ class Player extends Component {
     const width = window.innerWidth
     const height = window.innerHeight
     store.dispatch('PLAYER_RESIZE', { width, height })
+  }
+
+  _onError (err) {
+    store.dispatch('PLAYER_ERROR', err)
+  }
+
+  _onUnplayable (videoId) {
+    store.dispatch('PLAYER_ERROR', new Error('Unplayable video ' + videoId))
+  }
+
+  _onPlaying () {
+    store.dispatch('PLAYER_PLAYING', true)
+  }
+
+  _onPaused () {
+    store.dispatch('PLAYER_PLAYING', false)
+  }
+
+  _onDuration (duration) {
+    store.dispatch('PLAYER_DURATION', duration)
+  }
+
+  _onTimeupdate (time) {
+    store.dispatch('PLAYER_TIMEUPDATE', time)
   }
 }
 

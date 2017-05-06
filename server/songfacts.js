@@ -8,8 +8,8 @@ class SongFacts {
   }
 
   getFacts (params, cb) {
-    if (!params.artist) throw new Error('missing `artist` param')
-    if (!params.track) throw new Error('missing `track` param')
+    if (!params.name) throw new Error('missing `name` param')
+    if (!params.artistName) throw new Error('missing `artistName` param')
 
     const urlBase = 'https://apiv3.songfacts.com/?go=' + this._key
 
@@ -37,11 +37,10 @@ class SongFacts {
       1
     ]
 
-    const artist = params.artist.replace(/:/g, '')
-    const track = params.track.replace(/:/g, '')
+    const name = params.name.replace(/:/g, '')
+    const artistName = params.artistName.replace(/:/g, '')
 
-    const url = [urlBase, switches.join(':'), artist, track].join(':')
-    console.log(url)
+    const url = [urlBase, switches.join(':'), artistName, name].join(':')
 
     const opts = {
       url: url,

@@ -15,7 +15,11 @@ const store = {
     videoId: null,
     playing: true,
     volume: 100,
-    playbackRate: 1
+    playbackRate: 1,
+
+    // not settable (reflects player state)
+    time: 0,
+    duration: 0
   },
   searches: {},
   lastSearch: '',
@@ -61,6 +65,26 @@ function dispatch (type, data) {
       return update()
     }
 
+    case 'PLAYER_ERROR': {
+      const err = data
+      return addError(err)
+    }
+
+    case 'PLAYER_PLAYING': {
+      store.player.playing = data
+      return update()
+    }
+
+    case 'PLAYER_DURATION': {
+      store.player.duration = data
+      return update()
+    }
+
+    case 'PLAYER_TIMEUPDATE': {
+      store.player.time = data
+      return update()
+    }
+
     /**
      * SEARCH
      */
@@ -102,7 +126,7 @@ function dispatch (type, data) {
     }
     case 'FETCH_SEARCH_DONE': {
       const { err, result } = data
-      if (err) return store.errors.push(err)
+      if (err) return addError(err)
       const search = result.result
       addSearch(search)
       return update()
@@ -120,7 +144,7 @@ function dispatch (type, data) {
     }
     case 'FETCH_ALBUM_INFO_DONE': {
       const { err, result } = data
-      if (err) return store.errors.push(err)
+      if (err) return addError(err)
 
       const album = result
       addAlbum(album)
@@ -140,7 +164,7 @@ function dispatch (type, data) {
     }
     case 'FETCH_ARTIST_INFO_DONE': {
       const { err, result } = data
-      if (err) return store.errors.push(err)
+      if (err) return addError(err)
 
       const artist = result
       addArtist(artist)
@@ -156,7 +180,7 @@ function dispatch (type, data) {
     }
     case 'FETCH_ARTIST_TOP_ALBUMS_DONE': {
       const { err, result } = data
-      if (err) return store.errors.push(err)
+      if (err) return addError(err)
 
       const albums = result.result
       addAlbums(albums)
@@ -175,7 +199,7 @@ function dispatch (type, data) {
     }
     case 'FETCH_ARTIST_TOP_TRACKS_DONE': {
       const { err, result } = data
-      if (err) return store.errors.push(err)
+      if (err) return addError(err)
 
       const tracks = result.result
       addTracks(tracks)
@@ -198,7 +222,7 @@ function dispatch (type, data) {
     }
     case 'FETCH_CHART_TOP_ARTISTS_DONE': {
       const { err, result } = data
-      if (err) return store.errors.push(err)
+      if (err) return addError(err)
 
       const artists = result.result
       addArtists(artists)
@@ -215,7 +239,7 @@ function dispatch (type, data) {
     }
     case 'FETCH_CHART_TOP_TRACKS_DONE': {
       const { err, result } = data
-      if (err) return store.errors.push(err)
+      if (err) return addError(err)
 
       const tracks = result.result
       addTracks(tracks)
@@ -235,16 +259,40 @@ function dispatch (type, data) {
       api.video({ q, maxResults: 1 }, (err, result) => {
         dispatch('FETCH_TRACK_DONE', { err, result })
       })
+      store.player.playing = false
+      store.player.time = 0
+      store.player.duration = 0
       store.currentTrackUrl = track.url
       return update()
     }
     case 'FETCH_TRACK_DONE': {
       const { err, result } = data
-      if (err) throw err // TODO
-      const [video] = result
-      if (!video) throw new Error('No track found') // TODO
+      if (err) return addError(err)
 
+      const [video] = result
+      if (!video) return store.errors.push(new Error('No track found'))
+
+      store.player.playing = true
+      store.player.time = 0
       store.player.videoId = video.id
+      return update()
+    }
+
+    case 'FETCH_FACTS': {
+      const track = data
+      const { name, artistName, url } = track
+      api.facts({ name, artistName }, (err, result) => {
+        dispatch('FETCH_FACTS_DONE', { err, result, trackUrl: url })
+      })
+      return
+    }
+    case 'FETCH_FACTS_DONE': {
+      const { err, result, trackUrl } = data
+      if (err) return addError(err)
+
+      const facts = result
+      addFacts(facts, trackUrl)
+
       return update()
     }
 
@@ -252,6 +300,11 @@ function dispatch (type, data) {
       throw new Error('Unrecognized dispatch type: ' + type)
     }
   }
+}
+
+function addError (err) {
+  store.errors.push(err)
+  update()
 }
 
 function addArtist (artist) {
@@ -302,10 +355,17 @@ function addTrack (track) {
   if (track.type !== 'track') throw new Error('Invalid track')
   if (!track.url) track.url = entity.encode(track)
 
-  const artist = addArtist({ type: 'artist', name: track.artistName })
+  const trackDefaults = {
+    facts: []
+  }
 
-  artist.tracks[track.url] = Object.assign(artist.tracks[track.url] || {}, track)
-  return track
+  const artist = addArtist({ type: 'artist', name: track.artistName })
+  artist.tracks[track.url] = Object.assign(
+    trackDefaults,
+    artist.tracks[track.url],
+    track
+  )
+  return artist.tracks[track.url]
 }
 
 function addTracks (tracks) {
@@ -331,7 +391,13 @@ function addSearch (search) {
       top: search.top.url
     }
   )
-  return search
+  return store.searches[search.url]
+}
+
+function addFacts (facts, trackUrl) {
+  const track = addTrack(entity.decode(trackUrl))
+  track.facts = facts
+  return facts
 }
 
 function addEntity (entity) {
