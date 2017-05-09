@@ -28,9 +28,13 @@ class Image extends Component {
     } = props
 
     const sources = typeof src === 'string' ? [src] : src
-    const srcset = sizes
-      ? sources.slice(0, sizes.length).map((source, i) => `${source} ${sizes[i]}w`).join(', ')
-      : null
+
+    let srcset = null
+    if (sizes) {
+      srcset = sources.slice(0, sizes.length)
+        .map((source, i) => `${source} ${sizes[i]}w`)
+        .join(', ')
+    }
 
     return (
       <img
@@ -44,7 +48,8 @@ class Image extends Component {
   }
 
   _onLoad (e) {
-    if (this.props.onLoad) this.props.onLoad(e)
+    const { onLoad } = this.props
+    if (onLoad) onLoad(e)
   }
 }
 
