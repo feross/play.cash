@@ -11,7 +11,7 @@ exports.isProd = isProd
  * Server listening port
  */
 exports.port = isProd
-  ? 7600
+  ? 7700
   : 4000
 
 /**
