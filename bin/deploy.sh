@@ -11,8 +11,9 @@ cp -R /home/feross/www/play.cash /home/feross/www/play.cash-build
 
 cd /home/feross/www/play.cash-build && git pull
 cd /home/feross/www/play.cash-build && rm -rf node_modules
-cd /home/feross/www/play.cash-build && npm install --production --quiet
+cd /home/feross/www/play.cash-build && npm install
 cd /home/feross/www/play.cash-build && npm run build
+cd /home/feross/www/play.cash-build && npm prune --production
 
 sudo supervisorctl stop play
 
