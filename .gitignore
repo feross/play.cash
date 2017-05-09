@@ -1,5 +1,3 @@
-db/
-
 secret/*
 !secret/index-sample.js
 
