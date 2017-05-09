@@ -17,6 +17,10 @@ cd /home/feross/www/play.cash-build && npm prune --production
 
 sudo supervisorctl stop play
 
+# Move database files (while app is stopped)
+cd /home/feross/www && rm -rf play.cash-build/db
+cd /home/feross/www && mv play.cash/db play.cash-build/db
+
 cd /home/feross/www && mv play.cash play.cash-old
 cd /home/feross/www && mv play.cash-build play.cash
 
