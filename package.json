@@ -74,6 +74,8 @@
   },
   "scripts": {
     "build": "NODE_ENV=production browserify -i preact/devtools src | babili > static/bundle.js",
+    "secret-download": "rsync -a -O -v --delete -e \"ssh -p 44444\" feross@future:\"/home/feross/www/play.cash/secret/\" secret/",
+    "secret-upload": "rsync -a -O -v --delete -e \"ssh -p 44444\" secret/ feross@future:\"/home/feross/www/play.cash/secret/\"",
     "size": "npm run size-js && npm run size-css",
     "size-css": "cat node_modules/tachyons/css/tachyons.min.css static/style.css | gzip | wc -c",
     "size-js": "npm run build && cat static/bundle.js | gzip | wc -c",
