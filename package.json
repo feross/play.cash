@@ -64,7 +64,7 @@
     "tape": "^4.6.3",
     "watchify": "^3.7.0"
   },
-  "homepage": "https://play.one",
+  "homepage": "https://play.cash",
   "license": "-",
   "main": "server/index.js",
   "private": true,

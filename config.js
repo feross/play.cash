@@ -28,7 +28,7 @@ exports.description = 'Next-gen music video player'
  * Website hostname + port
  */
 exports.host = isProd
-  ? 'play.one'
+  ? 'play.cash'
   : 'localhost:' + exports.port
 
 /**
@@ -54,4 +54,4 @@ exports.apiTimeout = 30 * 1000
 /**
  * User agent for API requests
  */
-exports.apiUserAgent = 'Play/1.0.0 (http://play.one)'
+exports.apiUserAgent = 'Play/1.0.0 (http://play.cash)'
