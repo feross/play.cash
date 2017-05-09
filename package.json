@@ -28,7 +28,7 @@
     ]
   },
   "bugs": {
-    "url": "https://github.com/feross/play/issues"
+    "url": "https://github.com/feross/play.cash/issues"
   },
   "dependencies": {
     "classnames": "^2.2.5",
@@ -70,7 +70,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git://github.com/feross/play.git"
+    "url": "git://github.com/feross/play.cash.git"
   },
   "scripts": {
     "build": "NODE_ENV=production browserify -i preact/devtools src | babili > static/bundle.js",
