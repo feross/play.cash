@@ -1,7 +1,6 @@
 const { h, render } = require('preact') /** @jsx h */
 
 const debug = require('debug')('play')
-const loadScript = require('load-script2')
 
 const App = require('./containers/App')
 const config = require('../config')
@@ -36,14 +35,3 @@ window.addEventListener('load', () => console.timeEnd('load'))
 
 // React Developer Tools (Excluded in production)
 require('preact/devtools')
-
-// Live Reload
-if (!config.isProd) {
-  navigator.getBattery().then(function (battery) {
-    if (battery.charging && window.localStorage.live !== 'false') {
-      loadScript('http://livejs.com/live.js', () => debug('Live Reload'))
-    } else {
-      debug('Live Reload disabled (on battery power, or disabled via `localStorage.live`)')
-    }
-  })
-}
