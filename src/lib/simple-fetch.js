@@ -27,8 +27,7 @@ function simpleFetch (opts, cb) {
 
   fetch(opts.url, opts)
     .then(onResponse)
-    .then(onText)
-    .catch(onError)
+    .then(onText, onError)
 
   function onResponse (response) {
     res.url = response.url
