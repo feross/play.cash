@@ -12,13 +12,6 @@ const socket = require('./socket')
 unlimited() // Upgrade the max file descriptor limit
 
 const server = http.createServer()
-
-const SQLiteStore = ConnectSQLite(session)
-const sessionStore = new SQLiteStore({ dir: path.join(config.root, 'db') })
-
-app.init(server, sessionStore)
-socket.init(server, sessionStore)
-
 server.listen(config.port, onListening)
 
 function onListening (err) {
@@ -26,4 +19,11 @@ function onListening (err) {
   console.log('Listening on port %s', server.address().port)
 
   downgrade() // Set the process user identity to 'www-data'
+
+  // Open DB as 'www-data' user
+  const SQLiteStore = ConnectSQLite(session)
+  const sessionStore = new SQLiteStore({ dir: path.join(config.root, 'db') })
+
+  app.init(server, sessionStore)
+  socket.init(server, sessionStore)
 }
