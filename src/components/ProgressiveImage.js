@@ -33,6 +33,7 @@ class ProgressiveImage extends Component {
       $finalImage = (
         <Image
           class={c('absolute top-0', props.class)}
+          style={props.style}
           src={sources}
           sizes={sizes}
           sizeHint={sizeHint}
@@ -43,10 +44,11 @@ class ProgressiveImage extends Component {
 
     return (
       <div
-        class='relative'
+        class={c('relative', props.containerClass)}
       >
         <Image
           class={c(props.class)}
+          style={props.style}
           src={sources[0]}
           alt={alt}
           onLoad={this._onThumbLoad}
