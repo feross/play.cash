@@ -52,7 +52,7 @@ class Search extends Component {
   _onKeyPress (e) {
     if (e.key === 'Enter') {
       const value = this._getInputValue(e)
-      if (value.trim() !== '') this._dispatch.value()
+      if (value.trim() !== '') this._dispatch(value)
     }
   }
 
