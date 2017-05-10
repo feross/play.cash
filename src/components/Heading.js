@@ -3,7 +3,12 @@ const c = require('classnames')
 
 const Heading = (props) => {
   return (
-    <h2 class={c('f3 fw6 pv0 mv3', props.class)}>
+    <h2
+      class={c('fw6 pv0 mb3 mt4', props.class)}
+      style={{
+        fontSize: '2rem'
+      }}
+    >
       {props.children}
     </h2>
   )
