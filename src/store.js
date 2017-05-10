@@ -378,7 +378,7 @@ function addSearch (search) {
   addArtists(search.artists)
   addTracks(search.tracks)
   addAlbums(search.albums)
-  addEntity(search.top)
+  if (search.top) addEntity(search.top)
 
   store.searches[search.url] = Object.assign(
     store.searches[search.url] || {},
