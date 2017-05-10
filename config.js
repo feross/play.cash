@@ -34,12 +34,12 @@ exports.host = isProd
 /**
  * HTTP origin
  */
-exports.httpOrigin = (isProd ? 'https' : 'http') + '://' + exports.hostname
+exports.httpOrigin = (isProd ? 'https' : 'http') + '://' + exports.host
 
 /**
  * Websocket origin
  */
-exports.wsOrigin = (isProd ? 'wss' : 'ws') + '://' + exports.hostname
+exports.wsOrigin = (isProd ? 'wss' : 'ws') + '://' + exports.host
 
 /**
  * Root path of project
