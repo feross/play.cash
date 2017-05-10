@@ -53,9 +53,6 @@ function init (server, sessionStore) {
     // page if an attack is detected.
     res.header('X-XSS-Protection', '1; mode=block')
 
-    // Force IE to use latest rendering engine or Chrome Frame
-    res.header('X-UA-Compatible', 'IE=Edge,chrome=1')
-
     if (config.isProd) {
       // Redirect to main site url, over https
       if (req.method === 'GET' &&
