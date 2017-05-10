@@ -4,6 +4,7 @@ const store = require('../store')
 const { getArtist, getAlbum, getTrack } = require('../store-getters')
 const { formatInt } = require('../format')
 
+const ArtistList = require('../components/ArtistList')
 const AlbumList = require('../components/AlbumList')
 const ContentSheet = require('../components/ContentSheet')
 const Heading = require('../components/Heading')
@@ -12,6 +13,19 @@ const TrackList = require('../components/TrackList')
 
 class ArtistPage extends Component {
   componentDidMount () {
+    this._fetch()
+  }
+
+  componentWillReceiveProps (nextProps) {
+    const props = this.props
+    const currentUrl = props.entity && props.entity.url
+    const nextUrl = nextProps.entity && nextProps.entity.url
+    if (currentUrl !== nextUrl) {
+      this._fetch()
+    }
+  }
+
+  _fetch () {
     const { entity } = store
     store.dispatch('FETCH_ARTIST_INFO', { name: entity.name })
     store.dispatch('FETCH_ARTIST_TOP_ALBUMS', { name: entity.name, limit: 24 })
@@ -32,13 +46,30 @@ class ArtistPage extends Component {
     const topAlbums = artist.topAlbumUrls.map(getAlbum)
 
     if (topTracks.length > 0 && topAlbums.length > 0) {
+      let $extra = null
+
+      const similar = artist.similar.map(getArtist)
+      const $similarHeading = <Heading class='tc'>Similar</Heading>
+
       const summary = artist.summary && artist.summary.replace(/\n/g, '<br>')
-      let $summary = null
       if (summary) {
-        $summary = (
-          <div class='mw7 f4 center lh-copy'>
-            <Heading class='tc'>Learn about {artist.name}</Heading>
-            <div class='white-80' dangerouslySetInnerHTML={{ __html: summary }} />
+        $extra = (
+          <div class='cf'>
+            <div class='fl w-50 f4 pr4 center lh-copy'>
+              <Heading class='tc'>Learn about {artist.name}</Heading>
+              <div class='white-80' dangerouslySetInnerHTML={{ __html: summary }} />
+            </div>
+            <div class='fl w-50'>
+              {$similarHeading}
+              <ArtistList artists={similar} />
+            </div>
+          </div>
+        )
+      } else {
+        $extra = (
+          <div>
+            {$similarHeading}
+            <ArtistList artists={similar} size='small' />
           </div>
         )
       }
@@ -53,13 +84,21 @@ class ArtistPage extends Component {
             <Heading class='tc'>Albums</Heading>
             <AlbumList albums={topAlbums} showArtistName={false} size='small' />
           </div>
-          {$summary}
+          {$extra}
         </div>
       )
     }
 
     const coverImage = artist.images[artist.images.length - 1]
-    const listeners = formatInt(artist.listeners)
+    let $listeners = null
+    if (artist.listeners) {
+      const listeners = formatInt(artist.listeners)
+      $listeners = (
+        <div class='absolute bottom-2 right-2 mb3'>
+          <div class='f6 mv0 tracked ttu white-80'>{listeners} listeners</div>
+        </div>
+      )
+    }
 
     return (
       <ContentSheet>
@@ -75,9 +114,7 @@ class ArtistPage extends Component {
               {artist.name}
             </h1>
           </div>
-          <div class='absolute bottom-2 right-2 mb3'>
-            <div class='f6 mv0 tracked ttu white-80'>{listeners} listeners</div>
-          </div>
+          {$listeners}
         </div>
         {$content}
       </ContentSheet>

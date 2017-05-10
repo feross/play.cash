@@ -23,7 +23,7 @@ const PAGES = {
 }
 
 const App = (props) => {
-  const { location } = store
+  const { location, entity } = store
 
   const Page = PAGES[location.name] || PAGES['not-found']
 
@@ -31,7 +31,7 @@ const App = (props) => {
     <div id='app'>
       <Player />
       <Header />
-      <Page />
+      <Page entity={entity} />
     </div>
   )
 }
