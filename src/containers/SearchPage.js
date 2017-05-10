@@ -1,9 +1,11 @@
 const { Component, h } = require('preact') /** @jsx h */
 
 const store = require('../store')
-const { getArtist, getAlbum, getTrack } = require('../store-getters')
+const { getArtist, getAlbum, getTrack, getEntity } = require('../store-getters')
 
+const Album = require('../components/Album')
 const AlbumList = require('../components/AlbumList')
+const Artist = require('../components/Artist')
 const ArtistList = require('../components/ArtistList')
 const ContentSheet = require('../components/ContentSheet')
 const Heading = require('../components/Heading')
@@ -26,22 +28,36 @@ class SearchPage extends Component {
     let $content = <Loader />
 
     if (results) {
-      const artists = results.artists.map(getArtist)
-      const $artists = <ArtistList artists={artists} />
+      const topResult = getEntity(results.top)
+      let $topResult = null
+      if (topResult.type === 'artist') {
+        $topResult = <Artist artist={topResult} />
+      } else if (topResult.type === 'album') {
+        $topResult = <Album album={topResult} />
+      }
 
       const tracks = results.tracks.map(getTrack)
       const $tracks = <TrackList tracks={tracks} />
 
+      const artists = results.artists.map(getArtist)
+      const $artists = <ArtistList artists={artists} size='small' />
+
       const albums = results.albums.map(getAlbum)
-      const $albums = <AlbumList albums={albums} />
+      const $albums = <AlbumList albums={albums} size='small' />
 
       $content = (
         <div>
-          <div class='cf fl w-50 pr4'>
-            <Heading class='tc'>Tracks</Heading>
-            {$tracks}
+          <div class='cf'>
+            <div class='fl w-third pr4'>
+              <div class='mw6 center'>
+                {$topResult}
+              </div>
+            </div>
+            <div class='fl w-two-thirds'>
+              {$tracks}
+            </div>
           </div>
-          <div class='cf fl w-50'>
+          <div class='w-100'>
             <Heading class='tc'>Artists</Heading>
             {$artists}
             <Heading class='tc'>Albums</Heading>
@@ -53,10 +69,10 @@ class SearchPage extends Component {
 
     return (
       <ContentSheet class='cf'>
-        <h1>
-          <span class='black-30'>Showing results for </span>
+        <Heading>
+          <span class='white-60'>Showing results for </span>
           <span>{q}</span>
-        </h1>
+        </Heading>
         {$content}
       </ContentSheet>
     )
