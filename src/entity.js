@@ -3,7 +3,7 @@ module.exports = {
   decode
 }
 
-const slug = require('./lib/slug')
+const slug = require('./slug')
 const Router = require('./lib/router')
 const routes = require('./routes')
 

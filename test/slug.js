@@ -1,5 +1,5 @@
 const test = require('tape')
-const slug = require('../src/lib/slug')
+const slug = require('../src/slug')
 
 test('slug.encode creates slugs', (t) => {
   t.equal(slug.encode('Five Iron Frenzy'), 'Five-Iron-Frenzy')
