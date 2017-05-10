@@ -41,16 +41,16 @@ function init (server, sessionStore) {
       res.header('Access-Control-Allow-Origin', '*')
     }
 
-    // Prevents IE and Chrome from MIME-sniffing a response to reduce exposure to
-    // drive-by download attacks when serving user uploaded content.
+    // Disable browser mime-type sniffing. Reduces exposure to drive-by download attacks when
+    // serving user uploaded content.
     res.header('X-Content-Type-Options', 'nosniff')
 
-    // Prevent rendering of site within a frame
+    // Prevent rendering of site within a frame.
     res.header('X-Frame-Options', 'DENY')
 
-    // Enable the XSS filter built into most recent web browsers. It's usually
-    // enabled by default anyway, so role of this headers is to re-enable for this
-    // particular website if it was disabled by the user.
+    // Enable browser XSS filtering. Usually enabled by default, but this header re-enables it
+    // if it was disabled by the user, and asks the the browser to prevent rendering of the
+    // page if an attack is detected.
     res.header('X-XSS-Protection', '1; mode=block')
 
     // Force IE to use latest rendering engine or Chrome Frame
@@ -64,10 +64,10 @@ function init (server, sessionStore) {
       }
 
       // Use HTTP Strict Transport Security
-      // Lasts 1 year, incl. subdomains, allow browser preload list
+      // Lasts 2 years, incl. subdomains, allow browser preload list
       res.header(
         'Strict-Transport-Security',
-        'max-age=31536000; includeSubDomains; preload'
+        'max-age=63072000; includeSubDomains; preload'
       )
     }
 
