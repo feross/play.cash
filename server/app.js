@@ -56,7 +56,7 @@ function init (server, sessionStore) {
     // Force IE to use latest rendering engine or Chrome Frame
     res.header('X-UA-Compatible', 'IE=Edge,chrome=1')
 
-    if (false && config.isProd) {
+    if (config.isProd) {
       // Use HTTP Strict Transport Security
       // Lasts 1 year, incl. subdomains, allow browser preload list
       res.header(
