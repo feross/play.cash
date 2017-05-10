@@ -5,6 +5,7 @@ const store = require('../store')
 
 const Button = require('../components/Button')
 const Image = require('../components/Image')
+const Link = require('../components/Link')
 const Search = require('./Search')
 
 const Header = (props) => {
@@ -13,8 +14,9 @@ const Header = (props) => {
     $showVideoButton = (
       <Button
         fill
-        color='purple'
+        color='blue'
         href={store.currentTrackUrl}
+        size='medium'
         class='mb0'
       >
         Show Video
@@ -23,12 +25,22 @@ const Header = (props) => {
   }
 
   return (
-    <header id='header' class='fixed z-1 top-0 w-100 bg-red o-90 shadow-1'>
-      <div class='cf mw9 center pv3 ph1 ph3-ns'>
+    <header
+      id='header'
+      class='fixed z-1 top-0 w-100 shadow-1'
+      style={{
+        backgroundColor: 'rgba(255,65,54, 0.8)'
+      }}
+    >
+      <div class='cf center pv3 ph2 ph3-m ph4-l'>
         <div class='fl w-third v-mid'>
-          <a class='logo logo-font db no-underline white' href='/'>
+          <Link
+            class='logo logo-font white dib'
+            color='inherit'
+            href='/'
+          >
             <Image
-              class='absolute db'
+              class='absolute'
               style={{
                 width: 46,
                 marginTop: -3,
@@ -44,12 +56,17 @@ const Header = (props) => {
             >
               {config.name}
             </div>
-          </a>
+          </Link>
         </div>
         <div class='fl w-third v-mid'>
           <Search class='search w-100' />
         </div>
-        <nav class='fl w-third v-mid tr'>
+        <nav
+          class='fl w-third v-mid tr'
+          style={{
+            marginTop: 2
+          }}
+        >
           {$showVideoButton}
         </nav>
       </div>
