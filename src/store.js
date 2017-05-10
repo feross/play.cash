@@ -320,13 +320,21 @@ function addArtist (artist) {
     albums: {},
     tracks: {},
     topTrackUrls: [],
-    topAlbumUrls: []
+    topAlbumUrls: [],
+    similar: []
+  }
+
+  let similar = null
+  if (artist.similar) {
+    addArtists(artist.similar)
+    similar = artist.similar.map(similarArtist => similarArtist.url)
   }
 
   store.artists[artist.url] = Object.assign(
     artistDefaults,
     store.artists[artist.url],
-    artist
+    artist,
+    similar && { similar }
   )
   return store.artists[artist.url]
 }
