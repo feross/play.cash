@@ -6,7 +6,8 @@ const Link = require('./Link')
 const TrackList = (props) => {
   const {
     tracks,
-    showArtistName = true
+    showArtistName = true,
+    columns = 1
   } = props
 
   const $tracks = tracks.map((track, i) => {
@@ -58,11 +59,26 @@ const TrackList = (props) => {
     )
   })
 
-  return (
-    <div class={c('db fw3', props.class)}>
-      {$tracks}
-    </div>
-  )
+  let $content = []
+  if (columns === 1) {
+    $content.push(<div class={props.class}>{$tracks}</div>)
+  } else if (columns === 2) {
+    const columnLength = Math.ceil(tracks.length / columns)
+    $content.push(
+      <div class={c('fl w-100 w-50-m w-50-l', props.class)}>
+        {$tracks.slice(0, columnLength)}
+      </div>
+    )
+    $content.push(
+      <div class={c('fl w-100 w-50-m w-50-l', props.class)}>
+        {$tracks.slice(columnLength)}
+      </div>
+    )
+  } else {
+    throw new Error('`column` value must be 1 or 2')
+  }
+
+  return <div class='cf fw3'>{$content}</div>
 }
 
 module.exports = TrackList

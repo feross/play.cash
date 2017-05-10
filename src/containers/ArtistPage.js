@@ -14,8 +14,8 @@ class ArtistPage extends Component {
   componentDidMount () {
     const { entity } = store
     store.dispatch('FETCH_ARTIST_INFO', { name: entity.name })
-    store.dispatch('FETCH_ARTIST_TOP_ALBUMS', { name: entity.name, limit: 18 })
-    store.dispatch('FETCH_ARTIST_TOP_TRACKS', { name: entity.name, limit: 30 })
+    store.dispatch('FETCH_ARTIST_TOP_ALBUMS', { name: entity.name, limit: 24 })
+    store.dispatch('FETCH_ARTIST_TOP_TRACKS', { name: entity.name, limit: 10 })
   }
 
   render (props) {
@@ -32,28 +32,37 @@ class ArtistPage extends Component {
     const topAlbums = artist.topAlbumUrls.map(getAlbum)
 
     if (topTracks.length > 0 && topAlbums.length > 0) {
-      const $topTracks = (
-        <div class='fl w-50 pr4'>
-          <Heading>Popular</Heading>
-          <TrackList tracks={topTracks} showArtistName={false} />
+      const summary = artist.summary && artist.summary.replace(/\n/g, '<br>')
+      let $summary = null
+      if (summary) {
+        $summary = (
+          <div class='mw7 f4 center lh-copy'>
+            <Heading class='tc'>Learn about {artist.name}</Heading>
+            <div dangerouslySetInnerHTML={{ __html: summary }} />
+          </div>
+        )
+      }
+
+      $content = (
+        <div>
+          <div class='mw7 center'>
+            <Heading class='tc'>Popular</Heading>
+            <TrackList tracks={topTracks} showArtistName={false} columns={2} />
+          </div>
+          <div>
+            <Heading class='tc'>Albums</Heading>
+            <AlbumList albums={topAlbums} showArtistName={false} size='small' />
+          </div>
+          {$summary}
         </div>
       )
-
-      const $topAlbums = (
-        <div class='fl w-50'>
-          <Heading>Top Albums</Heading>
-          <AlbumList albums={topAlbums} showArtistName={false} />
-        </div>
-      )
-
-      $content = [$topTracks, $topAlbums]
     }
 
     const coverImage = artist.images[artist.images.length - 1]
     const listeners = formatInt(artist.listeners)
 
     return (
-      <ContentSheet class='cf'>
+      <ContentSheet>
         <div
           class='artist-page-cover relative cover nl4 nr4 nt6 mb3 text-outline shadow-2'
           style={{
