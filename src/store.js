@@ -395,7 +395,7 @@ function addSearch (search) {
       artists: search.artists.map(artist => artist.url),
       tracks: search.tracks.map(track => track.url),
       albums: search.albums.map(album => album.url),
-      top: search.top.url
+      top: search.top && search.top.url
     }
   )
   return store.searches[search.url]

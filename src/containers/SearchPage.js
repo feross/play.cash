@@ -28,12 +28,11 @@ class SearchPage extends Component {
     let $content = <Loader />
 
     if (results) {
-      const topResult = getEntity(results.top)
       let $topResult = null
-      if (topResult.type === 'artist') {
-        $topResult = <Artist artist={topResult} />
-      } else if (topResult.type === 'album') {
-        $topResult = <Album album={topResult} />
+      if (results.top) {
+        const topResult = getEntity(results.top)
+        if (topResult.type === 'artist') $topResult = <Artist artist={topResult} />
+        else if (topResult.type === 'album') $topResult = <Album album={topResult} />
       }
 
       const tracks = results.tracks.map(getTrack)
