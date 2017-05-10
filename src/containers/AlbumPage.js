@@ -4,7 +4,6 @@ const entity = require('../entity')
 const store = require('../store')
 const { getArtistByName, getAlbum } = require('../store-getters')
 
-const ContentSheet = require('../components/ContentSheet')
 const Link = require('../components/Link')
 const Loader = require('../components/Loader')
 const Album = require('../components/Album')
@@ -29,7 +28,7 @@ class AlbumPage extends Component {
     const album = getAlbum(entity.url)
 
     if (!album || !album.images) {
-      return <ContentSheet><Loader /></ContentSheet>
+      return <Loader center />
     }
 
     let $content = <Loader />
@@ -41,7 +40,7 @@ class AlbumPage extends Component {
     }
 
     return (
-      <ContentSheet>
+      <div>
         <div class='cf'>
           <Album
             class='fl w-30 pr4'
@@ -61,7 +60,7 @@ class AlbumPage extends Component {
           </div>
         </div>
         {$content}
-      </ContentSheet>
+      </div>
     )
   }
 }

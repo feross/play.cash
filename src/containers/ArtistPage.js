@@ -7,7 +7,6 @@ const { formatInt } = require('../format')
 
 const ArtistList = require('../components/ArtistList')
 const AlbumList = require('../components/AlbumList')
-const ContentSheet = require('../components/ContentSheet')
 const Heading = require('../components/Heading')
 const Loader = require('../components/Loader')
 const TrackList = require('../components/TrackList')
@@ -33,7 +32,7 @@ class ArtistPage extends Component {
     const artist = getArtist(entity.url)
 
     if (!artist || !artist.images) {
-      return <ContentSheet><Loader /></ContentSheet>
+      return <Loader center />
     }
 
     let $content = <Loader />
@@ -97,7 +96,7 @@ class ArtistPage extends Component {
     }
 
     return (
-      <ContentSheet>
+      <div>
         <div
           class='artist-page-cover relative cover nl4 nr4 nt6 mb3 text-outline shadow-2'
           style={{
@@ -113,7 +112,7 @@ class ArtistPage extends Component {
           {$listeners}
         </div>
         {$content}
-      </ContentSheet>
+      </div>
     )
   }
 }

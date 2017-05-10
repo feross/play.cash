@@ -4,7 +4,6 @@ const store = require('../store')
 const { getArtist, getTrack } = require('../store-getters')
 
 const ArtistList = require('../components/ArtistList')
-const ContentSheet = require('../components/ContentSheet')
 const Heading = require('../components/Heading')
 const Loader = require('../components/Loader')
 const TrackList = require('../components/TrackList')
@@ -26,19 +25,19 @@ class HomePage extends Component {
     const topTracks = topTrackUrls.map(getTrack)
 
     if (topArtists.length === 0 || topTracks.length === 0) {
-      return <ContentSheet><Loader /></ContentSheet>
+      return <Loader center />
     }
 
     const $topArtists = <ArtistList artists={topArtists} size='small' />
     const $topTracks = <TrackList tracks={topTracks} />
 
     return (
-      <ContentSheet>
+      <div>
         <Heading class='tc'>Top Artists</Heading>
         {$topArtists}
         <Heading class='tc'>Top Songs</Heading>
         {$topTracks}
-      </ContentSheet>
+      </div>
     )
   }
 }

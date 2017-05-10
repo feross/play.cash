@@ -5,6 +5,7 @@ const store = require('../store')
 const { getTrack } = require('../store-getters')
 
 const FactsOverlay = require('./FactsOverlay')
+const Loader = require('../components/Loader')
 
 class TrackPage extends Component {
   componentDidMount () {
@@ -23,19 +24,25 @@ class TrackPage extends Component {
 
   render (props) {
     const { entity, player } = store
-
     const track = getTrack(entity.url)
 
     const facts = track && track.facts
 
+    const $bufferingLoader = player.buffering
+      ? <Loader center />
+      : null
+
     return (
-      <FactsOverlay
-        time={player.time}
-        duration={player.duration}
-        width={player.width}
-        height={player.height}
-        facts={facts}
-      />
+      <div>
+        <FactsOverlay
+          time={player.time}
+          duration={player.duration}
+          width={player.width}
+          height={player.height}
+          facts={facts}
+        />
+        {$bufferingLoader}
+      </div>
     )
   }
 }

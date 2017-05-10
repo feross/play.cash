@@ -8,7 +8,6 @@ const Album = require('../components/Album')
 const AlbumList = require('../components/AlbumList')
 const Artist = require('../components/Artist')
 const ArtistList = require('../components/ArtistList')
-const ContentSheet = require('../components/ContentSheet')
 const Heading = require('../components/Heading')
 const Loader = require('../components/Loader')
 const TrackList = require('../components/TrackList')
@@ -34,7 +33,7 @@ class SearchPage extends Component {
 
     const results = searches[url]
 
-    let $content = <Loader />
+    let $content = <Loader center />
 
     if (results) {
       let $topResult = null
@@ -76,13 +75,13 @@ class SearchPage extends Component {
     }
 
     return (
-      <ContentSheet class='cf'>
+      <div class='cf'>
         <Heading class='tc'>
           <span class='white-50'>Showing results for </span>
           <span>{q}</span>
         </Heading>
         {$content}
-      </ContentSheet>
+      </div>
     )
   }
 }

@@ -1,12 +1,22 @@
 // TODO: delay actually rendering the heart for 250ms to prevent flash
 
 const { h } = require('preact') /** @jsx h */
+const c = require('classnames')
 
 const Image = require('./Image')
 
 const Loader = (props) => {
+  const style = {}
+
+  if (props.center) {
+    style.marginTop = 'calc(50vh - 120px)'
+  }
+
   return (
-    <div class='tc mt3'>
+    <div
+      class={c('tc mt3', props.class)}
+      style={style}
+    >
       <Image class='rotate-180' src='/img/triangle.svg' alt='Loading...' />
     </div>
   )
