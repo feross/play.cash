@@ -28,7 +28,7 @@ const App = (props) => {
   const Page = PAGES[location.name] || PAGES['not-found']
 
   return (
-    <div id='app' class='black-90 f5'>
+    <div id='app'>
       <Player />
       <Header />
       <Page />

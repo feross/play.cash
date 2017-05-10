@@ -1,5 +1,5 @@
 /**
- * Additional tachyon-like styles
+ * Single-purpose classes (in Tachyons style)
  */
 
 .body-font {
@@ -22,60 +22,26 @@
     1px 1px 5px rgba(0, 0, 0, 0.15);
 }
 
-/**
- * Tweaks to tachyons built-in styles
- */
-
-.grow {
-  transition:transform 0.15s ease-out;
+/* Width calculation between .w-10 and .w-20 */
+.w-sixth {
+  width: calc(100% / 6);
 }
 
-.grow:active {
-  transform: scale(.90);
-  transition:transform 0.1s ease-out;
+@media screen and (min-width: 60em) {
+  .w-sixth-l {
+    width: calc(100% / 6);
+  }
 }
 
-/* Smaller max-width 9 */
-.mw9 {
-  max-width: 70rem
+@media screen and (max-width: 60em) and (min-width: 30em) {
+  .w-sixth-m {
+    width: calc(100% / 6);
+  }
 }
 
-/**
- * Specific styles (minimize the number of these!)
- */
-
-.fact-drop-cap {
-  font-size: 120px;
-  position: absolute;
-  top: -60px;
-  left: -35px;
-
-  text-shadow:
-    -1px -1px 1px rgba(255, 255, 255, 1),
-    1px -1px 1px rgba(255, 255, 255, 1),
-    -1px 1px 1px rgba(255, 255, 255, 1),
-    1px 1px 1px rgba(255, 255, 255, 1);
-}
-
-.fact {
-  border-style: solid;
-  border-width: 0.67rem;
-  border-color: #000000;
-  border-image-source: url('/img/border-image.png');
-  border-image-slice: 4% 4.5% fill;
-  border-image-width: 0.67rem;
-  border-image-outset: 0.45rem 0.35rem;
-  border-image-repeat: round;
-  padding: 11px 16px 9px 17px;
-  hyphens: auto;
-  font-size: 19px;
-  text-align: justify;
-}
-
-@media screen and (min-width: 100em) {
-  .fact {
-    padding: 13px 18px 11px 19px;
-    font-size: 23px;
+@media screen and (min-width: 30em) {
+  .w-sixth-ns {
+    width: calc(100% / 6);
   }
 }
 
@@ -141,4 +107,55 @@
 .animate-bounce-out {
   animation-name: animateBounceOut;
   animation-duration: .4s;
+}
+
+/**
+ * Specific styles (minimize the number of these!)
+ */
+
+.artist-page-cover {
+  height: 50vh;
+  background-position: center 20%, center center;
+}
+
+@media screen and (min-width: 100em) {
+  .artist-page-cover {
+    height: 60vh;
+    background-position: center 20%, center center;
+  }
+}
+
+.fact-drop-cap {
+  font-size: 120px;
+  position: absolute;
+  top: -60px;
+  left: -35px;
+
+  text-shadow:
+    -1px -1px 1px rgba(255, 255, 255, 1),
+    1px -1px 1px rgba(255, 255, 255, 1),
+    -1px 1px 1px rgba(255, 255, 255, 1),
+    1px 1px 1px rgba(255, 255, 255, 1);
+}
+
+.fact {
+  border-style: solid;
+  border-width: 0.67rem;
+  border-color: #000000;
+  border-image-source: url('/img/border-image.png');
+  border-image-slice: 4% 4.5% fill;
+  border-image-width: 0.67rem;
+  border-image-outset: 0.45rem 0.35rem;
+  border-image-repeat: round;
+  padding: 11px 16px 9px 17px;
+  hyphens: auto;
+  font-size: 19px;
+  text-align: justify;
+}
+
+@media screen and (min-width: 100em) {
+  .fact {
+    padding: 13px 18px 11px 19px;
+    font-size: 23px;
+  }
 }

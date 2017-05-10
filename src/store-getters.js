@@ -2,7 +2,8 @@ module.exports = {
   getArtist,
   getArtistByName,
   getAlbum,
-  getTrack
+  getTrack,
+  getEntity
 }
 
 const entity = require('./entity')
@@ -31,4 +32,11 @@ function getTrack (trackUrl) {
   const artist = store.artists[artistUrl]
   if (!artist) return null
   return artist.tracks[trackUrl]
+}
+
+function getEntity (entityUrl) {
+  const ent = entity.decode(entityUrl)
+  if (ent.type === 'artist') return getArtist(entityUrl)
+  if (ent.type === 'track') return getTrack(entityUrl)
+  if (ent.type === 'album') return getAlbum(entityUrl)
 }

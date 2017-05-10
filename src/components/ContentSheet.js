@@ -3,8 +3,6 @@ const c = require('classnames')
 
 const store = require('../store')
 
-const Sheet = require('./Sheet')
-
 class ContentSheet extends Component {
   constructor (props) {
     super(props)
@@ -12,26 +10,25 @@ class ContentSheet extends Component {
   }
 
   render (props) {
-    const cls = store.player.videoId
-      ? 'bg-white-40'
-      : 'bg-white-80'
+    const cls = store.player.videoId && 'bg-black-40'
 
     return (
       <div
-        class='content-sheet mt5 pa4 relative'
+        class={c('relative mt5 pa4', cls, props.class)}
         onClick={this._onClick}
       >
-        <Sheet class={c('mw9 center', cls, props.class)}>
-          {props.children}
-        </Sheet>
+        {props.children}
       </div>
     )
   }
 
   _onClick (e) {
-    if (e.target.classList.contains('content-sheet')) {
-      store.dispatch('LOCATION_PUSH', store.currentTrackUrl)
+    if (store.currentTrackUrl == null) return
+    if (e.target !== e.currentTarget &&
+        (!e.target.parentElement || e.target.parentElement !== e.currentTarget)) {
+      return
     }
+    store.dispatch('LOCATION_PUSH', store.currentTrackUrl)
   }
 }
 

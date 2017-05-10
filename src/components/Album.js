@@ -21,7 +21,7 @@ const Album = (props) => {
 
   const $image = (
     <ProgressiveImage
-      class='w-100 db ba b--black-20'
+      class='w-100 db shadow-2'
       src={images}
       sizes={sizes}
       sizeHint={sizeHint}
@@ -29,28 +29,21 @@ const Album = (props) => {
     />
   )
 
-  let $metadata = []
+  let $metadata = null
   if (showName || showArtistName) {
+    const $metadataContents = []
     if (showName) {
-      $metadata.push(
-        <div>
-          <dt class='clip'>Title</dt>
-          <dd class='ml0 black truncate w-100'>{album.name}</dd>
-        </div>
-      )
+      $metadataContents.push(<dt class='clip'>Title</dt>)
+      $metadataContents.push(<dd class='ml0 truncate w-100'>{album.name}</dd>)
     }
 
     if (showArtistName) {
-      $metadata.push(
-        <div>
-          <dt class='clip'>Artist</dt>
-          <dd class='ml0 silver truncate w-100'>{album.artistName}</dd>
-        </div>
-      )
+      $metadataContents.push(<dt class='clip'>Artist</dt>)
+      $metadataContents.push(<dd class='ml0 white-50 truncate w-100'>By {album.artistName}</dd>)
     }
 
     $metadata = (
-      <dl class='mt2 f5 lh-copy'>{$metadata}</dl>
+      <dl class='mv2 f5 f4-m f4-l lh-copy'>{$metadataContents}</dl>
     )
   }
 
@@ -60,8 +53,8 @@ const Album = (props) => {
     return (
       <Link
         href={album.url}
-        class={c('db no-underline grow tc', props.class)}
-        defaultStyle={false}
+        class={c('db tc', props.class)}
+        color='inherit'
       >
         {$contents}
       </Link>

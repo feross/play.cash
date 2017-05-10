@@ -26,7 +26,7 @@ const TrackList = (props) => {
           cls
         )}
         href={track.url}
-        defaultStyle={false}
+        color='inherit'
       >
         <i class='material-icons fl nt1 nl1 absolute'>play_arrow</i>
         <span class='ml4'>{track.name}</span>

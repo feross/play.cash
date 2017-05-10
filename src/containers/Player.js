@@ -37,7 +37,7 @@ class Player extends Component {
   render (props) {
     const { player } = store
     return (
-      <div id='player' class='fixed top-0'>
+      <div id='player' class='fixed z-0 top-0'>
         <YouTubePlayer
           videoId={player.videoId}
           playing={player.playing}

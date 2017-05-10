@@ -13,7 +13,7 @@ const c = require('classnames')
 
 const Button = (props) => {
   const {
-    size = 's',
+    size = 'small',
     fill = false,
     pill = false,
     color = 'blue',
@@ -21,11 +21,11 @@ const Button = (props) => {
     onClick = () => {}
   } = props
 
-  let cls = ['link bw2 dib grow ttu']
+  let cls = ['link bw2 dib grow ttu fw6']
 
-  if (size === 's') cls.push('f6 ph3 pv2')
-  if (size === 'm') cls.push('f5 ph3 pv2')
-  if (size === 'l') cls.push('f3 ph4 pv3')
+  if (size === 'small') cls.push('f6 ph3 pv2')
+  if (size === 'medium') cls.push('f5 ph3 pv2')
+  if (size === 'large') cls.push('f3 ph4 pv3')
 
   if (fill) cls.push('white', `bg-${color}`)
   else cls.push('ba', color)

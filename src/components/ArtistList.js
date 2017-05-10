@@ -10,21 +10,22 @@ const ArtistList = (props) => {
   } = props
 
   let cls
-  if (size === 'large') cls = 'w-100 w-50-m w-33-l'
-  if (size === 'medium') cls = 'w-50 w-33-m w-25-l'
-  if (size === 'small') cls = 'w-50 w-25-m w-20-l'
+  if (size === 'large') cls = 'w-100 w-50-m w-third-l'
+  if (size === 'medium') cls = 'w-50 w-third-m w-25-l'
+  if (size === 'small') cls = 'w-50 w-third-m w-sixth-l'
 
   const $artists = artists.map(artist => {
     return (
-      <Artist
-        class={c('fl pa2', cls)}
-        artist={artist}
-      />
+      <div class={c('fl pa2 pa2-m pa3-l mb3', cls)}>
+        <Artist
+          artist={artist}
+        />
+      </div>
     )
   })
 
   return (
-    <div class={c('cf', props.class)}>
+    <div class={c('cf mv3', props.class)}>
       {$artists}
     </div>
   )

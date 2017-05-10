@@ -15,22 +15,25 @@ const AlbumList = (props) => {
   let cls
   if (size === 'large') cls = 'w-100 w-50-m w-33-l'
   if (size === 'medium') cls = 'w-50 w-33-m w-25-l'
-  if (size === 'small') cls = 'w-50 w-25-m w-20-l'
+  if (size === 'small') cls = 'w-25 w-20-m w-sixth-l'
 
   const $albums = albums.map(album => {
     return (
-      <Album
-        class={c('fl pa2', cls)}
-        album={album}
-        showName={showName}
-        showArtistName={showArtistName}
-        showLink={showLink}
-      />
+      <div
+        class={c('fl pa2 pa2-m pa3-l mb3', cls)}
+      >
+        <Album
+          album={album}
+          showName={showName}
+          showArtistName={showArtistName}
+          showLink={showLink}
+        />
+      </div>
     )
   })
 
   return (
-    <div class={c('cf', props.class)}>
+    <div class={c('cf mv3', props.class)}>
       {$albums}
     </div>
   )

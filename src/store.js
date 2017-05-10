@@ -115,9 +115,9 @@ function dispatch (type, data) {
     case 'FETCH_SEARCH': {
       api.music({
         method: 'search',
-        artistsLimit: 3,
-        albumsLimit: 15,
-        tracksLimit: 30,
+        artistsLimit: 12,
+        albumsLimit: 18,
+        tracksLimit: 10,
         ...data
       }, (err, result) => {
         dispatch('FETCH_SEARCH_DONE', { err, result })

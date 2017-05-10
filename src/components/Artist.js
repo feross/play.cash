@@ -17,23 +17,31 @@ const Artist = (props) => {
     : '/img/default-album.svg'
 
   return (
-    <Link
-      href={artist.url}
-      class={c('db grow no-underline tc', props.class)}
-      defaultStyle={false}
-    >
-      <ProgressiveImage
-        class='w-100 db ba b--black-10 br4'
-        src={images}
-        sizes={sizes}
-        sizeHint={sizeHint}
-        alt={artist.name + ' Image'}
-      />
-      <dl class='mt2 f5 lh-copy'>
-        <dt class='clip'>Title</dt>
-        <dd class='ml0 black truncate w-100'>{artist.name}</dd>
-      </dl>
-    </Link>
+    <div>
+      <Link
+        href={artist.url}
+        class={c('db br-100', props.class)}
+      >
+        <ProgressiveImage
+          class='w-100 db br-100 shadow-2'
+          containerClass='br-100'
+          src={images}
+          sizes={sizes}
+          sizeHint={sizeHint}
+          alt={artist.name + ' Image'}
+        />
+      </Link>
+      <Link
+        href={artist.url}
+        class={c('db tc', props.class)}
+        color='inherit'
+      >
+        <dl class='mv2 f5 f4-m f4-l lh-copy'>
+          <dt class='clip'>Title</dt>
+          <dd class='ml0 truncate w-100'>{artist.name}</dd>
+        </dl>
+      </Link>
+    </div>
   )
 }
 
