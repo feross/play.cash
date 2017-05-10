@@ -57,18 +57,18 @@ function init (server, sessionStore) {
     res.header('X-UA-Compatible', 'IE=Edge,chrome=1')
 
     if (config.isProd) {
+      // Redirect to main site url, over https
+      if (req.method === 'GET' &&
+          (req.protocol !== 'https' || req.hostname !== config.host)) {
+        return res.redirect(301, config.httpOrigin + req.url)
+      }
+
       // Use HTTP Strict Transport Security
       // Lasts 1 year, incl. subdomains, allow browser preload list
       res.header(
         'Strict-Transport-Security',
         'max-age=31536000; includeSubDomains; preload'
       )
-
-      // Redirect to main site url, over https
-      if (req.method === 'GET' &&
-          (req.protocol !== 'https' || req.hostname !== config.host)) {
-        return res.redirect(301, config.httpOrigin + req.url)
-      }
     }
 
     next()
