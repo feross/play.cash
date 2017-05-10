@@ -34,7 +34,7 @@ class ArtistPage extends Component {
     if (topTracks.length > 0 && topAlbums.length > 0) {
       const $topTracks = (
         <div class='fl w-50 pr4'>
-          <Heading>Top Tracks</Heading>
+          <Heading>Popular</Heading>
           <TrackList tracks={topTracks} showArtistName={false} />
         </div>
       )

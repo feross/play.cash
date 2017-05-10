@@ -32,7 +32,7 @@ class ProgressiveImage extends Component {
     if (this.state.thumbLoaded && this.state.finalLoading) {
       $finalImage = (
         <Image
-          class={c('absolute top-0', props.class)}
+          class={c('db w-100 absolute top-0', props.imageClass)}
           style={props.style}
           src={sources}
           sizes={sizes}
@@ -44,10 +44,10 @@ class ProgressiveImage extends Component {
 
     return (
       <div
-        class={c('relative', props.containerClass)}
+        class={c('relative', props.class)}
       >
         <Image
-          class={c(props.class)}
+          class={c('db w-100', props.imageClass)}
           style={props.style}
           src={sources[0]}
           alt={alt}

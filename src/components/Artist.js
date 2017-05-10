@@ -23,8 +23,8 @@ const Artist = (props) => {
         class={c('db br-100', props.class)}
       >
         <ProgressiveImage
-          class='w-100 db br-100 shadow-2'
-          containerClass='br-100'
+          class='shadow-2 br-100'
+          imageClass='br-100'
           src={images}
           sizes={sizes}
           sizeHint={sizeHint}

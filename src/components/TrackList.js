@@ -10,33 +10,56 @@ const TrackList = (props) => {
   } = props
 
   const $tracks = tracks.map((track, i) => {
-    const cls = (i !== tracks.length - 1)
-      ? 'bb b--black-20'
-      : ''
-
     let $artistName = null
     if (showArtistName) {
-      $artistName = <span class='pl2 black-40'>{track.artistName}</span>
+      $artistName = (
+        <div class='white-40 mt1' style={{
+          marginLeft: '3rem'
+        }}>
+          {track.artistName}
+        </div>
+      )
     }
 
     return (
       <Link
-        class={c(
-          'db pa3 truncate link color-inherit hover-bg-washed-red',
-          cls
-        )}
+        class='track db pa3 truncate color-inherit hover-bg-black-50 bg-animate'
         href={track.url}
         color='inherit'
       >
-        <i class='material-icons fl nt1 nl1 absolute'>play_arrow</i>
-        <span class='ml4'>{track.name}</span>
+        <div
+          class='fl tr'
+          style={{
+            width: 20
+          }}
+        >
+          <i
+            class='play-arrow material-icons absolute mr1 dn'
+            style={{
+              fontSize: 28,
+              marginTop: '-0.15rem',
+              marginLeft: '-0.3rem'
+            }}
+          >
+            play_arrow
+          </i>
+          <div class='track-num mt1 white-40'>{i + 1}.</div>
+        </div>
+        <div
+          class='f4'
+          style={{
+            marginLeft: '3rem'
+          }}
+        >
+          {track.name}
+        </div>
         {$artistName}
       </Link>
     )
   })
 
   return (
-    <div class={c('db pl0 ba b--black-20 br2 bg-white-70', props.class)}>
+    <div class={c('db fw3', props.class)}>
       {$tracks}
     </div>
   )

@@ -22,7 +22,7 @@ class Search extends Component {
           props.class
         )}
         spellCheck='false'
-        placeholder={'Search for songs, artists...'}
+        placeholder={'Search for an Artist, Song, or Album'}
         value={value}
         onInput={this._onInput}
         onKeyPress={this._onKeyPress}

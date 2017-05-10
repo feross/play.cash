@@ -21,7 +21,7 @@ const Album = (props) => {
 
   const $image = (
     <ProgressiveImage
-      class='w-100 db shadow-2'
+      class='shadow-2'
       src={images}
       sizes={sizes}
       sizeHint={sizeHint}
@@ -39,7 +39,7 @@ const Album = (props) => {
 
     if (showArtistName) {
       $metadataContents.push(<dt class='clip'>Artist</dt>)
-      $metadataContents.push(<dd class='ml0 white-50 truncate w-100'>By {album.artistName}</dd>)
+      $metadataContents.push(<dd class='ml0 white-40 truncate w-100'>By {album.artistName}</dd>)
     }
 
     $metadata = (

@@ -47,7 +47,7 @@ class SearchPage extends Component {
 
       $content = (
         <div>
-          <div class='cf'>
+          <div class='cf mt4'>
             <div class='fl w-third pr4'>
               <div class='mw6 center'>
                 {$topResult}
@@ -69,8 +69,8 @@ class SearchPage extends Component {
 
     return (
       <ContentSheet class='cf'>
-        <Heading>
-          <span class='white-60'>Showing results for </span>
+        <Heading class='tc'>
+          <span class='white-50'>Showing results for </span>
           <span>{q}</span>
         </Heading>
         {$content}

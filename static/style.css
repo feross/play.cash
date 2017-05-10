@@ -125,6 +125,14 @@
   }
 }
 
+.track:hover .track-num {
+  display: none;
+}
+
+.track:hover .play-arrow {
+  display: block;
+}
+
 .fact-drop-cap {
   font-size: 120px;
   position: absolute;
