@@ -6,10 +6,12 @@ const c = require('classnames')
 const Image = require('./Image')
 
 const Loader = (props) => {
-  const style = {}
+  let style = props.style
 
   if (props.center) {
-    style.marginTop = 'calc(50vh - 120px)'
+    style = Object.assign({
+      marginTop: 'calc(50vh - 120px)'
+    }, style)
   }
 
   return (

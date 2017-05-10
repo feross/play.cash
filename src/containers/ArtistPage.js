@@ -35,7 +35,7 @@ class ArtistPage extends Component {
       return <Loader center />
     }
 
-    let $content = <Loader />
+    let $content = <Loader style={{ marginTop: 'calc(35vh - 120px)' }} />
 
     const topTracks = artist.topTrackUrls.map(getTrack)
     const topAlbums = artist.topAlbumUrls.map(getAlbum)
