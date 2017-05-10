@@ -113,6 +113,10 @@
  * Specific styles (minimize the number of these!)
  */
 
+body {
+  user-select: none;
+}
+
 .artist-page-cover {
   height: 50vh;
   background-position: center 20%, center center;
