@@ -47,7 +47,7 @@ const Album = (props) => {
     )
   }
 
-  const $contents = [$image, $metadata]
+  const $content = [$image, $metadata]
 
   if (showLink) {
     return (
@@ -56,11 +56,11 @@ const Album = (props) => {
         class={c('db tc', props.class)}
         color='inherit'
       >
-        {$contents}
+        {$content}
       </Link>
     )
   } else {
-    return <div {...rest}>{$contents}</div>
+    return <div {...rest}>{$content}</div>
   }
 }
 
