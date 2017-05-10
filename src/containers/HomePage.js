@@ -21,7 +21,7 @@ class HomePage extends Component {
     const topArtists = topArtistUrls.map(getArtist)
     const topTracks = topTrackUrls.map(getTrack)
 
-    if (topArtists.length === 0 && topTracks.length === 0) {
+    if (topArtists.length === 0 || topTracks.length === 0) {
       return <ContentSheet><Loader /></ContentSheet>
     }
 
