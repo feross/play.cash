@@ -14,8 +14,10 @@ class YouTubePlayer extends Component {
       playbackRate: 1,
       onError: () => {},
       onUnplayable: () => {},
+      onEnded: () => {},
       onPlaying: () => {},
       onPaused: () => {},
+      onBuffering: () => {},
       onDuration: () => {},
       onTimeupdate: () => {}
     }
@@ -31,8 +33,10 @@ class YouTubePlayer extends Component {
     this._ref = this._ref.bind(this)
     this._onError = this._onError.bind(this)
     this._onUnplayable = this._onUnplayable.bind(this)
+    this._onEnded = this._onEnded.bind(this)
     this._onPlaying = this._onPlaying.bind(this)
     this._onPaused = this._onPaused.bind(this)
+    this._onBuffering = this._onBuffering.bind(this)
     this._onCued = this._onCued.bind(this)
     this._onTimeupdate = this._onTimeupdate.bind(this)
   }
@@ -122,8 +126,10 @@ class YouTubePlayer extends Component {
 
     this.player.on('error', this._onError)
     this.player.on('unplayable', this._onUnplayable)
+    this.player.on('ended', this._onEnded)
     this.player.on('playing', this._onPlaying)
     this.player.on('paused', this._onPaused)
+    this.player.on('buffering', this._onBuffering)
     this.player.on('cued', this._onCued)
     this.player.on('timeupdate', this._onTimeupdate)
   }
@@ -148,6 +154,10 @@ class YouTubePlayer extends Component {
     this.props.onUnplayable(this.props.videoId)
   }
 
+  _onEnded () {
+    this.props.onEnded()
+  }
+
   _onPlaying () {
     this._onCued()
     this.props.onPlaying()
@@ -155,6 +165,10 @@ class YouTubePlayer extends Component {
 
   _onPaused () {
     this.props.onPaused()
+  }
+
+  _onBuffering () {
+    this.props.onBuffering()
   }
 
   _onCued () {
