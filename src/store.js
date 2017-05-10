@@ -114,8 +114,6 @@ function dispatch (type, data) {
         window.loc.push(searchUrl)
       }
 
-      dispatch('FETCH_SEARCH', { q })
-
       return update()
     }
 
