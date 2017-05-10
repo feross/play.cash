@@ -1,9 +1,6 @@
 const { h, render } = require('preact') /** @jsx h */
 
-const debug = require('debug')('play')
-
 const App = require('./containers/App')
-const config = require('../config')
 const Location = require('./lib/location')
 const routes = require('./routes')
 const store = require('./store')

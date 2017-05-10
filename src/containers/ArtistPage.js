@@ -38,7 +38,7 @@ class ArtistPage extends Component {
         $summary = (
           <div class='mw7 f4 center lh-copy'>
             <Heading class='tc'>Learn about {artist.name}</Heading>
-            <div dangerouslySetInnerHTML={{ __html: summary }} />
+            <div class='white-80' dangerouslySetInnerHTML={{ __html: summary }} />
           </div>
         )
       }

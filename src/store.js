@@ -19,7 +19,8 @@ const store = {
 
     // not settable (reflects player state)
     time: 0,
-    duration: 0
+    duration: 0,
+    buffering: true
   },
   searches: {},
   lastSearch: '',
@@ -72,6 +73,12 @@ function dispatch (type, data) {
 
     case 'PLAYER_PLAYING': {
       store.player.playing = data
+      store.player.buffering = false
+      return update()
+    }
+
+    case 'PLAYER_BUFFERING': {
+      store.player.buffering = true
       return update()
     }
 

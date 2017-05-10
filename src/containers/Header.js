@@ -27,7 +27,7 @@ const Header = (props) => {
   return (
     <header
       id='header'
-      class='fixed z-1 top-0 w-100 shadow-1'
+      class='fixed z-2 top-0 w-100 shadow-1'
       style={{
         backgroundColor: 'rgba(255,65,54, 0.8)'
       }}

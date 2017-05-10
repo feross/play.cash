@@ -19,7 +19,9 @@ class Player extends Component {
   constructor (props) {
     super(props)
     this._onResizeThrottled = throttle(this._onResize.bind(this), 500)
+    this._onEnded = this._onEnded.bind(this)
     this._onTimeupdate = this._onTimeupdate.bind(this)
+    this._onBuffering = this._onBuffering.bind(this)
   }
 
   componentWillMount () {
@@ -36,9 +38,33 @@ class Player extends Component {
 
   render (props) {
     const { player } = store
+
+    let $loadingVideo = null
+    if (player.buffering) {
+      $loadingVideo = (
+        <video
+          class='z-0 h-100'
+          style={{
+            opacity: 0.5,
+            width: '177.77777778vh', /* 100 * 16 / 9 */
+            minWidth: '100%',
+            minHeight: '56.25vw' /* 100 * 9 / 16 */
+          }}
+          autoplay
+          loop
+          volume='0'
+        >
+          <source src='/glitch.webm' type='video/webm; codecs=vp9' />
+          <source src='/glitch.mp4' type='video/mp4' />
+        </video>
+      )
+    }
+
     return (
-      <div id='player' class='fixed z-0 top-0'>
+      <div id='player' class='fixed w-100 vh-100 top-0'>
+        {$loadingVideo}
         <YouTubePlayer
+          class='z-1'
           videoId={player.videoId}
           playing={player.playing}
           volume={player.volume}
@@ -48,8 +74,10 @@ class Player extends Component {
           playerOpts={PLAYER_OPTS}
           onError={this._onError}
           onUnplayable={this._onUnplayable}
+          onEnded={this._onEnded}
           onPlaying={this._onPlaying}
           onPaused={this._onPaused}
+          onBuffering={this._onBuffering}
           onDuration={this._onDuration}
           onTimeupdate={this._onTimeupdate}
         />
@@ -71,12 +99,20 @@ class Player extends Component {
     store.dispatch('PLAYER_ERROR', new Error('Unplayable video ' + videoId))
   }
 
+  _onEnded () {
+    console.log('TODO: handle player ended')
+  }
+
   _onPlaying () {
     store.dispatch('PLAYER_PLAYING', true)
   }
 
   _onPaused () {
     store.dispatch('PLAYER_PLAYING', false)
+  }
+
+  _onBuffering () {
+    store.dispatch('PLAYER_BUFFERING')
   }
 
   _onDuration (duration) {
