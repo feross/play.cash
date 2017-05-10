@@ -51,7 +51,6 @@ class FactsOverlay extends Component {
     if (currentFactIndex === -1) return null
 
     const timedFact = timedFacts[currentFactIndex]
-    console.log(timedFact.end, time)
     const animateCls = timedFact.end - time > GAP_DURATION
       ? 'animate-bounce-in'
       : 'animate-bounce-out'
