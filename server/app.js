@@ -66,7 +66,7 @@ function init (server, sessionStore) {
 
       // Redirect to main site url, over https
       if (req.method === 'GET' &&
-          (req.protocol !== 'https' || req.hostname !== config.hostname)) {
+          (req.protocol !== 'https' || req.hostname !== config.host)) {
         return res.redirect(301, config.httpOrigin + req.url)
       }
     }
