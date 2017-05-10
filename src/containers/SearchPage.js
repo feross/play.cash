@@ -1,5 +1,6 @@
 const { Component, h } = require('preact') /** @jsx h */
 
+const entity = require('../entity')
 const store = require('../store')
 const { getArtist, getAlbum, getTrack, getEntity } = require('../store-getters')
 
@@ -18,12 +19,7 @@ class SearchPage extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    const props = this.props
-    const currentUrl = props.entity && props.entity.url
-    const nextUrl = nextProps.entity && nextProps.entity.url
-    if (currentUrl !== nextUrl) {
-      this._fetch()
-    }
+    if (!entity.equal(this.props.entity, nextProps.entity)) this._fetch()
   }
 
   _fetch () {

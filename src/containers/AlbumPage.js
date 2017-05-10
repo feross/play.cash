@@ -1,5 +1,6 @@
 const { Component, h } = require('preact') /** @jsx h */
 
+const entity = require('../entity')
 const store = require('../store')
 const { getArtistByName, getAlbum } = require('../store-getters')
 
@@ -11,6 +12,14 @@ const TrackList = require('../components/TrackList')
 
 class AlbumPage extends Component {
   componentDidMount () {
+    this._fetch()
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (!entity.equal(this.props.entity, nextProps.entity)) this._fetch()
+  }
+
+  _fetch () {
     const { entity } = store
     store.dispatch('FETCH_ALBUM_INFO', entity)
   }

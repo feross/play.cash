@@ -1,6 +1,7 @@
 module.exports = {
   encode,
-  decode
+  decode,
+  equal
 }
 
 const slug = require('./slug')
@@ -71,4 +72,10 @@ function decode (pathname) {
   ret.url = loc.pathname
 
   return ret
+}
+
+function equal (entityA, entityB) {
+  const urlA = entityA && entityA.url
+  const urlB = entityB && entityB.url
+  return urlA === urlB
 }

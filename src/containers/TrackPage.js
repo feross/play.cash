@@ -1,5 +1,6 @@
 const { Component, h } = require('preact') /** @jsx h */
 
+const entity = require('../entity')
 const store = require('../store')
 const { getTrack } = require('../store-getters')
 
@@ -7,6 +8,14 @@ const FactsOverlay = require('./FactsOverlay')
 
 class TrackPage extends Component {
   componentDidMount () {
+    this._fetch()
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (!entity.equal(this.props.entity, nextProps.entity)) this._fetch()
+  }
+
+  _fetch () {
     const { entity } = store
     store.dispatch('FETCH_TRACK', entity)
     store.dispatch('FETCH_FACTS', entity)
