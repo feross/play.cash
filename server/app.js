@@ -122,7 +122,9 @@ function init (server, sessionStore) {
   app.use((err, req, res, next) => {
     console.error(err.stack)
     const code = typeof err.code === 'number' ? err.code : 500
-    res.locals.initialStore.error = `${code}: ${http.STATUS_CODES[code]}`
+    if (res.locals.initialStore) {
+      res.locals.initialStore.error = `${code}: ${http.STATUS_CODES[code]}`
+    }
     res.status(code).render('index')
   })
 }
