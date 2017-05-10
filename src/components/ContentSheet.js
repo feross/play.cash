@@ -14,7 +14,7 @@ class ContentSheet extends Component {
 
     return (
       <div
-        class={c('relative mt5 pa4 pb5', cls, props.class)}
+        class={c('relative mt5 pa4 pb5 min-h-100', cls, props.class)}
         onClick={this._onClick}
       >
         {props.children}
