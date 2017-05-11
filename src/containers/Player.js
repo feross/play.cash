@@ -61,7 +61,7 @@ class Player extends Component {
     }
 
     return (
-      <div class='fixed top-0' style={{ 'z-index': -1 }}>
+      <div class='fixed absolute--fill ' style={{ 'z-index': -1 }}>
         <div id='player' class='absolute top-0 w-100 vh-100'>
           <YouTubePlayer
             videoId={player.videoId}
