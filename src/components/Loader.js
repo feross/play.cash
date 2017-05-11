@@ -10,7 +10,7 @@ const Loader = (props) => {
 
   if (props.center) {
     style = Object.assign({
-      marginTop: 'calc(50vh - 120px)'
+      marginTop: 'calc(50vh - 100px)'
     }, style)
   }
 
