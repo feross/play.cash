@@ -14,7 +14,7 @@ const TrackList = (props) => {
     let $artistName = null
     if (showArtistName) {
       $artistName = (
-        <div class='white-40 mt1' style={{
+        <div class='white-40 mt1 truncate' style={{
           marginLeft: '3rem'
         }}>
           {track.artistName}
@@ -24,7 +24,7 @@ const TrackList = (props) => {
 
     return (
       <Link
-        class='track db pa3 truncate color-inherit hover-bg-black-50 bg-animate'
+        class='track db pa3 color-inherit hover-bg-black-50 bg-animate'
         href={track.url}
         color='inherit'
       >
@@ -47,7 +47,7 @@ const TrackList = (props) => {
           <div class='track-num mt1 white-40'>{i + 1}.</div>
         </div>
         <div
-          class='f4'
+          class='f4 truncate'
           style={{
             marginLeft: '3rem'
           }}
