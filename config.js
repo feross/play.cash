@@ -47,6 +47,14 @@ exports.wsOrigin = (isProd ? 'wss' : 'ws') + '://' + exports.host
 exports.root = __dirname
 
 /**
+ * Maximum time to cache static resources (in milliseconds). This value is sent in the HTTP
+ * cache-control header.
+ */
+exports.maxAge = isProd
+  ? 7 * 24 * 3600000 // 7 days
+  : 0
+
+/**
  * Time to wait in milliseconds before an API request is considered timed out.
  */
 exports.apiTimeout = 30 * 1000

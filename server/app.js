@@ -71,8 +71,10 @@ function init (server, sessionStore) {
     next()
   })
 
-  app.use(express.static(path.join(config.root, 'static')))
-  app.use(express.static(path.dirname(require.resolve('tachyons'))))
+  const staticOpts = { maxAge: config.maxAge }
+
+  app.use(express.static(path.join(config.root, 'static'), staticOpts))
+  app.use(express.static(path.dirname(require.resolve('tachyons')), staticOpts))
 
   app.use(session({
     store: sessionStore,
