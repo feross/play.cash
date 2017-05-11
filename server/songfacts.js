@@ -26,7 +26,7 @@ class SongFacts {
       // Remove contributing user credits? (boolean)
       1,
       // Include artist art url?
-      1,
+      0,
       // Reserved
       0,
       // Reserved
