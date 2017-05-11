@@ -48,7 +48,7 @@
     "sbd": "^1.0.12",
     "simple-get": "^2.4.0",
     "simple-websocket": "^5.0.0",
-    "tachyons": "^4.5.5",
+    "tachyons": "4.7.1",
     "throttleit": "^1.0.0",
     "unlimited": "^1.2.0",
     "yt-player": "^2.0.0"
