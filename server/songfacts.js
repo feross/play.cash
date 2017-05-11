@@ -87,7 +87,7 @@ class SongFacts {
             usChart: Number(info.uschartpos) || undefined,
             ukChart: Number(info.ukchartpos) || undefined
           },
-          facts
+          facts: (facts && facts.fact) || []
         }
         return cb(null, result)
       }
