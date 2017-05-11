@@ -34,7 +34,8 @@ const store = {
 }
 
 function dispatch (type, data) {
-  debug('%s %o', type, data)
+  if (type !== 'PLAYER_TIMEUPDATE') debug('%s %o', type, data)
+
   switch (type) {
     /**
      * NAVIGATION
