@@ -3,6 +3,7 @@ module.exports = {
 }
 
 const compress = require('compression')
+const crypto = require('crypto')
 const express = require('express')
 const fs = require('fs')
 const http = require('http')
@@ -88,9 +89,20 @@ function init (server, sessionStore) {
     }
   }))
 
+  const bundleHash = config.isProd &&
+    '?' + createHash(fs.readFileSync(path.join(config.root, 'static', 'bundle.js')))
+
+  const styleHash = config.isProd &&
+    '?' + createHash(fs.readFileSync(path.join(config.root, 'static', 'style.css')))
+
   app.use((req, res, next) => {
-    res.locals.initialStore = {}
-    res.locals.initialStore.userName = req.session.user && req.session.user.userName
+    res.locals.initialStore = {
+      userName: req.session.user && req.session.user.userName
+    }
+    res.locals.hashes = {
+      bundle: bundleHash || '',
+      style: styleHash || ''
+    }
     next()
   })
 
@@ -129,4 +141,15 @@ function init (server, sessionStore) {
     }
     res.status(code).render('index')
   })
+}
+
+/**
+ * Create a cache-busting hash for static assets like `bundle.js` and `style.css`
+ */
+function createHash (data) {
+  return crypto.createHash('sha256')
+    .update(data)
+    .digest('base64')
+    .slice(0, 20)
+    .replace(/\+|\/|=/g, '')
 }

@@ -7,7 +7,7 @@
     <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300,400,600|Damion|Sriracha'>
     <link rel='stylesheet' href='/tachyons.min.css' charset='utf-8' />
-    <link rel='stylesheet' href='/style.css' charset='utf-8' />
+    <link rel='stylesheet' href='/style.css{{hashes.style}}' charset='utf-8' />
   <body class='body-font white f5 fw3 bg-black-90 ma0 pa0 overflow-y-scroll'>
     <script>
       console.time('render')
@@ -15,6 +15,6 @@
       window.initialStore = {{{ initialStore }}}
     </script>
     <script async src='https://www.youtube.com/iframe_api'></script>
-    <script async src='/bundle.js'></script>
+    <script async src='/bundle.js{{hashes.bundle}}'></script>
   </body>
 </html>
