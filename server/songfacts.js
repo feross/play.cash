@@ -75,11 +75,16 @@ class SongFacts {
         return cb(new Error('Unexpected response from SongFacts API ' + JSON.stringify(data)))
       }
 
-      if (code === '0' || // No match found
-          code === '1' || // SongFacts match found
-          code === '2') { // ArtistFacts match found
+      // No match found
+      if (code === '0') {
+        cb(null, {
+          meta: {},
+          facts: []
+        })
+      } else if (code === '1' || code === '2') {
+        // SongFacts or ArtistFacts match found
         const result = {
-          info: {
+          meta: {
             name: info.songtitle,
             artistName: info.artistname,
             albumName: info.albumname,
@@ -90,10 +95,11 @@ class SongFacts {
           facts: (facts && facts.facts && facts.facts.fact) || []
         }
         return cb(null, result)
+      } else {
+        // Other error codes are treated as errors
+        const errMessage = result.text || ('Unknown SongFacts Error ' + JSON.stringify(data))
+        cb(new Error(errMessage))
       }
-
-      const errMessage = result.text || ('Unknown SongFacts Error ' + JSON.stringify(data))
-      cb(new Error(errMessage))
     }
   }
 }
