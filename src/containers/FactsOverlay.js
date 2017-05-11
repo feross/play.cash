@@ -65,7 +65,7 @@ class FactsOverlay extends Component {
 
     return (
       <div
-        class={c('fact fact-font absolute z-2 bg-white lh-copy', animateCls)}
+        class={c('fact fact-font absolute black bg-white lh-copy', animateCls)}
         style={{
           maxWidth: BUBBLE_WIDTH,
           ...timedFact.position
