@@ -10,11 +10,9 @@ class ContentSheet extends Component {
   }
 
   render (props) {
-    const cls = store.player.videoId && 'bg-black-40'
-
     return (
       <div
-        class={c('relative pb5 ph4 min-vh-100', cls, props.class)}
+        class={c('relative pb5 ph4 min-vh-100 bg-black-40', props.class)}
         style={{ paddingTop: '6.5rem' }}
         onClick={this._onClick}
       >
