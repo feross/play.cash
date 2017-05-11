@@ -16,8 +16,9 @@ const songfacts = new SongFacts(secret.songfacts, config.apiUserAgent)
 function apiFacts (opts, cb) {
   debug('%o', opts)
 
-  songfacts.getFacts(opts, (err, facts) => {
+  songfacts.getFacts(opts, (err, result) => {
     if (err) return cb(err)
+    const { facts } = result
     facts = facts.map(fact => sbd.sentences(fact))
     facts = [].concat(...facts)
     cb(null, facts)
