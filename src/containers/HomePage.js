@@ -36,7 +36,9 @@ class HomePage extends Component {
         <Heading class='tc'>Top Artists</Heading>
         {$topArtists}
         <Heading class='tc'>Top Songs</Heading>
-        {$topTracks}
+        <div class='mw7 center'>
+          {$topTracks}
+        </div>
       </div>
     )
   }
