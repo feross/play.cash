@@ -26,7 +26,7 @@ class SongFacts {
       // Remove contributing user credits? (boolean)
       1,
       // Include artist art url?
-      0,
+      1,
       // Reserved
       0,
       // Reserved
@@ -55,7 +55,45 @@ class SongFacts {
 
     function onResponse (err, res, data) {
       if (err) return cb(err)
-      cb(null, data)
+
+      const apiData = data && data.apidata
+      if (!apiData) {
+        return cb(new Error('Unexpected response from SongFacts API ' + JSON.stringify(data)))
+      }
+
+      // TODO: remove
+      console.log(JSON.stringify(data))
+
+      const {
+        result,
+        generalinfo: info,
+        factsquery: facts
+      } = apiData
+
+      const code = result && result.code
+      if (!code) {
+        return cb(new Error('Unexpected response from SongFacts API ' + JSON.stringify(data)))
+      }
+
+      if (code === '0' || // No match found
+          code === '1' || // SongFacts match found
+          code === '2') { // ArtistFacts match found
+        const result = {
+          info: {
+            name: info.songtitle,
+            artistName: info.artistname,
+            albumName: info.albumname,
+            released: Number(info.released) || undefined,
+            usChart: Number(info.uschartpos) || undefined,
+            ukChart: Number(info.ukchartpos) || undefined
+          },
+          facts
+        }
+        return cb(null, result)
+      }
+
+      const errMessage = result.text || ('Unknown SongFacts Error ' + JSON.stringify(data))
+      cb(new Error(errMessage))
     }
   }
 }
