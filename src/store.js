@@ -264,9 +264,6 @@ function dispatch (type, data) {
       api.video({ q, maxResults: 1 }, (err, result) => {
         dispatch('FETCH_TRACK_DONE', { err, result })
       })
-      store.player.playing = false
-      store.player.time = 0
-      store.player.duration = 0
       store.currentTrackUrl = track.url
       return update()
     }
@@ -278,7 +275,6 @@ function dispatch (type, data) {
       if (!video) return store.errors.push(new Error('No track found'))
 
       store.player.playing = true
-      store.player.time = 0
       store.player.videoId = video.id
       return update()
     }
