@@ -5,7 +5,7 @@ const sbd = require('sbd')
 
 const config = require('../config')
 const secret = require('../secret')
-const SongFacts = require('./songfacts-scrape')
+const SongFacts = require('./songfacts')
 
 const songfacts = new SongFacts(secret.songfacts, config.apiUserAgent)
 
@@ -16,11 +16,10 @@ const songfacts = new SongFacts(secret.songfacts, config.apiUserAgent)
 function apiFacts (opts, cb) {
   debug('%o', opts)
 
-  cb(null, [])
-  // songfacts.getFacts(opts, (err, facts) => {
-  //   if (err) return cb(err)
-  //   facts = facts.map(fact => sbd.sentences(fact))
-  //   facts = [].concat(...facts)
-  //   cb(null, facts)
-  // })
+  songfacts.getFacts(opts, (err, facts) => {
+    if (err) return cb(err)
+    facts = facts.map(fact => sbd.sentences(fact))
+    facts = [].concat(...facts)
+    cb(null, facts)
+  })
 }
