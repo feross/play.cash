@@ -50,6 +50,7 @@ class Player extends Component {
             minWidth: '100%',
             minHeight: '56.25vw' /* 100 * 9 / 16 */
           }}
+          playbackRate={0.5}
           autoplay
           loop
           volume='0'
