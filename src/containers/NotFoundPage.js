@@ -1,10 +1,12 @@
 const { h } = require('preact') /** @jsx h */
 
+const Sheet = require('../components/Sheet')
+
 const NotFoundPage = (props) => {
   return (
-    <div>
+    <Sheet>
       <h1>Error – Page Not Found</h1>
-    </div>
+    </Sheet>
   )
 }
 

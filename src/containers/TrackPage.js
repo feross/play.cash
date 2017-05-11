@@ -6,6 +6,7 @@ const { getTrack } = require('../store-getters')
 
 const FactsOverlay = require('./FactsOverlay')
 const Loader = require('../components/Loader')
+const Sheet = require('../components/Sheet')
 
 class TrackPage extends Component {
   componentDidMount () {
@@ -29,7 +30,7 @@ class TrackPage extends Component {
     const facts = track && track.facts
 
     const $bufferingLoader = player.buffering
-      ? <Loader center />
+      ? <Sheet><Loader center /></Sheet>
       : null
 
     return (

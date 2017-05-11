@@ -10,6 +10,7 @@ const Artist = require('../components/Artist')
 const ArtistList = require('../components/ArtistList')
 const Heading = require('../components/Heading')
 const Loader = require('../components/Loader')
+const Sheet = require('../components/Sheet')
 const TrackList = require('../components/TrackList')
 
 class SearchPage extends Component {
@@ -75,13 +76,13 @@ class SearchPage extends Component {
     }
 
     return (
-      <div class='cf'>
+      <Sheet class='cf'>
         <Heading class='tc'>
           <span class='white-50'>Showing results for </span>
           <span>{q}</span>
         </Heading>
         {$content}
-      </div>
+      </Sheet>
     )
   }
 }

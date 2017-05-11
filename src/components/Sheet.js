@@ -3,7 +3,7 @@ const c = require('classnames')
 
 const store = require('../store')
 
-class ContentSheet extends Component {
+class Sheet extends Component {
   constructor (props) {
     super(props)
     this._onClick = this._onClick.bind(this)
@@ -31,4 +31,4 @@ class ContentSheet extends Component {
   }
 }
 
-module.exports = ContentSheet
+module.exports = Sheet

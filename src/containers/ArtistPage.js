@@ -9,6 +9,7 @@ const ArtistList = require('../components/ArtistList')
 const AlbumList = require('../components/AlbumList')
 const Heading = require('../components/Heading')
 const Loader = require('../components/Loader')
+const Sheet = require('../components/Sheet')
 const TrackList = require('../components/TrackList')
 
 class ArtistPage extends Component {
@@ -32,7 +33,7 @@ class ArtistPage extends Component {
     const artist = getArtist(entity.url)
 
     if (!artist || !artist.images) {
-      return <Loader center />
+      return <Sheet><Loader center /></Sheet>
     }
 
     let $content = <Loader style={{ marginTop: 'calc(35vh - 120px)' }} />
@@ -96,7 +97,7 @@ class ArtistPage extends Component {
     }
 
     return (
-      <div>
+      <Sheet>
         <div
           class='artist-page-cover relative cover nl4 nr4 nt6 mb3 text-outline shadow-2'
           style={{
@@ -112,7 +113,7 @@ class ArtistPage extends Component {
           {$listeners}
         </div>
         {$content}
-      </div>
+      </Sheet>
     )
   }
 }

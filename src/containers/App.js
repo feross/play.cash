@@ -2,7 +2,6 @@ const { h } = require('preact') /** @jsx h */
 
 const store = require('../store')
 
-const ContentSheet = require('../components/ContentSheet')
 const Header = require('../containers/Header')
 const Player = require('./Player')
 // const Footer = require('../components/Footer') TODO
@@ -32,9 +31,7 @@ const App = (props) => {
     <div id='app'>
       <Player />
       <Header />
-      <ContentSheet>
-        <Page entity={entity} />
-      </ContentSheet>
+      <Page entity={entity} />
     </div>
   )
 }

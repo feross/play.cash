@@ -6,6 +6,7 @@ const { getArtist, getTrack } = require('../store-getters')
 const ArtistList = require('../components/ArtistList')
 const Heading = require('../components/Heading')
 const Loader = require('../components/Loader')
+const Sheet = require('../components/Sheet')
 const TrackList = require('../components/TrackList')
 
 class HomePage extends Component {
@@ -25,21 +26,21 @@ class HomePage extends Component {
     const topTracks = topTrackUrls.map(getTrack)
 
     if (topArtists.length === 0 || topTracks.length === 0) {
-      return <Loader center />
+      return <Sheet><Loader center /></Sheet>
     }
 
     const $topArtists = <ArtistList artists={topArtists} size='small' />
     const $topTracks = <TrackList tracks={topTracks} columns={2} />
 
     return (
-      <div>
+      <Sheet>
         <Heading class='tc'>Top Artists</Heading>
         {$topArtists}
         <Heading class='tc'>Top Songs</Heading>
         <div class='mw7 center'>
           {$topTracks}
         </div>
-      </div>
+      </Sheet>
     )
   }
 }
