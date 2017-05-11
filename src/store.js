@@ -121,7 +121,7 @@ function dispatch (type, data) {
       api.music({
         method: 'search',
         artistsLimit: 12,
-        albumsLimit: 24,
+        albumsLimit: 18,
         tracksLimit: 6,
         ...data
       }, (err, result) => {
