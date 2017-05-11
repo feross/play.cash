@@ -43,9 +43,8 @@ class Player extends Component {
     if (player.buffering) {
       $loadingVideo = (
         <video
-          class='z-0 h-100'
+          class='fixed z-1 h-100 animate-fade-in'
           style={{
-            opacity: 0.5,
             width: '177.77777778vh', /* 100 * 16 / 9 */
             minWidth: '100%',
             minHeight: '56.25vw' /* 100 * 9 / 16 */
@@ -62,26 +61,27 @@ class Player extends Component {
     }
 
     return (
-      <div id='player' class='fixed w-100 vh-100 top-0'>
+      <div>
         {$loadingVideo}
-        <YouTubePlayer
-          class='z-1'
-          videoId={player.videoId}
-          playing={player.playing}
-          volume={player.volume}
-          playbackRate={player.playbackRate}
-          width={player.width}
-          height={player.height}
-          playerOpts={PLAYER_OPTS}
-          onError={this._onError}
-          onUnplayable={this._onUnplayable}
-          onEnded={this._onEnded}
-          onPlaying={this._onPlaying}
-          onPaused={this._onPaused}
-          onBuffering={this._onBuffering}
-          onDuration={this._onDuration}
-          onTimeupdate={this._onTimeupdate}
-        />
+        <div id='player' class='fixed z-0 w-100 vh-100 top-0'>
+          <YouTubePlayer
+            videoId={player.videoId}
+            playing={player.playing}
+            volume={player.volume}
+            playbackRate={player.playbackRate}
+            width={player.width}
+            height={player.height}
+            playerOpts={PLAYER_OPTS}
+            onError={this._onError}
+            onUnplayable={this._onUnplayable}
+            onEnded={this._onEnded}
+            onPlaying={this._onPlaying}
+            onPaused={this._onPaused}
+            onBuffering={this._onBuffering}
+            onDuration={this._onDuration}
+            onTimeupdate={this._onTimeupdate}
+          />
+        </div>
       </div>
     )
   }
