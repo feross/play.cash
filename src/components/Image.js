@@ -9,13 +9,21 @@ class Image extends Component {
 
   componentDidMount () {
     const { src, onLoad } = this.props
-    if (!onLoad) return
-
     const sources = typeof src === 'string' ? [src] : src
 
-    const img = new window.Image()
-    img.onload = this._onLoad
-    img.src = sources[0]
+    if (onLoad) {
+      this._img = new window.Image()
+      this._img.onload = this._onLoad
+      this._img.src = sources[0]
+    }
+  }
+
+  componentWillUnmount () {
+    if (this._img) {
+      this._img.onload = null
+      this._img.src = ''
+      this._img = null
+    }
   }
 
   render (props) {
