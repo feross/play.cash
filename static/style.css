@@ -174,15 +174,15 @@ body {
   border-image-width: 0.67rem;
   border-image-outset: 0.45rem 0.35rem;
   border-image-repeat: round;
-  padding: 11px 16px 9px 17px;
+  padding: 10px 15px 9px 16px;
   hyphens: auto;
-  font-size: 19px;
+  font-size: 18px;
   text-align: justify;
 }
 
 @media screen and (min-width: 100em) {
   .fact {
-    padding: 13px 18px 11px 19px;
-    font-size: 23px;
+    padding: 12px 17px 11px 18px;
+    font-size: 22px;
   }
 }
