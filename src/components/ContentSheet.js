@@ -13,7 +13,7 @@ class ContentSheet extends Component {
     return (
       <div
         class={c('relative pb5 ph4 min-vh-100 bg-black-40', props.class)}
-        style={{ paddingTop: '6.5rem' }}
+        style={{ paddingTop: '6rem' }}
         onClick={this._onClick}
       >
         {props.children}
