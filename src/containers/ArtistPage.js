@@ -44,7 +44,7 @@ class ArtistPage extends Component {
       let $extra = null
 
       const similar = artist.similar.map(getArtist)
-      const $similarHeading = <Heading class='tc'>Similar</Heading>
+      const $similarHeading = <Heading class='tc'>Related Artists</Heading>
 
       const summary = artist.summary && artist.summary.replace(/\n/g, '<br>')
       if (summary) {
@@ -64,7 +64,7 @@ class ArtistPage extends Component {
         $extra = (
           <div>
             {$similarHeading}
-            <ArtistList artists={similar} size='small' />
+            <ArtistList artists={similar} size='medium' />
           </div>
         )
       }
