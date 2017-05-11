@@ -1,7 +1,7 @@
 const { Component, h } = require('preact') /** @jsx h */
 const c = require('classnames')
 
-const FIRST_FACT_OFFSET = 2
+const FIRST_FACT_OFFSET = 8
 const LAST_FACT_OFFSET = 8
 
 const GAP_DURATION = 2
