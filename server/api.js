@@ -5,8 +5,8 @@ const apiMusic = require('./api-music')
 const apiVideo = require('./api-video')
 
 const MEMO_OPTS = {
-  max: 10 * 1000,
-  maxAge: 6 * 60 * 60 * 1000 // 6 hours
+  max: 50 * 1000,
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }
 
 const api = {
