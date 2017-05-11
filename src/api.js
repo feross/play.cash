@@ -1,9 +1,14 @@
 const debug = require('debug')('api')
-const fetchConcat = require('./lib/simple-fetch')
 const memo = require('memo-async-lru')
 const querystring = require('querystring')
 
+const fetchConcat = require('./lib/simple-fetch')
 const config = require('../config')
+
+const MEMO_OPTS = {
+  max: 1000,
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}
 
 function facts (opts, cb) {
   debug('facts: %o', opts)
@@ -42,10 +47,9 @@ function sendRequest (urlBase, params, cb) {
 }
 
 const api = {
-  facts: memo(facts),
-  music: memo(music),
-  video: memo(video)
+  facts: memo(facts, MEMO_OPTS),
+  music: memo(music, MEMO_OPTS),
+  video: memo(video, MEMO_OPTS)
 }
 
 module.exports = api
-window.api = api
