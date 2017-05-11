@@ -29,7 +29,7 @@ class HomePage extends Component {
     }
 
     const $topArtists = <ArtistList artists={topArtists} size='small' />
-    const $topTracks = <TrackList tracks={topTracks} />
+    const $topTracks = <TrackList tracks={topTracks} columns={2} />
 
     return (
       <div>
