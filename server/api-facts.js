@@ -18,9 +18,10 @@ function apiFacts (opts, cb) {
 
   songfacts.getFacts(opts, (err, result) => {
     if (err) return cb(err)
-    let { facts } = result
+    let { meta, facts } = result
     facts = facts.map(fact => sbd.sentences(fact))
     facts = [].concat(...facts)
-    cb(null, facts)
+
+    cb(null, { meta, facts })
   })
 }

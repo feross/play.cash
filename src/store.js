@@ -291,7 +291,7 @@ function dispatch (type, data) {
       const { err, result, trackUrl } = data
       if (err) return addError(err)
 
-      const facts = result
+      const { facts } = result
       addFacts(facts, trackUrl)
 
       return update()
