@@ -50,17 +50,25 @@ function apiMusic (opts, cb) {
 
   lastfm[opts.method](opts, (err, data) => {
     if (err) return cb(err)
-    const result = data.result || data.artists || data.albums || data.tracks
-    if (result) {
-      const results = Array.isArray(result)
-        ? result
-        : [result]
-
-      results.forEach(result => {
-        const url = entity.encode(result)
-        if (url) result.url = url
-      })
-    }
+    addUrlProp(data)
     cb(null, data)
+  })
+}
+
+function addUrlProp (result) {
+  if (!result) return
+  const results = Array.isArray(result)
+    ? result
+    : [result]
+
+  results.forEach(result => {
+    const url = entity.encode(result)
+    if (url) result.url = url
+
+    addUrlProp(result.result)
+    addUrlProp(result.artists)
+    addUrlProp(result.albums)
+    addUrlProp(result.tracks)
+    addUrlProp(result.top)
   })
 }
