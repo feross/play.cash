@@ -10,7 +10,7 @@ const SECONDS_PER_CHAR = 1 / 22
 
 const BUBBLE_WIDTH = 450
 const BUBBLE_HEIGHT = 200 // Actual height depends on text (this is just an estimate)
-const BUBBLE_HORIZ_OFFSET = 20
+const BUBBLE_HORIZ_OFFSET = 25
 const BUBBLE_VERT_OFFSET = 90
 
 class FactsOverlay extends Component {
