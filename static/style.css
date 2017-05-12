@@ -163,7 +163,7 @@
   border-image-width: 0.67rem;
   border-image-outset: 0.45rem 0.35rem;
   border-image-repeat: round;
-  padding: 8px 14px;
+  padding: 8px 14px 7px 14px;
   hyphens: auto;
   font-size: 18px;
   text-align: justify;
@@ -171,7 +171,7 @@
 
 @media screen and (min-width: 100em) {
   .fact {
-    padding: 10px 16px;
+    padding: 10px 16px 9px 16px;
     font-size: 22px;
   }
 }
@@ -179,7 +179,7 @@
 .fact-quote {
   font-size: 120px;
   position: absolute;
-  top: -60px;
+  top: -64px;
   left: -35px;
 
   text-shadow:
