@@ -5,6 +5,7 @@ const store = require('../store')
 const { getArtistByName, getAlbum } = require('../store-getters')
 
 const Album = require('../components/Album')
+const Heading = require('../components/Heading')
 const Link = require('../components/Link')
 const Loader = require('../components/Loader')
 const Sheet = require('../components/Sheet')
@@ -32,35 +33,53 @@ class AlbumPage extends Component {
       return <Sheet><Loader center /></Sheet>
     }
 
-    let $content = <Loader />
-
     const artist = getArtistByName(album.artistName)
+    let $tracks = <Loader center />
 
     if (album.tracks.length > 0) {
-      $content = <TrackList class='mt4' tracks={album.tracks} />
+      $tracks = (
+        <TrackList
+          class='mt1'
+          tracks={album.tracks}
+          showArtistName={false}
+        />
+      )
+    }
+
+    const summary = album.summary && album.summary.replace(/\n/g, '<br>')
+    let $summary = null
+
+    if (summary) {
+      $summary = (
+        <div class='mt5 center lh-copy mw7'>
+          <Heading class='tc'>Why This Album Matters</Heading>
+          <div class='f4 white-80' dangerouslySetInnerHTML={{ __html: summary }} />
+        </div>
+      )
     }
 
     return (
       <Sheet>
         <div class='cf'>
-          <Album
-            class='fl w-30 pr4'
-            album={album}
-            sizeHint='30vw'
-            showName={false}
-            showArtistName={false}
-            showLink={false}
-          />
-          <div class='fl w-50'>
-            <h5 class='tracked ttu'>Album</h5>
-            <h1>{album.name}</h1>
-            <h4>By <Link href={artist.url}>{artist.name}</Link></h4>
-            <div class='lh-copy measure'>
-              {album.summary}
+          <div class='fl w-third pr4'>
+            <div class='mw6 center tc'>
+              <Album
+                album={album}
+                sizeHint='30vw'
+                showName={false}
+                showArtistName={false}
+                showLink={false}
+              />
+              <Heading>{album.name}</Heading>
+              <div class='white-50'>By <Link href={artist.url}>{artist.name}</Link></div>
+              <div class='f6 mt4 white-50 tracked ttu'>{album.tracks.length} songs</div>
             </div>
           </div>
+          <div class='fl w-two-thirds'>
+            {$tracks}
+          </div>
         </div>
-        {$content}
+        {$summary}
       </Sheet>
     )
   }
