@@ -291,7 +291,9 @@ function dispatch (type, data) {
       const { err, result } = data
       if (err) return addError(err)
 
-      const [video] = result
+      const { videos } = result
+      const video = videos[0]
+
       if (!video) return store.errors.push(new Error('No track found'))
 
       store.player.playing = true
@@ -311,7 +313,7 @@ function dispatch (type, data) {
       const { err, result, trackUrl } = data
       if (err) return addError(err)
 
-      const { facts } = result
+      const { facts } = result.facts
       addFacts(facts, trackUrl)
 
       return update()

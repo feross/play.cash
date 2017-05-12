@@ -23,9 +23,10 @@ const FULL_ALBUM_REGEX = /[([](.*\s)?full album(\s.*)?[)\]]/
  * Docs: https://developers.google.com/youtube/v3/docs/search/list
  */
 function apiVideo (opts, cb) {
-  if (typeof opts.maxResults === 'string') {
-    opts.maxResults = Number(opts.maxResults)
-  }
+  if (!opts.name) return cb(new Error('Missing required `name` key'))
+  if (!opts.artistName) return cb(new Error('Missing required `artistName` key'))
+
+  if (typeof opts.maxResults === 'string') opts.maxResults = Number(opts.maxResults)
 
   debug('%o', opts)
 
@@ -75,7 +76,7 @@ function apiVideo (opts, cb) {
 
   function onResponse (err, data) {
     if (err) return cb(err)
-    const items = data.items
+    const videos = data.items
       .map(item => {
         return {
           id: item.id.videoId,
@@ -117,7 +118,14 @@ function apiVideo (opts, cb) {
       })
       .sort((a, b) => b.rank - a.rank)
 
-    cb(null, items)
+    const result = {
+      meta: {
+        query: opts
+      },
+      videos
+    }
+
+    cb(null, result)
   }
 }
 
