@@ -74,7 +74,7 @@ class FactsOverlay extends Component {
         }}
       >
         {$dropCap}
-        {text}
+        <div dangerouslySetInnerHTML={{ __html: text }} />
       </div>
     )
   }
