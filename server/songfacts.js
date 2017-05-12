@@ -7,9 +7,9 @@ class SongFacts {
     this._userAgent = userAgent || 'SongFacts'
   }
 
-  getFacts (params, cb) {
-    if (!params.name) throw new Error('missing `name` param')
-    if (!params.artistName) throw new Error('missing `artistName` param')
+  getFacts (opts, cb) {
+    if (!opts.name) throw new Error('missing `name` param')
+    if (!opts.artistName) throw new Error('missing `artistName` param')
 
     const urlBase = 'https://apiv3.songfacts.com/?go=' + this._key
 
@@ -37,12 +37,12 @@ class SongFacts {
       1
     ]
 
-    const name = params.name.replace(/:/g, '')
-    const artistName = params.artistName.replace(/:/g, '')
+    const name = opts.name.replace(/:/g, '')
+    const artistName = opts.artistName.replace(/:/g, '')
 
     const url = [urlBase, switches.join(':'), artistName, name].join(':')
 
-    const opts = {
+    const params = {
       url: url,
       headers: {
         'User-Agent': this._userAgent
@@ -51,7 +51,7 @@ class SongFacts {
       json: true
     }
 
-    get.concat(opts, onResponse)
+    get.concat(params, onResponse)
 
     function onResponse (err, res, data) {
       if (err) return cb(err)
@@ -78,13 +78,16 @@ class SongFacts {
       // No match found
       if (code === '0') {
         cb(null, {
-          meta: {},
+          info: {},
           facts: []
         })
       } else if (code === '1' || code === '2') {
         // SongFacts or ArtistFacts match found
         const result = {
           meta: {
+            query: opts
+          },
+          info: {
             name: info.songtitle,
             artistName: info.artistname,
             albumName: info.albumname,
