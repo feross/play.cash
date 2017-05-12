@@ -313,7 +313,7 @@ function dispatch (type, data) {
       const { err, result, trackUrl } = data
       if (err) return addError(err)
 
-      const { facts } = result.facts
+      const { facts } = result
       addFacts(facts, trackUrl)
 
       return update()

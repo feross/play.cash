@@ -75,18 +75,19 @@ class SongFacts {
         return cb(new Error('Unexpected response from SongFacts API ' + JSON.stringify(data)))
       }
 
+      const meta = { query: opts }
+
       // No match found
       if (code === '0') {
         cb(null, {
+          meta,
           info: {},
           facts: []
         })
       } else if (code === '1' || code === '2') {
         // SongFacts or ArtistFacts match found
         const result = {
-          meta: {
-            query: opts
-          },
+          meta,
           info: {
             name: info.songtitle,
             artistName: info.artistname,
