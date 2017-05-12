@@ -8,20 +8,10 @@ class ProgressiveImage extends Component {
     super(props)
 
     this.state = {
-      thumbLoaded: false,
-      finalLoading: false
+      thumbLoaded: false
     }
 
     this._onThumbLoad = this._onThumbLoad.bind(this)
-  }
-
-  componentDidMount () {
-    ProgressiveImage.thumbLoading += 1
-  }
-
-  componentWillUnmount () {
-    if (!this.state.thumbLoaded) this._decrementCounter()
-    this.setState({ thumbLoaded: true })
   }
 
   render (props) {
@@ -30,7 +20,7 @@ class ProgressiveImage extends Component {
     const sources = typeof src === 'string' ? [src] : src
 
     let $finalImage = null
-    if (this.state.thumbLoaded && this.state.finalLoading) {
+    if (this.state.thumbLoaded) {
       $finalImage = (
         <Image
           class={c('db w-100 absolute top-0', props.imageClass)}
@@ -60,30 +50,8 @@ class ProgressiveImage extends Component {
   }
 
   _onThumbLoad () {
-    if (this.state.thumbLoaded) return
-
-    this._decrementCounter()
     this.setState({ thumbLoaded: true })
-
-    if (ProgressiveImage.thumbLoading === 0) {
-      this.setState({ finalLoading: true })
-    } else {
-      ProgressiveImage.callbacks.push(() => {
-        this.setState({ finalLoading: true })
-      })
-    }
-  }
-
-  _decrementCounter () {
-    ProgressiveImage.thumbLoading -= 1
-    if (ProgressiveImage.thumbLoading === 0) {
-      ProgressiveImage.callbacks.forEach(cb => cb())
-      ProgressiveImage.callbacks = []
-    }
   }
 }
-
-ProgressiveImage.thumbLoading = 0
-ProgressiveImage.callbacks = []
 
 module.exports = ProgressiveImage
