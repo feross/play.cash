@@ -39,7 +39,6 @@
     "downgrade": "^1.1.1",
     "express": "^4.8.5",
     "express-session": "^1.14.2",
-    "jsdom": "^9.12.0",
     "last-fm": "^4.0.0",
     "memo-async-lru": "^1.0.1",
     "mustache": "^2.3.0",
