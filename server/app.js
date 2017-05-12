@@ -89,19 +89,21 @@ function init (server, sessionStore) {
     }
   }))
 
-  const bundleHash = config.isProd &&
-    '?' + createHash(fs.readFileSync(path.join(config.root, 'static', 'bundle.js')))
+  const bundleHash = config.isProd
+    ? '?h=' + createHash(fs.readFileSync(path.join(config.root, 'static', 'bundle.js')))
+    : ''
 
-  const styleHash = config.isProd &&
-    '?' + createHash(fs.readFileSync(path.join(config.root, 'static', 'style.css')))
+  const styleHash = config.isProd
+    ? '?h=' + createHash(fs.readFileSync(path.join(config.root, 'static', 'style.css')))
+    : ''
 
   app.use((req, res, next) => {
     res.locals.initialStore = {
       userName: req.session.user && req.session.user.userName
     }
     res.locals.hashes = {
-      bundle: bundleHash || '',
-      style: styleHash || ''
+      bundle: bundleHash,
+      style: styleHash
     }
     next()
   })
