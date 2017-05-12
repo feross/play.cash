@@ -12,8 +12,8 @@ class Sheet extends Component {
   render (props) {
     return (
       <div
-        class={c('relative pb5 ph4 min-vh-100 bg-black-40', props.class)}
-        style={{ paddingTop: '6rem' }}
+        class={c('relative pb6 ph4 min-vh-100 bg-black-40', props.class)}
+        style={{ paddingTop: '6.3rem' }}
         onClick={this._onClick}
       >
         {props.children}
