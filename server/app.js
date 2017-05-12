@@ -121,6 +121,10 @@ function init (server, sessionStore) {
 
   // TODO: Return 404 error when there is no song match!
   app.get('*', (req, res) => {
+    // Canonicalize URLs that come from Open Search, or are typed in by users
+    if (req.url.includes('%20')) {
+      res.redirect(301, config.httpOrigin + req.url.replace(/%20/g, '-'))
+    }
     res.render('index', { config: config })
   })
 
