@@ -1,6 +1,8 @@
 const { h } = require('preact') /** @jsx h */
 const c = require('classnames')
 
+const { getArtistByName } = require('../store-getters')
+
 const Link = require('./Link')
 
 const TrackList = (props) => {
@@ -13,11 +15,19 @@ const TrackList = (props) => {
   const $tracks = tracks.map((track, i) => {
     let $artistName = null
     if (showArtistName) {
+      const artist = getArtistByName(track.artistName)
+
       $artistName = (
-        <div class='white-40 mt1 truncate' style={{
-          marginLeft: '3rem'
-        }}>
-          {track.artistName}
+        <div class='white-50'>
+          <Link
+            class='db mt1 truncate'
+            href={artist.url}
+            style={{
+              marginLeft: '3rem'
+            }}
+          >
+            {artist.name}
+          </Link>
         </div>
       )
     }
@@ -26,7 +36,6 @@ const TrackList = (props) => {
       <Link
         class='track db pa3 color-inherit hover-bg-black-50 bg-animate'
         href={track.url}
-        color='inherit'
       >
         <div
           class='fl tr'
@@ -44,7 +53,7 @@ const TrackList = (props) => {
           >
             play_arrow
           </i>
-          <div class='track-num mt1 white-40'>{i + 1}.</div>
+          <div class='track-num mt1 white-50'>{i + 1}.</div>
         </div>
         <div
           class='f4 truncate'
