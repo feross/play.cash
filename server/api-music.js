@@ -37,7 +37,11 @@ const METHODS = new Set([
   'trackSearch'
 ])
 
-const lastfm = new LastFM(secret.lastfm.key, config.apiUserAgent)
+const lastfm = new LastFM(secret.lastfm.key, {
+  userAgent: config.apiUserAgent,
+  minArtistListeners: 500,
+  minTrackListeners: 0
+})
 
 /**
  * Expose Last.fm music data.
