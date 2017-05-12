@@ -119,8 +119,6 @@ function dispatch (type, data) {
     case 'SEARCH_INPUT': {
       const q = data
 
-      store.lastSearch = q
-
       if (q === '') {
         store.dispatch('LOCATION_BACK')
         return
@@ -129,10 +127,12 @@ function dispatch (type, data) {
       const searchUrl = entity.encode({ type: 'search', q })
 
       if (store.location.name === 'search') {
-        store.dispatch('LOCATION_REPLACE', searchUrl)
+        if (q !== store.lastSearch) store.dispatch('LOCATION_REPLACE', searchUrl)
       } else {
         store.dispatch('LOCATION_PUSH', searchUrl)
       }
+
+      store.lastSearch = q
 
       return update()
     }
