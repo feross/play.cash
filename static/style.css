@@ -128,9 +128,7 @@
  * Specific styles (minimize the number of these!)
  */
 
-body {
-  user-select: none;
-}
+/* ARTIST PAGE */
 
 .artist-page-cover {
   height: 50vh;
@@ -144,6 +142,8 @@ body {
   }
 }
 
+/* TRACK LIST */
+
 .track:hover .track-num {
   display: none;
 }
@@ -151,6 +151,8 @@ body {
 .track:hover .play-arrow {
   display: block;
 }
+
+/* FACT */
 
 .fact {
   border-style: solid;

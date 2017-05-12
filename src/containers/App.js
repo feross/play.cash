@@ -28,7 +28,7 @@ const App = (props) => {
   const Page = PAGES[location.name] || PAGES['not-found']
 
   return (
-    <div id='app'>
+    <div style={{ 'user-select': 'none' }}>
       <Player />
       <Header />
       <Page entity={entity} />
