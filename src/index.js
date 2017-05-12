@@ -9,12 +9,11 @@ store.update = update
 
 let root = null
 
-const loc = new Location(routes, (loc) => {
+window.loc = new Location(routes, (loc) => {
   store.dispatch('LOCATION_CHANGE', loc)
 })
 
 function update () {
-  // debug('update')
   root = render(<App />, document.body, root)
 }
 
@@ -22,11 +21,11 @@ function update () {
  * DEVELOPMENT
  */
 
+// Debugging aid
 window.store = store
-window.loc = loc
 window.update = update
 
-// Page load speed
+// Measure page speed
 console.timeEnd('render')
 window.addEventListener('load', () => console.timeEnd('load'))
 

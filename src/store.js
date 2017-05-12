@@ -46,14 +46,20 @@ function dispatch (type, data) {
       return
     }
 
-    // case 'LOCATION_REPLACE': {
-    //   window.loc.replace(data)
-    //   return
-    // }
+    case 'LOCATION_REPLACE': {
+      window.loc.replace(data)
+      return
+    }
+
+    case 'LOCATION_BACK': {
+      window.loc.go(-1)
+      return
+    }
 
     case 'LOCATION_CHANGE': {
-      store.location = data
-      store.entity = entity.decode(data.pathname)
+      const location = data
+      store.location = location
+      store.entity = entity.decode(location.pathname)
       return update()
     }
 
@@ -103,16 +109,16 @@ function dispatch (type, data) {
       store.lastSearch = q
 
       if (q === '') {
-        window.loc.go(-1)
+        store.dispatch('LOCATION_BACK')
         return
       }
 
       const searchUrl = entity.encode({ type: 'search', q })
 
       if (store.location.name === 'search') {
-        window.loc.replace(searchUrl)
+        store.dispatch('LOCATION_REPLACE', searchUrl)
       } else {
-        window.loc.push(searchUrl)
+        store.dispatch('LOCATION_PUSH', searchUrl)
       }
 
       return update()
