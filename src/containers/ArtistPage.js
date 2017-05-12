@@ -51,9 +51,11 @@ class ArtistPage extends Component {
       if (summary) {
         $extra = (
           <div class='cf'>
-            <div class='fl w-50 f4 pr4 center lh-copy'>
-              <Heading class='tc'>Learn about {artist.name}</Heading>
-              <div class='white-80' dangerouslySetInnerHTML={{ __html: summary }} />
+            <div class='fl w-50 pl3 pr4'>
+              <div class='center lh-copy mw7'>
+                <Heading class='tc'>Who is {artist.name}?</Heading>
+                <div class='f4 white-80' dangerouslySetInnerHTML={{ __html: summary }} />
+              </div>
             </div>
             <div class='fl w-50'>
               {$similarHeading}
