@@ -2,6 +2,7 @@ const { h } = require('preact') /** @jsx h */
 const c = require('classnames')
 
 const { getArtistByName } = require('../store-getters')
+const { formatTime } = require('../format')
 
 const Link = require('./Link')
 
@@ -14,13 +15,14 @@ const TrackList = (props) => {
 
   const $tracks = tracks.map((track, i) => {
     let $artistName = null
+    let $duration = null
+
     if (showArtistName) {
       const artist = getArtistByName(track.artistName)
-
       $artistName = (
         <div class='dib white-50'>
           <Link
-            class='db mt1 truncate'
+            class='db mt1 nb1 truncate'
             href={artist.url}
             style={{
               marginLeft: '3rem'
@@ -32,38 +34,51 @@ const TrackList = (props) => {
       )
     }
 
+    if (track.duration) {
+      const duration = formatTime(track.duration)
+      $duration = (
+        <div class='fr white-50 mt1 tracked fw1'>
+          {duration}
+        </div>
+      )
+    }
+
     return (
       <Link
-        class='track db pa3 color-inherit hover-bg-black-50 bg-animate'
+        class='cf track db pa3 color-inherit hover-bg-black-50 bg-animate'
         href={track.url}
       >
+        <i
+          class='fl play-arrow material-icons absolute mr1 dn'
+          style={{
+            fontSize: 28,
+            width: 20,
+            marginTop: '-0.15rem',
+            marginLeft: '-0.3rem'
+          }}
+        >
+          play_arrow
+        </i>
         <div
-          class='fl tr'
+          class='fl absolute track-num mt1 white-50 tr'
           style={{
             width: 20
           }}
         >
-          <i
-            class='play-arrow material-icons absolute mr1 dn'
+          {i + 1}.
+        </div>
+        <div class='fl'>
+          <div
+            class='f4 truncate'
             style={{
-              fontSize: 28,
-              marginTop: '-0.15rem',
-              marginLeft: '-0.3rem'
+              marginLeft: '3rem'
             }}
           >
-            play_arrow
-          </i>
-          <div class='track-num mt1 white-50'>{i + 1}.</div>
+            {track.name}
+          </div>
+          {$artistName}
         </div>
-        <div
-          class='f4 truncate'
-          style={{
-            marginLeft: '3rem'
-          }}
-        >
-          {track.name}
-        </div>
-        {$artistName}
+        {$duration}
       </Link>
     )
   })

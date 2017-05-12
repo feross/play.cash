@@ -73,7 +73,7 @@ class AlbumPage extends Component {
               />
               <Heading>{album.name}</Heading>
               <div class='white-50'>By <Link href={artist.url}>{artist.name}</Link></div>
-              <div class='f6 mt4 white-50 tracked ttu'>{album.tracks.length} songs</div>
+              <div class='f7 mt4 white-50 fw1 tracked-mega ttu'>{album.tracks.length} songs</div>
             </div>
           </div>
           <div class='fl w-two-thirds'>
