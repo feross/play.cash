@@ -34,7 +34,9 @@ class HomePage extends Component {
 
     return (
       <Sheet>
-        <Heading class='tc'>Top Artists</Heading>
+        <div class='nt3'>
+          <Heading class='tc'>Top Artists</Heading>
+        </div>
         {$topArtists}
         <Heading class='tc'>Top Songs</Heading>
         <div class='mw7 center'>
