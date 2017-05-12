@@ -77,10 +77,12 @@ class SearchPage extends Component {
 
     return (
       <Sheet class='cf'>
-        <Heading class='tc'>
-          <span class='white-50'>Showing results for </span>
-          <span>{q}</span>
-        </Heading>
+        <div class='nt3'>
+          <Heading class='tc'>
+            <span class='white-50'>Showing results for </span>
+            <span>{q}</span>
+          </Heading>
+        </div>
         {$content}
       </Sheet>
     )
