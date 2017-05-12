@@ -1,15 +1,17 @@
 const { Component, h } = require('preact') /** @jsx h */
 const c = require('classnames')
 
-const FIRST_FACT_OFFSET = 8
+const FIRST_FACT_DELAY = 8
 const LAST_FACT_OFFSET = 8
 
-const GAP_DURATION = 2
+const FACT_DELAY = 2 // Time to wait between facts
 const MINIMUM_DURATION = 6
 const SECONDS_PER_CHAR = 1 / 22
 
 const BUBBLE_WIDTH = 450
-const AVG_BUBBLE_HEIGHT = 200
+const BUBBLE_HEIGHT = 200 // Actual height depends on text (this is just an estimate)
+const BUBBLE_HORIZ_OFFSET = 20
+const BUBBLE_VERT_OFFSET = 80
 
 class FactsOverlay extends Component {
   constructor (props) {
@@ -51,7 +53,7 @@ class FactsOverlay extends Component {
     if (currentFactIndex === -1) return null
 
     const timedFact = timedFacts[currentFactIndex]
-    const animateCls = timedFact.end - time > GAP_DURATION
+    const animateCls = timedFact.end - time > FACT_DELAY
       ? 'animate-bounce-in'
       : 'animate-bounce-out'
 
@@ -81,7 +83,7 @@ class FactsOverlay extends Component {
     const { facts, duration, width, height } = props
     if (!facts || !duration || !width || !height) return []
 
-    let start = FIRST_FACT_OFFSET
+    let start = FIRST_FACT_DELAY
 
     let timedFacts = facts.map(function (fact) {
       const factDuration = MINIMUM_DURATION + fact.length * SECONDS_PER_CHAR
@@ -123,15 +125,15 @@ class FactsOverlay extends Component {
 }
 
 function getFactPosition (factText, width, height) {
-  const maxLeft = 25
-  const maxRight = width - 25 - BUBBLE_WIDTH
+  const maxLeft = BUBBLE_HORIZ_OFFSET
+  const maxRight = width - BUBBLE_HORIZ_OFFSET - BUBBLE_WIDTH
   const centerLeft = Math.max(maxLeft, (width / 2) - BUBBLE_WIDTH * 1.50)
   const centerRight = Math.min(maxRight, (width / 2) + BUBBLE_WIDTH * 0.50)
 
-  const maxTop = 75
-  const maxBottom = height - 50 - AVG_BUBBLE_HEIGHT
-  const centerTop = Math.max(maxTop, height / 2 - AVG_BUBBLE_HEIGHT * 1.10)
-  const centerBottom = Math.min(maxBottom, height / 2 + AVG_BUBBLE_HEIGHT * 0.10)
+  const maxTop = BUBBLE_VERT_OFFSET
+  const maxBottom = height - BUBBLE_VERT_OFFSET - BUBBLE_HEIGHT
+  const centerTop = Math.max(maxTop, height / 2 - BUBBLE_HEIGHT * 1.10)
+  const centerBottom = Math.min(maxBottom, height / 2 + BUBBLE_HEIGHT * 0.10)
 
   const left = random(0, 1, factText)
     ? random(maxLeft, centerLeft, factText)
