@@ -19,7 +19,7 @@ class TrackPage extends Component {
 
   _fetch () {
     const { entity } = store
-    store.dispatch('FETCH_TRACK', entity)
+    store.dispatch('FETCH_VIDEO', entity)
     store.dispatch('FETCH_FACTS', entity)
   }
 

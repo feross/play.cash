@@ -259,16 +259,16 @@ function dispatch (type, data) {
      * TRACK
      */
 
-    case 'FETCH_TRACK': {
+    case 'FETCH_VIDEO': {
       const track = data
       const q = track.artistName + ' ' + track.name
       api.video({ q, maxResults: 1 }, (err, result) => {
-        dispatch('FETCH_TRACK_DONE', { err, result })
+        dispatch('FETCH_VIDEO_DONE', { err, result })
       })
       store.currentTrackUrl = track.url
       return update()
     }
-    case 'FETCH_TRACK_DONE': {
+    case 'FETCH_VIDEO_DONE': {
       const { err, result } = data
       if (err) return addError(err)
 
