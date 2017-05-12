@@ -59,7 +59,7 @@ class FactsOverlay extends Component {
 
     let $dropCap = null
     if (text[0] === '"') {
-      $dropCap = <span class='fact-drop-cap'>&ldquo;</span>
+      $dropCap = <span class='fact-quote'>&ldquo;</span>
       text = text.slice(1)
     }
 

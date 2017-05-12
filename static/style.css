@@ -152,7 +152,29 @@ body {
   display: block;
 }
 
-.fact-drop-cap {
+.fact {
+  border-style: solid;
+  border-width: 0.67rem;
+  border-color: #000000;
+  border-image-source: url('/img/border-image.png');
+  border-image-slice: 4% 4.5% fill;
+  border-image-width: 0.67rem;
+  border-image-outset: 0.45rem 0.35rem;
+  border-image-repeat: round;
+  padding: 8px 14px;
+  hyphens: auto;
+  font-size: 18px;
+  text-align: justify;
+}
+
+@media screen and (min-width: 100em) {
+  .fact {
+    padding: 10px 16px;
+    font-size: 22px;
+  }
+}
+
+.fact-quote {
   font-size: 120px;
   position: absolute;
   top: -60px;
@@ -163,26 +185,4 @@ body {
     1px -1px 1px rgba(255, 255, 255, 1),
     -1px 1px 1px rgba(255, 255, 255, 1),
     1px 1px 1px rgba(255, 255, 255, 1);
-}
-
-.fact {
-  border-style: solid;
-  border-width: 0.67rem;
-  border-color: #000000;
-  border-image-source: url('/img/border-image.png');
-  border-image-slice: 4% 4.5% fill;
-  border-image-width: 0.67rem;
-  border-image-outset: 0.45rem 0.35rem;
-  border-image-repeat: round;
-  padding: 10px 15px 9px 16px;
-  hyphens: auto;
-  font-size: 18px;
-  text-align: justify;
-}
-
-@media screen and (min-width: 100em) {
-  .fact {
-    padding: 12px 17px 11px 18px;
-    font-size: 22px;
-  }
 }
