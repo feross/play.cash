@@ -11,12 +11,13 @@ const TrackList = require('../components/TrackList')
 
 class HomePage extends Component {
   componentDidMount () {
-    this._fetch()
+    this._load()
   }
 
-  _fetch () {
+  _load () {
     store.dispatch('FETCH_CHART_TOP_ARTISTS', { limit: 12 })
     store.dispatch('FETCH_CHART_TOP_TRACKS', { limit: 30 })
+    store.dispatch('SET_TITLE', null)
   }
 
   render (props) {

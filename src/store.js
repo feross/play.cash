@@ -9,6 +9,9 @@ const store = {
     pathname: null
   },
   entity: null,
+  window: {
+    title: null
+  },
   player: {
     width: 0,
     height: 0,
@@ -38,7 +41,7 @@ function dispatch (type, data) {
 
   switch (type) {
     /**
-     * NAVIGATION
+     * LOCATION
      */
 
     case 'LOCATION_PUSH': {
@@ -60,6 +63,16 @@ function dispatch (type, data) {
       const location = data
       store.location = location
       store.entity = entity.decode(location.pathname)
+      return update()
+    }
+
+    /**
+     * WINDOW
+     */
+
+    case 'SET_TITLE': {
+      const title = data
+      store.window.title = title
       return update()
     }
 

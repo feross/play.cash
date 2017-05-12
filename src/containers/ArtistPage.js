@@ -14,15 +14,16 @@ const TrackList = require('../components/TrackList')
 
 class ArtistPage extends Component {
   componentDidMount () {
-    this._fetch()
+    this._load()
   }
 
   componentWillReceiveProps (nextProps) {
-    if (!entity.equal(this.props.entity, nextProps.entity)) this._fetch()
+    if (!entity.equal(this.props.entity, nextProps.entity)) this._load()
   }
 
-  _fetch () {
+  _load () {
     const { entity } = store
+    store.dispatch('SET_TITLE', entity.name)
     store.dispatch('FETCH_ARTIST_INFO', { name: entity.name })
     store.dispatch('FETCH_ARTIST_TOP_ALBUMS', { name: entity.name, limit: 24 })
     store.dispatch('FETCH_ARTIST_TOP_TRACKS', { name: entity.name, limit: 10 })

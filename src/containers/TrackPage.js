@@ -10,15 +10,16 @@ const Sheet = require('../components/Sheet')
 
 class TrackPage extends Component {
   componentDidMount () {
-    this._fetch()
+    this._load()
   }
 
   componentWillReceiveProps (nextProps) {
-    if (!entity.equal(this.props.entity, nextProps.entity)) this._fetch()
+    if (!entity.equal(this.props.entity, nextProps.entity)) this._load()
   }
 
-  _fetch () {
+  _load () {
     const { entity } = store
+    store.dispatch('SET_TITLE', entity.name + ' by ' + entity.artistName)
     store.dispatch('FETCH_VIDEO', entity)
     store.dispatch('FETCH_FACTS', entity)
   }

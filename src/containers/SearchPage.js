@@ -15,16 +15,17 @@ const TrackList = require('../components/TrackList')
 
 class SearchPage extends Component {
   componentDidMount () {
-    this._fetch()
+    this._load()
   }
 
   componentWillReceiveProps (nextProps) {
-    if (!entity.equal(this.props.entity, nextProps.entity)) this._fetch()
+    if (!entity.equal(this.props.entity, nextProps.entity)) this._load()
   }
 
-  _fetch () {
+  _load () {
     const { entity } = store
     const { q } = entity
+    store.dispatch('SET_TITLE', 'Search "' + entity.q + '"')
     store.dispatch('FETCH_SEARCH', { q })
   }
 
