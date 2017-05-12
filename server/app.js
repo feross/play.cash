@@ -123,7 +123,7 @@ function init (server, sessionStore) {
   app.get('*', (req, res) => {
     // Canonicalize URLs that come from Open Search, or are typed in by users
     if (req.url.includes('%20')) {
-      res.redirect(301, config.httpOrigin + req.url.replace(/%20/g, '-'))
+      return res.redirect(301, config.httpOrigin + req.url.replace(/%20/g, '-'))
     }
     res.render('index', { config: config })
   })
