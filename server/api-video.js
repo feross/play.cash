@@ -7,12 +7,17 @@ const querystring = require('querystring')
 const config = require('../config')
 const secret = require('../secret')
 
+const OFFICIAL_REGEX = /[([](.*\s)?official(\s.*)?[)\]]/
+const LIVE_REGEX = /[([](.*\s)?live(\s.*)?[)\]]/
+const FULL_ALBUM_REGEX = /[([](.*\s)?full album(\s.*)?[)\]]/
+
 /**
  * Search YouTube. Returns a collection of video results that match the query
  * parameters.
  *
  * Options:
- *   - q: The search query (required)
+ *   - name: The song name (required)
+ *   - artistName: The song artist (required)
  *   - maxResults: Max number of items in the result set, 0 to 50 (default: 5)
  *
  * Docs: https://developers.google.com/youtube/v3/docs/search/list
@@ -63,19 +68,55 @@ function apiVideo (opts, cb) {
     // The q parameter specifies the query term to search for. Your request can
     // also use the Boolean NOT (-) and OR (|) operators to exclude videos or to
     // find videos that are associated with one of several search terms. (string)
-    q: opts.q
+    q: opts.name + ' ' + opts.artistName
   }
 
   sendRequest(url, params, onResponse)
 
   function onResponse (err, data) {
     if (err) return cb(err)
-    const items = data.items.map(item => {
-      return {
-        id: item.id.videoId,
-        title: item.snippet.title
-      }
-    })
+    const items = data.items
+      .map(item => {
+        return {
+          id: item.id.videoId,
+          title: item.snippet.title,
+          channelTitle: item.snippet.channelTitle
+        }
+      })
+      .map((item, i) => {
+        // Use YouTube's search rank as initial rank value (0-500)
+        item.rank = item.ytRank = 500 - (i * 10)
+
+        const title = item.title.toLowerCase()
+        const channelTitle = item.channelTitle.toLowerCase()
+
+        const artistName = opts.artistName.toLowerCase()
+
+        // Promote "official version" videos (e.g. with "(Official)" in the title)
+        if (OFFICIAL_REGEX.test(title)) item.rank += 7
+
+        // Demote "live version" videos (e.g. with "(Live)" in the title)
+        if (LIVE_REGEX.test(title)) item.rank -= 7
+
+        // Demote "full album" videos (e.g. with "(Full Album)" in the title)
+        if (FULL_ALBUM_REGEX.test(title)) item.rank -= 15
+
+        // Promote videos from channels with the artist's name (e.g. "Michael Jackson" or
+        // "MichaelJackson")
+        if (channelTitle.includes(artistName)) item.rank += 15
+        if (artistName.includes(' ') &&
+            channelTitle.includes(artistName.replace(/ /g, ''))) item.rank += 15
+
+        // Promote videos from a VEVO account, since it's likely official
+        if (channelTitle.endsWith('vevo')) item.rank += 15
+
+        // Promote videos from channels with "official" in the title
+        if (channelTitle.includes('official')) item.rank += 7
+
+        return item
+      })
+      .sort((a, b) => b.rank - a.rank)
+
     cb(null, items)
   }
 }
