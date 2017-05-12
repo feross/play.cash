@@ -18,7 +18,7 @@ const TrackList = (props) => {
       const artist = getArtistByName(track.artistName)
 
       $artistName = (
-        <div class='white-50'>
+        <div class='dib white-50'>
           <Link
             class='db mt1 truncate'
             href={artist.url}
