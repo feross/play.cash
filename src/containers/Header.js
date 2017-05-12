@@ -36,7 +36,6 @@ const Header = (props) => {
         <div class='fl w-third v-mid'>
           <Link
             class='logo logo-font white dib'
-            color='inherit'
             href='/'
           >
             <Image

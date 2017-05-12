@@ -54,7 +54,6 @@ const Album = (props) => {
       <Link
         href={album.url}
         class={c('db tc', props.class)}
-        color='inherit'
       >
         {$content}
       </Link>

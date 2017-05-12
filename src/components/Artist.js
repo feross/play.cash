@@ -34,7 +34,6 @@ const Artist = (props) => {
       <Link
         href={artist.url}
         class={c('db tc', props.class)}
-        color='inherit'
       >
         <dl class='mv2 f5 f4-m f4-l lh-copy'>
           <dt class='clip'>Title</dt>

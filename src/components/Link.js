@@ -4,22 +4,18 @@ const c = require('classnames')
 const Link = (props) => {
   const {
     href = '#',
-    color = 'blue',
     onClick = () => {}
   } = props
 
-  const cls = color !== 'inherit'
-    ? `${color} hover-light-${color}`
-    : 'color-inherit hover-inherit'
-
   return (
     <a
-      class={c('link', cls, props.class)}
+      class={c('link color-inherit hover-white', props.class)}
       href={href}
       onClick={e => {
         if (href === '#') e.preventDefault()
         onClick()
       }}
+      style={props.style}
     >
       {props.children}
     </a>
