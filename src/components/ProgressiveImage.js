@@ -20,7 +20,8 @@ class ProgressiveImage extends Component {
   }
 
   componentWillUnmount () {
-    this.elem = null
+    if (!this.state.thumbLoaded) this._decrementCounter()
+    this.setState({ thumbLoaded: true })
   }
 
   render (props) {
@@ -61,20 +62,24 @@ class ProgressiveImage extends Component {
   _onThumbLoad () {
     if (this.state.thumbLoaded) return
 
-    ProgressiveImage.thumbLoading -= 1
+    this._decrementCounter()
+    this.setState({ thumbLoaded: true })
 
-    const finalLoading = ProgressiveImage.thumbLoading === 0
-
-    if (finalLoading) {
-      ProgressiveImage.callbacks.forEach(cb => cb())
-      ProgressiveImage.callbacks = []
+    if (ProgressiveImage.thumbLoading === 0) {
+      this.setState({ finalLoading: true })
     } else {
       ProgressiveImage.callbacks.push(() => {
         this.setState({ finalLoading: true })
       })
     }
+  }
 
-    this.setState({ thumbLoaded: true, finalLoading })
+  _decrementCounter () {
+    ProgressiveImage.thumbLoading -= 1
+    if (ProgressiveImage.thumbLoading === 0) {
+      ProgressiveImage.callbacks.forEach(cb => cb())
+      ProgressiveImage.callbacks = []
+    }
   }
 }
 
