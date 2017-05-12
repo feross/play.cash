@@ -35,7 +35,7 @@ class SearchPage extends Component {
 
     const results = searches[url]
 
-    let $content = <Loader center />
+    let $content = <Loader style={{ marginTop: 'calc(35vh - 120px)' }} />
 
     if (results) {
       let $topResult = null
