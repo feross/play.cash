@@ -9,12 +9,12 @@ const store = {
     pathname: null
   },
   entity: null,
-  window: {
-    title: null
+  app: {
+    title: null,
+    width: 0,
+    height: 0
   },
   player: {
-    width: 0,
-    height: 0,
     videoId: null,
     playing: true,
     volume: 100,
@@ -70,21 +70,21 @@ function dispatch (type, data) {
      * WINDOW
      */
 
-    case 'SET_TITLE': {
+    case 'APP_TITLE': {
       const title = data
-      store.window.title = title
+      store.app.title = title
+      return update()
+    }
+
+    case 'APP_RESIZE': {
+      store.app.width = data.width
+      store.app.height = data.height
       return update()
     }
 
     /**
      * PLAYER
      */
-
-    case 'PLAYER_RESIZE': {
-      store.player.width = data.width
-      store.player.height = data.height
-      return update()
-    }
 
     case 'PLAYER_ERROR': {
       const err = data

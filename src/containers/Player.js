@@ -1,5 +1,4 @@
 const { Component, h } = require('preact') /** @jsx h */
-const throttle = require('throttleit')
 
 const store = require('../store')
 
@@ -18,26 +17,13 @@ const PLAYER_OPTS = {
 class Player extends Component {
   constructor (props) {
     super(props)
-    this._onResizeThrottled = throttle(this._onResize.bind(this), 500)
     this._onEnded = this._onEnded.bind(this)
     this._onTimeupdate = this._onTimeupdate.bind(this)
     this._onBuffering = this._onBuffering.bind(this)
   }
 
-  componentWillMount () {
-    this._onResize()
-  }
-
-  componentDidMount () {
-    window.addEventListener('resize', this._onResizeThrottled)
-  }
-
-  componentWillUnmount () {
-    window.removeEventListener('resize', this._onResizeThrottled)
-  }
-
   render (props) {
-    const { player } = store
+    const { app, player } = store
 
     let $loadingVideo = null
     if (player.buffering) {
@@ -68,8 +54,8 @@ class Player extends Component {
             playing={player.playing}
             volume={player.volume}
             playbackRate={player.playbackRate}
-            width={player.width}
-            height={player.height}
+            width={app.width}
+            height={app.height}
             playerOpts={PLAYER_OPTS}
             onError={this._onError}
             onUnplayable={this._onUnplayable}
@@ -84,12 +70,6 @@ class Player extends Component {
         {$loadingVideo}
       </div>
     )
-  }
-
-  _onResize () {
-    const width = window.innerWidth
-    const height = window.innerHeight
-    store.dispatch('PLAYER_RESIZE', { width, height })
   }
 
   _onError (err) {

@@ -1,4 +1,5 @@
-const { h } = require('preact') /** @jsx h */
+const { Component, h } = require('preact') /** @jsx h */
+const throttle = require('throttleit')
 
 const store = require('../store')
 const config = require('../../config')
@@ -25,23 +26,48 @@ const PAGES = {
   'not-found': NotFoundPage
 }
 
-const App = (props) => {
-  const { location, entity } = store
+class App extends Component {
+  constructor (props) {
+    super(props)
+    this._onResizeThrottled = throttle(this._onResize.bind(this), 500)
+  }
 
-  const Page = PAGES[location.name] || PAGES['not-found']
+  componentWillMount () {
+    this._onResize()
+  }
 
-  const title = store.window.title
-    ? store.window.title + ' – ' + config.name
-    : config.name
+  componentDidMount () {
+    window.addEventListener('resize', this._onResizeThrottled)
+  }
 
-  return (
-    <div style={{ 'user-select': 'none' }}>
-      <Title title={title} />
-      <Player />
-      <Header />
-      <Page entity={entity} />
-    </div>
-  )
+  componentWillUnmount () {
+    window.removeEventListener('resize', this._onResizeThrottled)
+  }
+
+  render (props) {
+    const { location, entity } = store
+
+    const Page = PAGES[location.name] || PAGES['not-found']
+
+    const title = store.app.title
+      ? store.app.title + ' – ' + config.name
+      : config.name
+
+    return (
+      <div style={{ 'user-select': 'none' }}>
+        <Title title={title} />
+        <Player />
+        <Header />
+        <Page entity={entity} />
+      </div>
+    )
+  }
+
+  _onResize () {
+    const width = window.innerWidth
+    const height = window.innerHeight
+    store.dispatch('APP_RESIZE', { width, height })
+  }
 }
 
 module.exports = App

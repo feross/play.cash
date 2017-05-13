@@ -23,7 +23,7 @@ class ArtistPage extends Component {
 
   _load () {
     const { entity } = store
-    store.dispatch('SET_TITLE', entity.name)
+    store.dispatch('APP_TITLE', entity.name)
     store.dispatch('FETCH_ARTIST_INFO', { name: entity.name })
     store.dispatch('FETCH_ARTIST_TOP_ALBUMS', { name: entity.name, limit: 24 })
     store.dispatch('FETCH_ARTIST_TOP_TRACKS', { name: entity.name, limit: 10 })

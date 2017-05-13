@@ -19,13 +19,13 @@ class TrackPage extends Component {
 
   _load () {
     const { entity } = store
-    store.dispatch('SET_TITLE', entity.name + ' by ' + entity.artistName)
+    store.dispatch('APP_TITLE', entity.name + ' by ' + entity.artistName)
     store.dispatch('FETCH_VIDEO', entity)
     store.dispatch('FETCH_FACTS', entity)
   }
 
   render (props) {
-    const { entity, player } = store
+    const { app, entity, player } = store
     const track = getTrack(entity.url)
 
     const facts = track && track.facts
@@ -39,8 +39,8 @@ class TrackPage extends Component {
         <FactsOverlay
           time={player.time}
           duration={player.duration}
-          width={player.width}
-          height={player.height}
+          width={app.width}
+          height={app.height}
           facts={facts}
         />
         {$bufferingLoader}

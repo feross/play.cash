@@ -25,7 +25,7 @@ class SearchPage extends Component {
   _load () {
     const { entity } = store
     const { q } = entity
-    store.dispatch('SET_TITLE', 'Search "' + entity.q + '"')
+    store.dispatch('APP_TITLE', 'Search "' + entity.q + '"')
     store.dispatch('FETCH_SEARCH', { q })
   }
 

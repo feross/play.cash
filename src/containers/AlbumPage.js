@@ -22,7 +22,7 @@ class AlbumPage extends Component {
 
   _load () {
     const { entity } = store
-    store.dispatch('SET_TITLE', entity.name + ' by ' + entity.artistName)
+    store.dispatch('APP_TITLE', entity.name + ' by ' + entity.artistName)
     store.dispatch('FETCH_ALBUM_INFO', entity)
   }
 

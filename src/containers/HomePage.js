@@ -17,7 +17,7 @@ class HomePage extends Component {
   _load () {
     store.dispatch('FETCH_CHART_TOP_ARTISTS', { limit: 12 })
     store.dispatch('FETCH_CHART_TOP_TRACKS', { limit: 30 })
-    store.dispatch('SET_TITLE', null)
+    store.dispatch('APP_TITLE', null)
   }
 
   render (props) {
