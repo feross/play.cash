@@ -12,7 +12,8 @@ const store = {
   app: {
     title: null,
     width: 0,
-    height: 0
+    height: 0,
+    hidden: false
   },
   player: {
     videoId: null,
@@ -79,6 +80,12 @@ function dispatch (type, data) {
     case 'APP_RESIZE': {
       store.app.width = data.width
       store.app.height = data.height
+      return update()
+    }
+
+    case 'APP_HIDDEN': {
+      const hidden = data
+      store.app.hidden = hidden
       return update()
     }
 

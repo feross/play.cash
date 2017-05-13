@@ -30,18 +30,22 @@ class App extends Component {
   constructor (props) {
     super(props)
     this._onResizeThrottled = throttle(this._onResize.bind(this), 500)
+    this._onVisibilityChange = this._onVisibilityChange.bind(this)
   }
 
   componentWillMount () {
     this._onResize()
+    this._onVisibilityChange()
   }
 
   componentDidMount () {
     window.addEventListener('resize', this._onResizeThrottled)
+    window.addEventListener('visibilitychange', this._onVisibilityChange)
   }
 
   componentWillUnmount () {
     window.removeEventListener('resize', this._onResizeThrottled)
+    window.removeEventListener('visibilitychange', this._onVisibilityChange)
   }
 
   render (props) {
@@ -67,6 +71,11 @@ class App extends Component {
     const width = window.innerWidth
     const height = window.innerHeight
     store.dispatch('APP_RESIZE', { width, height })
+  }
+
+  _onVisibilityChange () {
+    const hidden = document.hidden
+    store.dispatch('APP_HIDDEN', hidden)
   }
 }
 

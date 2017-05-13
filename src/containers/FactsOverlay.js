@@ -1,6 +1,8 @@
 const { Component, h } = require('preact') /** @jsx h */
 const c = require('classnames')
 
+const store = require('../store')
+
 const FACT_OFFSET = 8 // Offset at beginning/end of video during which no facts are shown
 const FACT_GAP = 0.8 // Time to wait between facts
 
@@ -135,9 +137,12 @@ class FactsOverlay extends Component {
   }
 
   _playSound () {
-    const audio = new window.Audio('/pop.mp3')
-    audio.volume = 0.1
-    audio.play()
+    const { app } = store
+    if (!app.hidden) {
+      const audio = new window.Audio('/pop.mp3')
+      audio.volume = 0.1
+      audio.play()
+    }
   }
 }
 
