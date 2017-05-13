@@ -10,7 +10,7 @@ const SongFacts = require('./songfacts')
 
 const songfacts = new SongFacts(secret.songfacts, config.apiUserAgent)
 
-const LINE_BREAK_REGEX = /<br \/>/
+const LINE_BREAK_REGEX = /<br( \/)?><br( \/)?>/ig
 
 /**
  * Search SongFacts. Returns a collection of facts for the given `track` and
@@ -24,7 +24,14 @@ function apiFacts (opts, cb) {
 
     let { meta, info, facts } = result
 
-    facts = facts.map(fact => sbd.sentences(fact))
+    facts = facts
+    .map(fact => fact.replace(LINE_BREAK_REGEX, '\n'))
+    .map(fact => {
+      return sbd.sentences(fact, {
+        newline_boundaries: true
+      })
+    })
+
     facts = [].concat(...facts)
 
     // Rewrite <a> tags in facts to point to Play search results
