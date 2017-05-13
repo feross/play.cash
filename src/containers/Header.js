@@ -1,6 +1,5 @@
 const { h } = require('preact') /** @jsx h */
 
-const config = require('../../config')
 const store = require('../store')
 
 const Button = require('../components/Button')
@@ -27,48 +26,39 @@ const Header = (props) => {
   return (
     <header
       id='header'
-      class='fixed z-2 top-0 w-100 shadow-1'
+      class='fixed z-2 top-0 w-100 shadow-1 cf ph2 ph3-m ph4-l'
       style={{
+        height: 60,
+        paddingTop: 12,
         backgroundColor: 'rgba(255,65,54, 0.8)'
       }}
     >
-      <div class='cf center pv3 ph2 ph3-m ph4-l'>
-        <div class='fl w-third v-mid'>
-          <Link
-            class='logo logo-font white dib'
-            href='/'
-          >
-            <Image
-              class='absolute'
-              style={{
-                width: 46,
-                marginTop: -3,
-                marginLeft: -3
-              }}
-              src='/img/logo.svg'
-            />
-            <div
-              style={{
-                fontSize: 32,
-                marginLeft: 55
-              }}
-            >
-              {config.name}
-            </div>
-          </Link>
-        </div>
-        <div class='fl w-third v-mid'>
-          <Search class='search w-100' />
-        </div>
-        <nav
-          class='fl w-third v-mid tr'
-          style={{
-            marginTop: 2
-          }}
+      <div class='fl w-third v-mid'>
+        <Link
+          class='dib'
+          href='/'
         >
-          {$showVideoButton}
-        </nav>
+          <Image
+            style={{
+              height: 40,
+              marginTop: -1
+            }}
+            alt='Play'
+            src='/img/logo.svg'
+          />
+        </Link>
       </div>
+      <div class='fl w-third v-mid'>
+        <Search class='search w-100' />
+      </div>
+      <nav
+        class='fl w-third v-mid tr'
+        style={{
+          marginTop: 2
+        }}
+      >
+        {$showVideoButton}
+      </nav>
     </header>
   )
 }
