@@ -4,6 +4,7 @@ const debug = require('debug')('play:api-facts')
 const sbd = require('sbd')
 
 const config = require('../config')
+const entity = require('../src/entity')
 const secret = require('../secret')
 const SongFacts = require('./songfacts')
 
@@ -21,9 +22,19 @@ function apiFacts (opts, cb) {
   songfacts.getFacts(opts, (err, result) => {
     if (err) return cb(err)
 
-    result.facts = result.facts.map(fact => sbd.sentences(fact))
-    result.facts = [].concat(...result.facts)
+    let { meta, info, facts } = result
 
-    cb(null, result)
+    facts = facts.map(fact => sbd.sentences(fact))
+    facts = [].concat(...facts)
+
+    // Rewrite <a> tags in facts to point to Play search results
+    facts = facts.map(fact => {
+      return fact.replace(/href=".*?".*?>([^<]*)<\//g, (match, q) => {
+        const url = entity.encode({ type: 'search', q })
+        return `href="${url}">${q}</`
+      })
+    })
+
+    cb(null, { meta, info, facts })
   })
 }
