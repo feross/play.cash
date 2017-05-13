@@ -38,7 +38,7 @@ function apiFacts (opts, cb) {
     facts = facts.map(fact => {
       return fact.replace(/href=".*?".*?>([^<]*)<\//g, (match, q) => {
         const url = entity.encode({ type: 'search', q })
-        return `href="${url}">${q}</`
+        return `href="${url}" class="link dark-red hover-red">${q}</`
       })
     })
 
