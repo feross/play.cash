@@ -52,9 +52,9 @@ const TrackList = (props) => {
           class='fl play-arrow material-icons absolute mr1 dn'
           style={{
             fontSize: 28,
-            width: 20,
-            marginTop: '-0.15rem',
-            marginLeft: '-0.3rem'
+            width: 22,
+            marginTop: '-0.12rem',
+            marginLeft: '-0.15rem'
           }}
         >
           play_arrow
@@ -62,12 +62,12 @@ const TrackList = (props) => {
         <div
           class='fl absolute track-num mt1 white-50 tr'
           style={{
-            width: 20
+            width: 22
           }}
         >
           {i + 1}.
         </div>
-        <div class='fl'>
+        <div class='fl w-100'>
           <div
             class='f4 truncate'
             style={{
