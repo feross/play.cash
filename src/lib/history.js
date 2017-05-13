@@ -1,22 +1,20 @@
 // TODO: publish to npm
 
-const EventEmitter = require('events')
-
-class History extends EventEmitter {
-  constructor () {
-    super()
-    this._onChange = this._onChange.bind(this)
-    window.addEventListener('popstate', this._onChange)
+class History {
+  constructor (onChange) {
+    this._onChange = onChange
+    this._onPopState = this._onPopState.bind(this)
+    window.addEventListener('popstate', this._onPopState)
   }
 
   push (pathname) {
     window.history.pushState(undefined, undefined, pathname)
-    this._onChange()
+    this._onChange(window.location.pathname, 'push')
   }
 
   replace (pathname) {
     window.history.replaceState(undefined, undefined, pathname)
-    this._onChange()
+    this._onChange(window.location.pathname, 'replace')
   }
 
   go (n) {
@@ -24,12 +22,13 @@ class History extends EventEmitter {
   }
 
   destroy () {
-    window.removeEventListener('popstate', this._onChange)
+    window.removeEventListener('popstate', this._onPopState)
     this._onChange = null
+    this._onPopState = null
   }
 
-  _onChange (e) {
-    this.emit('change', window.location.pathname)
+  _onPopState (e) {
+    this._onChange(window.location.pathname, 'popstate')
   }
 }
 
