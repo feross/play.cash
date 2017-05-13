@@ -296,8 +296,12 @@ function dispatch (type, data) {
 
       if (!video) return store.errors.push(new Error('No track found'))
 
-      store.player.playing = true
-      store.player.videoId = video.id
+      const videoId = video.id
+
+      if (videoId !== store.player.videoId) {
+        store.player.videoId = videoId
+        store.player.playing = true
+      }
       return update()
     }
 
