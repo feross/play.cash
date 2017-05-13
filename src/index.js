@@ -9,8 +9,9 @@ store.update = update
 
 let root = null
 
-window.loc = new Location(routes, (loc) => {
+window.loc = new Location(routes, (loc, source) => {
   store.dispatch('LOCATION_CHANGE', loc)
+  if (source === 'push') window.scroll(0, 0)
 })
 
 function update () {
