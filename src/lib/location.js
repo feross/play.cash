@@ -11,8 +11,7 @@ class Location {
 
     this._router = new Router(routes)
 
-    this._history = new History()
-    this._history.on('change', this._onHistoryChange)
+    this._history = new History(this._onHistoryChange)
 
     document.addEventListener('click', this._onClick)
 
@@ -33,7 +32,6 @@ class Location {
   }
 
   destroy () {
-    this._history.removeListener('change', this._onHistoryChange)
     this._history.destroy()
 
     document.removeEventListener('click', this._onClick)
@@ -44,9 +42,9 @@ class Location {
     this._history = null
   }
 
-  _onHistoryChange (pathname) {
+  _onHistoryChange (pathname, source) {
     const loc = this._router.match(pathname)
-    this._onChange(loc)
+    this._onChange(loc, source)
   }
 
   _onClick (e) {
