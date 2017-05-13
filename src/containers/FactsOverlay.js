@@ -1,24 +1,25 @@
 const { Component, h } = require('preact') /** @jsx h */
 const c = require('classnames')
 
-const FIRST_FACT_DELAY = 8
-const LAST_FACT_OFFSET = 8
+const FACT_OFFSET = 8 // Offset at beginning/end of video during which no facts are shown
+const FACT_GAP = 0.8 // Time to wait between facts
 
-const FACT_DELAY = 2 // Time to wait between facts
-const MINIMUM_DURATION = 6
-const SECONDS_PER_CHAR = 1 / 22
+const BASE_DURATION = 3
+const SECONDS_PER_CHAR = 1 / 20
 
 const BUBBLE_WIDTH = 450
-const BUBBLE_HEIGHT = 200 // Actual height depends on text (this is just an estimate)
+const BUBBLE_HEIGHT = 125 // Actual height depends on text (this is just an estimate)
 const BUBBLE_HORIZ_OFFSET = 25
-const BUBBLE_VERT_OFFSET = 90
+const BUBBLE_VERT_OFFSET = 100
 
 class FactsOverlay extends Component {
   constructor (props) {
     super(props)
 
     this.state = {}
-    this.state.timedFacts = this._processFacts(props)
+    const { speedFactor, timedFacts } = this._processFacts(props)
+    this.state.speedFactor = speedFactor
+    this.state.timedFacts = timedFacts
     this.state.currentFactIndex = this._getCurrentFactIndex()
   }
 
@@ -31,9 +32,8 @@ class FactsOverlay extends Component {
       props.height !== nextProps.height
 
     if (updateFacts) {
-      this.setState({
-        timedFacts: this._processFacts(nextProps)
-      })
+      const { speedFactor, timedFacts } = this._processFacts(nextProps)
+      this.setState({ speedFactor, timedFacts })
     }
 
     if (updateFacts || props.time !== nextProps.time) {
@@ -47,13 +47,13 @@ class FactsOverlay extends Component {
   }
 
   render (props) {
-    const { timedFacts, currentFactIndex } = this.state
+    const { timedFacts, speedFactor, currentFactIndex } = this.state
     const { time } = props
 
     if (currentFactIndex === -1) return null
 
     const timedFact = timedFacts[currentFactIndex]
-    const animateCls = timedFact.end - time > FACT_DELAY
+    const animateCls = timedFact.end - time > FACT_GAP * (1 / speedFactor)
       ? 'animate-bounce-in'
       : 'animate-bounce-out'
 
@@ -81,12 +81,29 @@ class FactsOverlay extends Component {
 
   _processFacts (props) {
     const { facts, duration, width, height } = props
-    if (!facts || !duration || !width || !height) return []
+    if (!facts || !duration || !width || !height) {
+      return { speedFactor: 1, timedFacts: [] }
+    }
 
-    let start = FIRST_FACT_DELAY
+    // Adjust fact duration up or down slightly so that facts fit the video duration better
+    const totalFactDuration = facts.reduce((acc, fact) => acc + getFactDuration(fact), 0)
+
+    const speedFactor = Math.max(
+      0.80,
+      Math.min(
+        1.3,
+        totalFactDuration / (duration - (FACT_OFFSET * 2))
+      )
+    )
+
+    function getFactDuration (fact) {
+      return BASE_DURATION + (fact.length * SECONDS_PER_CHAR)
+    }
+
+    let start = FACT_OFFSET
 
     let timedFacts = facts.map(function (fact) {
-      const factDuration = MINIMUM_DURATION + fact.length * SECONDS_PER_CHAR
+      const factDuration = getFactDuration(fact) * (1 / speedFactor)
       const timedFact = {
         text: fact,
         duration: factDuration,
@@ -100,10 +117,10 @@ class FactsOverlay extends Component {
 
     // Remove facts which appear *after* the video ends
     timedFacts = timedFacts.filter(function (timedFact) {
-      return timedFact.end < duration - LAST_FACT_OFFSET
+      return timedFact.end <= duration - FACT_OFFSET + 1
     })
 
-    return timedFacts
+    return { speedFactor, timedFacts }
   }
 
   _getCurrentFactIndex () {
