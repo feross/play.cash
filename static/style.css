@@ -177,10 +177,10 @@
 }
 
 .fact-quote {
-  font-size: 120px;
+  font-size: 115px;
   position: absolute;
-  top: -64px;
-  left: -35px;
+  top: -50px;
+  left: -34px;
 
   text-shadow:
     -1px -1px 1px rgba(255, 255, 255, 1),
