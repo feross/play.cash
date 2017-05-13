@@ -61,9 +61,6 @@ class SongFacts {
         return cb(new Error('Unexpected response from SongFacts API ' + JSON.stringify(data)))
       }
 
-      // TODO: remove
-      console.log(JSON.stringify(data))
-
       const {
         result,
         generalinfo: info,

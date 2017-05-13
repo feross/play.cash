@@ -100,8 +100,8 @@ class Player extends Component {
     store.dispatch('PLAYER_ERROR', new Error('Unplayable video ' + videoId))
   }
 
+  // TODO
   _onEnded () {
-    console.log('TODO: handle player ended')
   }
 
   _onPlaying () {

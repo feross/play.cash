@@ -36,8 +36,6 @@ function init (server, sessionStore) {
             return destroy(new Error('Session lacks user'))
           }
 
-          console.log(sess.user)
-
           socket.user = sess.user
           send({ type: 'ready' })
         })
