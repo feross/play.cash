@@ -62,6 +62,7 @@
 
 .animate--fade-in {
   animation-name: fadeIn;
+  animation-duration: 0.5s;
 }
 
 @keyframes fadeOut {
@@ -76,6 +77,7 @@
 
 .animate--fade-out {
   animation-name: fadeOut;
+  animation-duration: 0.5s;
 }
 
 @keyframes slideInUp {
