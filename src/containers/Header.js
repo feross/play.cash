@@ -1,4 +1,5 @@
 const { h } = require('preact') /** @jsx h */
+const c = require('classnames')
 
 const store = require('../store')
 
@@ -23,10 +24,17 @@ const Header = (props) => {
     )
   }
 
+  const showHeader = !store.app.idle || store.location.name !== 'track' ||
+    !store.player.playing || store.player.buffering
+
+  const cls = showHeader
+    ? 'animate animate--slide-in-down'
+    : 'animate animate--slide-out-up'
+
   return (
     <header
       id='header'
-      class='fixed z-2 top-0 w-100 shadow-1 cf ph2 ph3-m ph4-l'
+      class={c('fixed z-2 top-0 w-100 shadow-1 cf ph2 ph3-m ph4-l', cls)}
       style={{
         height: 60,
         paddingTop: 12,

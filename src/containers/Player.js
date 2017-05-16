@@ -29,7 +29,7 @@ class Player extends Component {
     if (player.buffering) {
       $loadingVideo = (
         <video
-          class='absolute top-0 vh-100 animate-fade-in'
+          class='absolute top-0 vh-100 animate animate--fade-in'
           style={{
             width: '177.77777778vh', /* 100 * 16 / 9 */
             minWidth: '100%',

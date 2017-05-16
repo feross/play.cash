@@ -56,8 +56,8 @@ class FactsOverlay extends Component {
 
     const timedFact = timedFacts[currentFactIndex]
     const animateCls = timedFact.end - time > FACT_GAP * (1 / speedFactor)
-      ? 'animate-bounce-in'
-      : 'animate-bounce-out'
+      ? 'animate animate--bounce-in'
+      : 'animate animate--bounce-out'
 
     let text = timedFact.text
 

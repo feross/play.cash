@@ -45,9 +45,70 @@
  * Animations (adapted from animate.css)
  */
 
-.animate-bounce-in,
-.animate-bounce-out {
+.animate {
+  animation-duration: 1s;
   animation-fill-mode: both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.animate--fade-in {
+  animation-name: fadeIn;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.animate--fade-out {
+  animation-name: fadeOut;
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translate3d(0, -100%, 0);
+    visibility: visible;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate--slide-in-down {
+  animation-name: slideInDown;
+  animation-duration: 0.4s;
+}
+
+@keyframes slideOutUp {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    visibility: hidden;
+    transform: translate3d(0, -100%, 0);
+  }
+}
+
+.animate--slide-out-up {
+  animation-name: slideOutUp;
+  animation-duration: 0.4s;
+
 }
 
 @keyframes bounceIn {
@@ -79,7 +140,7 @@
   }
 }
 
-.animate-bounce-in {
+.animate--bounce-in {
   animation-name: bounceIn;
   animation-duration: .6s;
 }
@@ -100,24 +161,9 @@
   }
 }
 
-.animate-bounce-out {
+.animate--bounce-out {
   animation-name: bounceOut;
   animation-duration: .4s;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-.animate-fade-in {
-  animation-name: fadeIn;
-  animation-duration: 1s;
 }
 
 /**

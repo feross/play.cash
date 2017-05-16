@@ -13,12 +13,13 @@ const store = {
     title: null,
     width: 0,
     height: 0,
-    hidden: false
+    hidden: false,
+    idle: false
   },
   player: {
     videoId: null,
     playing: true,
-    volume: 100,
+    volume: 0,
     playbackRate: 1,
 
     // not settable (reflects player state)
@@ -68,12 +69,18 @@ function dispatch (type, data) {
     }
 
     /**
-     * WINDOW
+     * APP
      */
 
     case 'APP_TITLE': {
       const title = data
       store.app.title = title
+      return update()
+    }
+
+    case 'APP_HIDDEN': {
+      const hidden = data
+      store.app.hidden = hidden
       return update()
     }
 
@@ -83,9 +90,9 @@ function dispatch (type, data) {
       return update()
     }
 
-    case 'APP_HIDDEN': {
-      const hidden = data
-      store.app.hidden = hidden
+    case 'APP_IDLE': {
+      const idle = data
+      store.app.idle = idle
       return update()
     }
 
