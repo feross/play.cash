@@ -26,7 +26,7 @@ const PAGES = {
   'not-found': NotFoundPage
 }
 
-const APP_IDLE_TIMEOUT = 3000
+const APP_IDLE_TIMEOUT = 2500
 
 class App extends Component {
   constructor (props) {
