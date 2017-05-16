@@ -17,9 +17,16 @@ const PLAYER_OPTS = {
 class Player extends Component {
   constructor (props) {
     super(props)
+
+    this._onError = this._onError.bind(this)
+    this._onUnplayable = this._onUnplayable.bind(this)
     this._onEnded = this._onEnded.bind(this)
-    this._onTimeupdate = this._onTimeupdate.bind(this)
+    this._onPlaying = this._onPlaying.bind(this)
+    this._onPaused = this._onPaused.bind(this)
     this._onBuffering = this._onBuffering.bind(this)
+    this._onDuration = this._onDuration.bind(this)
+    this._onTimeupdate = this._onTimeupdate.bind(this)
+    this._onClick = this._onClick.bind(this)
   }
 
   render (props) {
@@ -48,7 +55,11 @@ class Player extends Component {
 
     return (
       <div class='fixed absolute--fill ' style={{ 'z-index': -1 }}>
-        <div id='player' class='absolute top-0 w-100 vh-100'>
+        <div
+          id='player'
+          class='absolute top-0 w-100 vh-100'
+          onClick={this._onClick}
+        >
           <YouTubePlayer
             videoId={player.videoId}
             playing={player.playing}
@@ -65,6 +76,9 @@ class Player extends Component {
             onBuffering={this._onBuffering}
             onDuration={this._onDuration}
             onTimeupdate={this._onTimeupdate}
+            style={{
+              'pointer-events': 'none'
+            }}
           />
         </div>
         {$loadingVideo}
@@ -102,6 +116,10 @@ class Player extends Component {
 
   _onTimeupdate (time) {
     store.dispatch('PLAYER_TIMEUPDATE', time)
+  }
+
+  _onClick () {
+    store.dispatch('PLAYER_PLAYING', !store.player.playing)
   }
 }
 
