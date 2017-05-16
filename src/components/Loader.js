@@ -19,7 +19,7 @@ const Loader = (props) => {
       class={c('tc mt3', props.class)}
       style={style}
     >
-      <Image class='rotate-180 animate animate--fade-in' src='/img/triangle.svg' alt='Loading...' />
+      <Image class='rotate-180 animate-fade-in animate--fast animate--delay' src='/img/triangle.svg' alt='Loading...' />
     </div>
   )
 }

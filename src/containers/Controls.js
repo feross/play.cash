@@ -19,8 +19,8 @@ class Controls extends Component {
       location.name !== 'track'
 
     const cls = showControls
-      ? 'animate animate--slide-in-up'
-      : 'animate animate--slide-out-down'
+      ? 'animate-slide-in-up animate--fast'
+      : 'animate-slide-out-down animate--normal'
 
     const progress = store.time / store.duration
 

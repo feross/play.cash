@@ -30,8 +30,8 @@ const Header = (props) => {
     location.name !== 'track'
 
   const cls = showHeader
-    ? 'animate animate--slide-in-down'
-    : 'animate animate--slide-out-up'
+    ? 'animate-slide-in-down animate--fast'
+    : 'animate-slide-out-up animate--normal'
 
   return (
     <header

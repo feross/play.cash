@@ -33,9 +33,9 @@ class Player extends Component {
   render (props) {
     const { app, player } = store
 
-    const loadingCls = player.buffering
-      ? 'animate animate--fade-in'
-      : 'animate animate--fade-out'
+    const loadingCls = (player.buffering || player.fetchingTrack)
+      ? 'animate-fade-in animate--normal'
+      : 'animate-fade-out animate--normal'
 
     return (
       <div class='fixed absolute--fill ' style={{ 'z-index': -1 }}>

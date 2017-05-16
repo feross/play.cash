@@ -45,9 +45,27 @@
  * Animations (adapted from animate.css)
  */
 
-.animate {
-  animation-duration: 1s;
+.animate-fade-in,
+.animate-fade-out,
+.animate-slide-in-up,
+.animate-slide-in-down,
+.animate-slide-out-up,
+.animate-slide-out-down,
+.animate-bounce-in,
+.animate-bounce-out {
   animation-fill-mode: both;
+}
+
+.animate--normal {
+  animation-duration: 0.5s;
+}
+
+.animate--fast {
+  animation-duration: 0.25s;
+}
+
+.animate--delay {
+  animation-delay: 1s;
 }
 
 @keyframes fadeIn {
@@ -60,9 +78,8 @@
   }
 }
 
-.animate--fade-in {
+.animate-fade-in {
   animation-name: fadeIn;
-  animation-duration: 0.5s;
 }
 
 @keyframes fadeOut {
@@ -75,9 +92,8 @@
   }
 }
 
-.animate--fade-out {
+.animate-fade-out {
   animation-name: fadeOut;
-  animation-duration: 0.5s;
 }
 
 @keyframes slideInUp {
@@ -91,9 +107,8 @@
   }
 }
 
-.animate--slide-in-up {
+.animate-slide-in-up {
   animation-name: slideInUp;
-  animation-duration: 0.25s;
 }
 
 @keyframes slideInDown {
@@ -107,9 +122,8 @@
   }
 }
 
-.animate--slide-in-down {
+.animate-slide-in-down {
   animation-name: slideInDown;
-  animation-duration: 0.25s;
 }
 
 @keyframes slideOutUp {
@@ -123,9 +137,8 @@
   }
 }
 
-.animate--slide-out-up {
+.animate-slide-out-up {
   animation-name: slideOutUp;
-  animation-duration: 0.5s;
 }
 
 @keyframes slideOutDown {
@@ -139,9 +152,8 @@
   }
 }
 
-.animate--slide-out-down {
+.animate-slide-out-down {
   animation-name: slideOutDown;
-  animation-duration: 0.5s;
 }
 
 @keyframes bounceIn {
@@ -173,9 +185,8 @@
   }
 }
 
-.animate--bounce-in {
+.animate-bounce-in {
   animation-name: bounceIn;
-  animation-duration: .6s;
 }
 
 @keyframes bounceOut {
@@ -194,9 +205,8 @@
   }
 }
 
-.animate--bounce-out {
+.animate-bounce-out {
   animation-name: bounceOut;
-  animation-duration: .4s;
 }
 
 /**

@@ -55,9 +55,14 @@ class FactsOverlay extends Component {
     if (currentFactIndex === -1) return null
 
     const timedFact = timedFacts[currentFactIndex]
-    const animateCls = timedFact.end - time > FACT_GAP * (1 / speedFactor)
-      ? 'animate animate--bounce-in'
-      : 'animate animate--bounce-out'
+
+    const showFact = timedFact.end - time > FACT_GAP * (1 / speedFactor)
+    const animateCls = showFact
+      ? 'animate-bounce-in' // note: animation duration is specified below
+      : 'animate-bounce-out'
+    const animationDuration = showFact
+      ? '0.6s'
+      : '0.4s'
 
     let text = timedFact.text
 
@@ -72,6 +77,7 @@ class FactsOverlay extends Component {
         class={c('fact fact-font absolute black bg-white-90 lh-title', animateCls)}
         style={{
           maxWidth: BUBBLE_WIDTH,
+          'animation-duration': animationDuration,
           ...timedFact.position
         }}
       >
