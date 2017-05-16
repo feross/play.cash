@@ -5,6 +5,7 @@ const store = require('../store')
 const config = require('../../config')
 
 // const Footer = require('./Footer') TODO
+const Controls = require('./Controls')
 const Header = require('./Header')
 const Player = require('./Player')
 const Title = require('../components/Title')
@@ -68,6 +69,7 @@ class App extends Component {
         <Title title={title} />
         <Player />
         <Header />
+        <Controls />
         <Page entity={entity} />
       </div>
     )

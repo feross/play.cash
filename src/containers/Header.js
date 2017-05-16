@@ -9,13 +9,15 @@ const Link = require('../components/Link')
 const Search = require('./Search')
 
 const Header = (props) => {
+  const { app, location, player, currentTrackUrl } = store
+
   let $showVideoButton = null
-  if (store.player.videoId && (store.location.name !== 'track')) {
+  if (player.videoId && (location.name !== 'track')) {
     $showVideoButton = (
       <Button
         fill
         color='blue'
-        href={store.currentTrackUrl}
+        href={currentTrackUrl}
         size='medium'
         class='mb0'
       >
@@ -24,8 +26,8 @@ const Header = (props) => {
     )
   }
 
-  const showHeader = !store.app.idle || store.location.name !== 'track' ||
-    !store.player.playing || store.player.buffering
+  const showHeader = !app.idle || !player.playing || player.buffering ||
+    location.name !== 'track'
 
   const cls = showHeader
     ? 'animate animate--slide-in-down'
@@ -37,8 +39,7 @@ const Header = (props) => {
       class={c('fixed z-2 top-0 w-100 shadow-1 cf ph2 ph3-m ph4-l', cls)}
       style={{
         height: 60,
-        paddingTop: 12,
-        backgroundColor: 'rgba(255,65,54, 0.8)'
+        paddingTop: 12
       }}
     >
       <div class='fl w-third v-mid'>

@@ -78,6 +78,22 @@
   animation-name: fadeOut;
 }
 
+@keyframes slideInUp {
+  from {
+    transform: translate3d(0, 100%, 0);
+    visibility: visible;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate--slide-in-up {
+  animation-name: slideInUp;
+  animation-duration: 0.25s;
+}
+
 @keyframes slideInDown {
   from {
     transform: translate3d(0, -100%, 0);
@@ -91,7 +107,7 @@
 
 .animate--slide-in-down {
   animation-name: slideInDown;
-  animation-duration: 0.4s;
+  animation-duration: 0.25s;
 }
 
 @keyframes slideOutUp {
@@ -107,8 +123,23 @@
 
 .animate--slide-out-up {
   animation-name: slideOutUp;
-  animation-duration: 0.4s;
+  animation-duration: 0.5s;
+}
 
+@keyframes slideOutDown {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    visibility: hidden;
+    transform: translate3d(0, 100%, 0);
+  }
+}
+
+.animate--slide-out-down {
+  animation-name: slideOutDown;
+  animation-duration: 0.5s;
 }
 
 @keyframes bounceIn {
@@ -229,4 +260,10 @@
     1px -1px 1px rgba(255, 255, 255, 1),
     -1px 1px 1px rgba(255, 255, 255, 1),
     1px 1px 1px rgba(255, 255, 255, 1);
+}
+
+/* CONTROLS */
+
+#header, #controls {
+  background-color: rgba(255,65,54, 0.8);
 }
