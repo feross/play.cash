@@ -16,7 +16,7 @@ class Controls extends Component {
     const { app, location, player } = store
 
     const showControls = !app.idle || !player.playing || player.buffering ||
-      location.name !== 'track'
+      player.fetchingTrack || location.name !== 'track'
 
     const cls = showControls
       ? 'animate-slide-in-up animate--fast'

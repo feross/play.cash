@@ -27,7 +27,7 @@ const Header = (props) => {
   }
 
   const showHeader = !app.idle || !player.playing || player.buffering ||
-    location.name !== 'track'
+    player.fetchingTrack || location.name !== 'track'
 
   const cls = showHeader
     ? 'animate-slide-in-down animate--fast'

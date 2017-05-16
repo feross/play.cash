@@ -25,7 +25,10 @@ const store = {
     // not settable (reflects player state)
     time: 0,
     duration: 0,
-    buffering: true
+    buffering: true,
+
+    // extra state
+    fetchingTrack: false
   },
   searches: {},
   lastSearch: '',
@@ -299,6 +302,7 @@ function dispatch (type, data) {
         dispatch('FETCH_VIDEO_DONE', { err, result })
       })
       store.currentTrackUrl = track.url
+      store.player.fetchingTrack = true
       return update()
     }
     case 'FETCH_VIDEO_DONE': {
@@ -311,7 +315,6 @@ function dispatch (type, data) {
       if (!video) return store.errors.push(new Error('No track found'))
 
       const videoId = video.id
-
       if (videoId !== store.player.videoId) {
         store.player.videoId = videoId
         store.player.time = 0
@@ -319,6 +322,7 @@ function dispatch (type, data) {
         store.player.buffering = true
         store.player.playing = true
       }
+      store.player.fetchingTrack = false
       return update()
     }
 
