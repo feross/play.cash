@@ -1,4 +1,4 @@
-// publish to npm
+// TODO: publish to npm
 
 const { Component, h } = require('preact') /** @jsx h */
 const YTPlayer = require('yt-player')
@@ -173,6 +173,7 @@ class YouTubePlayer extends Component {
 
   _onCued () {
     if (this._waitingForDuration) {
+      this._waitingForDuration = false
       const duration = this.player.getDuration()
       this.props.onDuration(duration)
     }
