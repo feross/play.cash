@@ -22,12 +22,15 @@ class Sheet extends Component {
   }
 
   _onClick (e) {
-    if (store.currentTrackUrl == null) return
+    const { location, currentTrackUrl } = store
+
+    if (location.name === 'track' || currentTrackUrl == null) return
+
     if (e.target !== e.currentTarget &&
         (!e.target.parentElement || e.target.parentElement !== e.currentTarget)) {
       return
     }
-    store.dispatch('LOCATION_PUSH', store.currentTrackUrl)
+    store.dispatch('LOCATION_PUSH', currentTrackUrl)
   }
 }
 

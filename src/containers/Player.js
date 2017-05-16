@@ -1,4 +1,5 @@
 const { Component, h } = require('preact') /** @jsx h */
+const c = require('classnames')
 
 const store = require('../store')
 
@@ -32,26 +33,9 @@ class Player extends Component {
   render (props) {
     const { app, player } = store
 
-    let $loadingVideo = null
-    if (player.buffering) {
-      $loadingVideo = (
-        <video
-          class='absolute top-0 vh-100 animate animate--fade-in'
-          style={{
-            width: '177.77777778vh', /* 100 * 16 / 9 */
-            minWidth: '100%',
-            minHeight: '56.25vw' /* 100 * 9 / 16 */
-          }}
-          playbackRate={0.4}
-          autoplay
-          loop
-          volume='0'
-        >
-          <source src='/glitch.webm' type='video/webm; codecs=vp9' />
-          <source src='/glitch.mp4' type='video/mp4' />
-        </video>
-      )
-    }
+    const loadingCls = player.buffering
+      ? 'animate animate--fade-in'
+      : 'animate animate--fade-out'
 
     return (
       <div class='fixed absolute--fill ' style={{ 'z-index': -1 }}>
@@ -81,7 +65,22 @@ class Player extends Component {
             }}
           />
         </div>
-        {$loadingVideo}
+        <video
+          class={c('absolute top-0 vh-100', loadingCls)}
+          style={{
+            'pointer-events': 'none',
+            width: '177.77777778vh', /* 100 * 16 / 9 */
+            minWidth: '100%',
+            minHeight: '56.25vw' /* 100 * 9 / 16 */
+          }}
+          playbackRate={0.4}
+          autoplay
+          loop
+          volume='0'
+        >
+          <source src='/glitch.webm' type='video/webm; codecs=vp9' />
+          <source src='/glitch.mp4' type='video/mp4' />
+        </video>
       </div>
     )
   }
@@ -94,16 +93,18 @@ class Player extends Component {
     store.dispatch('PLAYER_ERROR', new Error('Unplayable video ' + videoId))
   }
 
-  // TODO
   _onEnded () {
+    // TODO
   }
 
   _onPlaying () {
-    store.dispatch('PLAYER_PLAYING', true)
+    const { player } = store
+    if (!player.playing) store.dispatch('PLAYER_PLAYING', true)
   }
 
   _onPaused () {
-    store.dispatch('PLAYER_PLAYING', false)
+    const { player } = store
+    if (player.playing) store.dispatch('PLAYER_PLAYING', false)
   }
 
   _onBuffering () {
@@ -119,7 +120,8 @@ class Player extends Component {
   }
 
   _onClick () {
-    store.dispatch('PLAYER_PLAYING', !store.player.playing)
+    const { player } = store
+    store.dispatch('PLAYER_PLAYING', !player.playing)
   }
 }
 

@@ -18,7 +18,7 @@ const store = {
   },
   player: {
     videoId: null,
-    playing: true,
+    playing: false,
     volume: 100,
     playbackRate: 1,
 
@@ -107,7 +107,6 @@ function dispatch (type, data) {
 
     case 'PLAYER_PLAYING': {
       store.player.playing = data
-      store.player.buffering = false
       return update()
     }
 
@@ -123,6 +122,7 @@ function dispatch (type, data) {
 
     case 'PLAYER_TIMEUPDATE': {
       store.player.time = data
+      store.player.buffering = false
       return update()
     }
 
@@ -314,6 +314,9 @@ function dispatch (type, data) {
 
       if (videoId !== store.player.videoId) {
         store.player.videoId = videoId
+        store.player.time = 0
+        store.player.duration = 0
+        store.player.buffering = true
         store.player.playing = true
       }
       return update()
