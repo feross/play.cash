@@ -19,7 +19,7 @@ const store = {
   player: {
     videoId: null,
     playing: true,
-    volume: 0,
+    volume: 100,
     playbackRate: 1,
 
     // not settable (reflects player state)
