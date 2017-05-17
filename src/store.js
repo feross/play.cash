@@ -60,7 +60,7 @@ function dispatch (type, data) {
     }
 
     case 'LOCATION_BACK': {
-      window.loc.go(-1)
+      window.loc.back()
       return
     }
 

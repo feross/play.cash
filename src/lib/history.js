@@ -17,8 +17,12 @@ class History {
     this._onChange(window.location.pathname, 'replace')
   }
 
-  go (n) {
-    window.history.go(n)
+  back () {
+    window.history.back()
+  }
+
+  forward () {
+    window.history.forward()
   }
 
   destroy () {

@@ -27,8 +27,12 @@ class Location {
     this._history.replace(pathname)
   }
 
-  go (n) {
-    this._history.go(n)
+  back () {
+    this._history.back()
+  }
+
+  forward () {
+    this._history.forward()
   }
 
   destroy () {
