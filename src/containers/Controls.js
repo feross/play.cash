@@ -69,7 +69,7 @@ class Controls extends Component {
             <div
               class='fl'
               style={{
-                'margin-top': 3,
+                'margin-top': 4,
                 'margin-left': 13
               }}
             >
@@ -112,10 +112,10 @@ class Controls extends Component {
         >
           {$nowPlaying}
         </div>
-        <div class='fl w-40 tc'>
+        <div class='fl w-40 tc mt1'>
           <div>
             <i
-              class='material-icons white-90 hover-white pointer v-top ml2 mr3'
+              class='material-icons hover-white grow-large pointer v-top ml2 mr3'
               style={{
                 fontSize: 20,
                 marginTop: 11
@@ -125,7 +125,7 @@ class Controls extends Component {
               shuffle
             </i>
             <i
-              class='material-icons white-90 hover-white pointer v-top ml3 mr2'
+              class='material-icons hover-white grow-large pointer v-top ml3 mr2'
               style={{
                 fontSize: 24,
                 marginTop: 9
@@ -135,7 +135,7 @@ class Controls extends Component {
               skip_previous
             </i>
             <i
-              class='material-icons white-90 hover-white pointer v-top mh2 grow'
+              class='material-icons hover-white grow-large pointer v-top mh2'
               style={{
                 fontSize: 42
               }}
@@ -144,7 +144,7 @@ class Controls extends Component {
               {playPauseIcon}
             </i>
             <i
-              class='material-icons white-90 hover-white pointer v-top ml2 mr3'
+              class='material-icons hover-white grow-large pointer v-top ml2 mr3'
               style={{
                 fontSize: 24,
                 marginTop: 9
@@ -154,7 +154,7 @@ class Controls extends Component {
               skip_next
             </i>
             <i
-              class='material-icons white-90 hover-white pointer v-top ml3 mr2'
+              class='material-icons hover-white grow-large pointer v-top ml3 mr2'
               style={{
                 fontSize: 20,
                 marginTop: 11

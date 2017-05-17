@@ -42,6 +42,15 @@
 }
 
 /**
+ * Tachyons tweaks
+ */
+
+.grow,
+.grow-large {
+  transition: transform 0.1s ease-out;
+}
+
+/**
  * Animations (adapted from animate.css)
  */
 
