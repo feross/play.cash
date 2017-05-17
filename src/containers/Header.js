@@ -2,6 +2,7 @@ const { h } = require('preact') /** @jsx h */
 const c = require('classnames')
 
 const store = require('../store')
+const { getControlsVisible } = require('../store-getters')
 
 const Button = require('../components/Button')
 const Image = require('../components/Image')
@@ -9,7 +10,7 @@ const Link = require('../components/Link')
 const Search = require('./Search')
 
 const Header = (props) => {
-  const { app, location, player, currentTrackUrl } = store
+  const { location, player, currentTrackUrl } = store
 
   let $showVideoButton = null
   if (player.videoId && (location.name !== 'track')) {
@@ -26,10 +27,7 @@ const Header = (props) => {
     )
   }
 
-  const showHeader = !app.idle || !player.playing || player.buffering ||
-    player.fetchingTrack || location.name !== 'track'
-
-  const cls = showHeader
+  const cls = getControlsVisible()
     ? 'animate-slide-in-down animate--fast'
     : 'animate-slide-out-up animate--normal'
 

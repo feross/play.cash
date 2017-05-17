@@ -6,7 +6,8 @@ const { formatTime } = require('../format')
 const {
   getTrack,
   getArtistForTrack,
-  getAlbumForTrack
+  getAlbumForTrack,
+  getControlsVisible
 } = require('../store-getters')
 
 const Album = require('../components/Album')
@@ -25,12 +26,9 @@ class Controls extends Component {
   }
 
   render (props) {
-    const { app, location, player, currentTrackUrl } = store
+    const { player, currentTrackUrl } = store
 
-    const showControls = !app.idle || !player.playing || player.buffering ||
-      player.fetchingTrack || location.name !== 'track'
-
-    const cls = showControls
+    const cls = getControlsVisible()
       ? 'animate-slide-in-up animate--fast'
       : 'animate-slide-out-down animate--normal'
 

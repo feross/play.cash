@@ -2,6 +2,7 @@ const { Component, h } = require('preact') /** @jsx h */
 const throttle = require('throttleit')
 
 const store = require('../store')
+const { getControlsVisible } = require('../store-getters')
 const config = require('../../config')
 
 // const Footer = require('./Footer') TODO
@@ -67,8 +68,17 @@ class App extends Component {
       ? store.app.title + ' – ' + config.name
       : config.name
 
+    const cursor = getControlsVisible()
+      ? 'auto'
+      : 'none'
+
     return (
-      <div style={{ 'user-select': 'none' }}>
+      <div
+        style={{
+          'user-select': 'none',
+          cursor: cursor
+        }}
+      >
         <Title title={title} />
         <Player />
         <Header />
