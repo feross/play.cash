@@ -45,9 +45,15 @@
  * Tachyons tweaks
  */
 
+/* Faster grow transition */
 .grow,
 .grow-large {
   transition: transform 0.1s ease-out;
+}
+
+/* Undo default link outline */
+.link:focus {
+  outline: none;
 }
 
 /**
