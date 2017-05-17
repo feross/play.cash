@@ -22,7 +22,11 @@ class Controls extends Component {
       ? 'animate-slide-in-up animate--fast'
       : 'animate-slide-out-down animate--normal'
 
-    const progress = store.time / store.duration
+    const progress = player.time / player.duration
+
+    const playPauseIcon = player.playing
+      ? 'pause_circle_outline'
+      : 'play_circle_outline'
 
     return (
       <div
@@ -33,59 +37,72 @@ class Controls extends Component {
           paddingTop: 8
         }}
       >
-        <div class='fl w-third v-mid'>
+        <div class='fl w-30 v-mid'>
           Info
         </div>
-        <div class='fl w-third v-mid tc'>
+        <div class='fl w-40 tc'>
           <div>
             <i
-              class='material-icons ph2'
+              class='material-icons pointer v-top mh2'
               style={{
-                fontSize: 26
+                fontSize: 24,
+                marginTop: 9
               }}
             >
               skip_previous
             </i>
             <i
-              class='material-icons ph2'
+              class='material-icons pointer grow v-top mh2'
               style={{
-                fontSize: 44
+                fontSize: 42
               }}
               onClick={this._onPlayPause}
             >
-              play_circle_outline
+              {playPauseIcon}
             </i>
             <i
-              class='material-icons ph2'
+              class='material-icons pointer v-top mh2'
               style={{
-                fontSize: 26
+                fontSize: 24,
+                marginTop: 9
               }}
             >
               skip_next
             </i>
           </div>
-          <div class='cf v-mid'>
+          <div class='cf w-100 mt1'>
             <div
-              class='fl f7'
+              class='fl f7 pr2 tr'
               style={{
                 width: 40
               }}
             >
               {formatTime(player.time)}
             </div>
-            <div class='fl w-100 bg-white h1'>
+            <div
+              class='fl bg-white br-pill mt1'
+              style={{
+                width: 'calc(100% - 80px)',
+                height: 4
+              }}
+            >
               <div
                 style={{
                   width: (progress * 100) + '%'
                 }}
               />
             </div>
-            <div class='fl f7'>
+            <div
+              class='fl f7 pl2 tl'
+              style={{
+                width: 40
+              }}
+            >
               {formatTime(player.duration)}
             </div>
           </div>
         </div>
-        <div class='fl w-third v-mid' />
+        <div class='fl w-30 v-mid' />
       </div>
     )
   }
