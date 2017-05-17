@@ -8,7 +8,7 @@ const store = {
     params: {},
     pathname: null
   },
-  entity: null,
+  entity: null, // TODO: move this into store.location
   app: {
     title: null,
     width: 0,

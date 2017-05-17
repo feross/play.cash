@@ -2,8 +2,11 @@ const { Component, h } = require('preact') /** @jsx h */
 const c = require('classnames')
 
 const store = require('../store')
-
+const { getTrack, getArtistForTrack } = require('../store-getters')
 const { formatTime } = require('../format')
+
+// const Album = require('../components/Album')
+const Link = require('../components/Link')
 
 class Controls extends Component {
   constructor (props) {
@@ -18,7 +21,7 @@ class Controls extends Component {
   }
 
   render (props) {
-    const { app, location, player } = store
+    const { app, location, player, currentTrackUrl } = store
 
     const showControls = !app.idle || !player.playing || player.buffering ||
       player.fetchingTrack || location.name !== 'track'
@@ -33,6 +36,44 @@ class Controls extends Component {
       ? 'pause_circle_outline'
       : 'play_circle_outline'
 
+    // <Album
+    //   class='h-100'
+    //   album={current.album}
+    //   sizeHint='5vw'
+    //   showName={false}
+    //   showArtistName={false}
+    //   showLink={false}
+    // />
+
+    let $nowPlaying = null
+    if (currentTrackUrl) {
+      const track = getTrack(currentTrackUrl)
+      const artist = getArtistForTrack(currentTrackUrl)
+
+      if (track && artist) {
+        $nowPlaying = (
+          <div class='pv2'>
+            <div class='pv1'>
+              <Link
+                class='truncate underline-hover'
+                href={track.url}
+              >
+                {track.name}
+              </Link>
+            </div>
+            <div class='white-70'>
+              <Link
+                class='truncate underline-hover f7'
+                href={artist.url}
+              >
+                {artist.name}
+              </Link>
+            </div>
+          </div>
+        )
+      }
+    }
+
     return (
       <div
         id='controls'
@@ -43,7 +84,7 @@ class Controls extends Component {
         }}
       >
         <div class='fl w-30 v-mid'>
-          Info
+          {$nowPlaying}
         </div>
         <div class='fl w-40 tc'>
           <div>
