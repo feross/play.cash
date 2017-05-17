@@ -37,7 +37,12 @@ const TrackList = (props) => {
     if (track.duration) {
       const duration = formatTime(track.duration)
       $duration = (
-        <div class='fr white-50 mt1 tracked fw1'>
+        <div
+          class='fr white-50 mt1 tracked fw1 tr'
+          style={{
+            width: 50
+          }}
+        >
           {duration}
         </div>
       )
@@ -67,7 +72,12 @@ const TrackList = (props) => {
         >
           {i + 1}.
         </div>
-        <div class='fl w-100'>
+        <div
+          class='fl'
+          style={{
+            width: $duration ? 'calc(100% - 50px)' : '100%'
+          }}
+        >
           <div
             class='f4 truncate'
             style={{
