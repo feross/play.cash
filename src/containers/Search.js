@@ -54,6 +54,7 @@ class Search extends Component {
       const value = this._getInputValue(e)
       if (value.trim() !== '') this._dispatch(value)
     }
+    e.stopPropagation()
   }
 
   _onFocus (e) {

@@ -35,6 +35,7 @@ class App extends Component {
     this._onVisibilityChange = this._onVisibilityChange.bind(this)
     this._onResizeThrottled = throttle(this._onResize.bind(this), 500)
     this._onMouseMoveThrottled = throttle(this._onMouseMove.bind(this), 500)
+    this._onKeyPress = this._onKeyPress.bind(this)
   }
 
   componentWillMount () {
@@ -47,12 +48,14 @@ class App extends Component {
     window.addEventListener('visibilitychange', this._onVisibilityChange)
     window.addEventListener('resize', this._onResizeThrottled)
     window.addEventListener('mousemove', this._onMouseMoveThrottled)
+    window.addEventListener('keypress', this._onKeyPress)
   }
 
   componentWillUnmount () {
     window.removeEventListener('visibilitychange', this._onVisibilityChange)
     window.removeEventListener('resize', this._onResizeThrottled)
     window.removeEventListener('mousemove', this._onMouseMoveThrottled)
+    window.removeEventListener('keypress', this._onKeyPress)
   }
 
   render (props) {
@@ -92,11 +95,19 @@ class App extends Component {
     }
 
     clearInterval(this._inactiveTimeout)
-    this._inactiveTimeout = setTimeout(this._onInactive, APP_IDLE_TIMEOUT)
+    this._inactiveTimeout = setTimeout(() => this._onInactive(), APP_IDLE_TIMEOUT)
   }
 
   _onInactive () {
     store.dispatch('APP_IDLE', true)
+  }
+
+  _onKeyPress (e) {
+    const { currentTrackUrl, player } = store
+    if (e.key === ' ' && currentTrackUrl) {
+      store.dispatch('PLAYER_PLAYING', !player.playing)
+      e.preventDefault()
+    }
   }
 }
 
