@@ -75,8 +75,8 @@ class ArtistPage extends Component {
 
       $content = (
         <div>
-          <div class='mw7 center'>
-            <Heading class='tc'>Popular</Heading>
+          <div class='mw8 center'>
+            <Heading>Popular</Heading>
             <TrackList tracks={topTracks} showArtistName={false} columns={2} />
           </div>
           <div>
