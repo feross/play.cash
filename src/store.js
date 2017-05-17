@@ -8,7 +8,7 @@ const store = {
     params: {},
     pathname: null
   },
-  entity: null, // TODO: move this into store.location
+  entity: null,
   app: {
     title: null,
     width: 0,
@@ -30,9 +30,9 @@ const store = {
     // extra state
     fetchingTrack: false
   },
+  artists: {},
   searches: {},
   lastSearch: '',
-  artists: {},
   charts: {
     topArtistUrls: [],
     topTrackUrls: []

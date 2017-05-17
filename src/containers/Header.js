@@ -10,10 +10,10 @@ const Link = require('../components/Link')
 const Search = require('./Search')
 
 const Header = (props) => {
-  const { location, player, currentTrackUrl } = store
+  const { location, currentTrackUrl } = store
 
   let $showVideoButton = null
-  if (player.videoId && (location.name !== 'track')) {
+  if (currentTrackUrl && location.name !== 'track') {
     $showVideoButton = (
       <Button
         fill
