@@ -143,10 +143,10 @@ class FactsOverlay extends Component {
   }
 
   _playSound () {
-    const { app } = store
+    const { app, player } = store
     if (!app.hidden) {
       const audio = new window.Audio('/pop.mp3')
-      audio.volume = 0.1
+      audio.volume = 0.1 * (player.volume / 100)
       audio.play()
     }
   }
