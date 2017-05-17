@@ -136,20 +136,18 @@ function dispatch (type, data) {
     case 'SEARCH_INPUT': {
       const q = data
 
+      const lastSearch = store.lastSearch
+      store.lastSearch = q
+
       if (q === '') {
         store.dispatch('LOCATION_BACK')
-        return
-      }
-
-      const searchUrl = entity.encode({ type: 'search', q })
-
-      if (store.location.name === 'search') {
-        if (q !== store.lastSearch) store.dispatch('LOCATION_REPLACE', searchUrl)
+      } else if (store.location.name === 'search') {
+        const searchUrl = entity.encode({ type: 'search', q })
+        if (q !== lastSearch) store.dispatch('LOCATION_REPLACE', searchUrl)
       } else {
+        const searchUrl = entity.encode({ type: 'search', q })
         store.dispatch('LOCATION_PUSH', searchUrl)
       }
-
-      store.lastSearch = q
 
       return update()
     }
