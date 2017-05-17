@@ -2,10 +2,14 @@ const { Component, h } = require('preact') /** @jsx h */
 const c = require('classnames')
 
 const store = require('../store')
-const { getTrack, getArtistForTrack } = require('../store-getters')
 const { formatTime } = require('../format')
+const {
+  getTrack,
+  getArtistForTrack,
+  getAlbumForTrack
+} = require('../store-getters')
 
-// const Album = require('../components/Album')
+const Album = require('../components/Album')
 const Link = require('../components/Link')
 
 class Controls extends Component {
@@ -36,38 +40,39 @@ class Controls extends Component {
       ? 'pause_circle_outline'
       : 'play_circle_outline'
 
-    // <Album
-    //   class='h-100'
-    //   album={current.album}
-    //   sizeHint='5vw'
-    //   showName={false}
-    //   showArtistName={false}
-    //   showLink={false}
-    // />
-
     let $nowPlaying = null
     if (currentTrackUrl) {
       const track = getTrack(currentTrackUrl)
       const artist = getArtistForTrack(currentTrackUrl)
-
-      if (track && artist) {
+      const album = getAlbumForTrack(currentTrackUrl)
+      console.log(!!track, !!artist, !!album)
+      if (track && artist && album) {
         $nowPlaying = (
           <div class='pv2'>
-            <div class='pv1'>
-              <Link
-                class='truncate underline-hover'
-                href={track.url}
-              >
-                {track.name}
-              </Link>
-            </div>
-            <div class='white-70'>
-              <Link
-                class='truncate underline-hover f7'
-                href={artist.url}
-              >
-                {artist.name}
-              </Link>
+            <Album
+              class='fl h-100'
+              album={album}
+              sizeHint='5vw'
+              showName={false}
+              showArtistName={false}
+            />
+            <div>
+              <div class='pv1'>
+                <Link
+                  class='truncate underline-hover'
+                  href={track.url}
+                >
+                  {track.name}
+                </Link>
+              </div>
+              <div class='white-70'>
+                <Link
+                  class='truncate underline-hover f7'
+                  href={artist.url}
+                >
+                  {artist.name}
+                </Link>
+              </div>
             </div>
           </div>
         )
@@ -77,13 +82,18 @@ class Controls extends Component {
     return (
       <div
         id='controls'
-        class={c('fixed z-2 bottom-0 w-100 shadow-1 ph2 ph3-m ph4-l', cls)}
+        class={c('fixed z-2 bottom-0 w-100 shadow-1 ph2 ph3-m ph3-l', cls)}
         style={{
           height: 80,
           paddingTop: 8
         }}
       >
-        <div class='fl w-30 v-mid'>
+        <div
+          class='fl w-30 v-mid'
+          style={{
+            'min-height': 1
+          }}
+        >
           {$nowPlaying}
         </div>
         <div class='fl w-40 tc'>

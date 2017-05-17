@@ -22,6 +22,7 @@ class TrackPage extends Component {
     store.dispatch('APP_TITLE', entity.name + ' by ' + entity.artistName)
     store.dispatch('FETCH_VIDEO', entity)
     store.dispatch('FETCH_FACTS', entity)
+    store.dispatch('FETCH_TRACK_INFO', entity)
   }
 
   render (props) {

@@ -2,7 +2,7 @@ const { Component, h } = require('preact') /** @jsx h */
 
 const entity = require('../entity')
 const store = require('../store')
-const { getArtistByName, getAlbum } = require('../store-getters')
+const { getAlbum, getArtistForAlbum } = require('../store-getters')
 
 const Album = require('../components/Album')
 const Heading = require('../components/Heading')
@@ -34,7 +34,7 @@ class AlbumPage extends Component {
       return <Sheet><Loader center /></Sheet>
     }
 
-    const artist = getArtistByName(album.artistName)
+    const artist = getArtistForAlbum(album.url)
     let $tracks = <Loader center />
 
     if (album.tracks.length > 0) {

@@ -293,6 +293,22 @@ function dispatch (type, data) {
      * TRACK
      */
 
+    case 'FETCH_TRACK_INFO': {
+      api.music({ method: 'trackInfo', ...data }, (err, result) => {
+        dispatch('FETCH_TRACK_INFO_DONE', { err, result })
+      })
+      return
+    }
+    case 'FETCH_TRACK_INFO_DONE': {
+      const { err, result } = data
+      if (err) return addError(err)
+
+      const track = result
+      addTrack(track)
+
+      return update()
+    }
+
     case 'FETCH_VIDEO': {
       const track = data
       const { name, artistName } = track
@@ -358,6 +374,7 @@ function addArtist (artist) {
   if (!artist.url) artist.url = entity.encode(artist)
 
   const artistDefaults = {
+    images: [],
     albums: {},
     tracks: {},
     topTrackUrls: [],
@@ -389,6 +406,7 @@ function addAlbum (album) {
   if (!album.url) album.url = entity.encode(album)
 
   const albumDefaults = {
+    images: [],
     tracks: []
   }
 
@@ -410,10 +428,20 @@ function addTrack (track) {
   if (!track.url) track.url = entity.encode(track)
 
   const trackDefaults = {
+    images: [],
     facts: []
   }
 
   const artist = addArtist({ type: 'artist', name: track.artistName })
+  if (track.albumName) {
+    addAlbum({
+      type: 'album',
+      name: track.albumName,
+      artistName: track.artistName,
+      images: track.images
+    })
+  }
+
   artist.tracks[track.url] = Object.assign(
     trackDefaults,
     artist.tracks[track.url],

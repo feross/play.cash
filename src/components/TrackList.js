@@ -1,7 +1,7 @@
 const { h } = require('preact') /** @jsx h */
 const c = require('classnames')
 
-const { getArtistByName } = require('../store-getters')
+const { getArtistForTrack } = require('../store-getters')
 const { formatTime } = require('../format')
 
 const Link = require('./Link')
@@ -18,7 +18,7 @@ const TrackList = (props) => {
     let $duration = null
 
     if (showArtistName) {
-      const artist = getArtistByName(track.artistName)
+      const artist = getArtistForTrack(track.url)
       $artistName = (
         <div class='dib white-50'>
           <Link

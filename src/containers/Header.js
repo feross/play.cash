@@ -36,7 +36,7 @@ const Header = (props) => {
   return (
     <header
       id='header'
-      class={c('fixed z-2 top-0 w-100 shadow-1 cf ph2 ph3-m ph4-l', cls)}
+      class={c('fixed z-2 top-0 w-100 shadow-1 cf ph2 ph3-m ph3-l', cls)}
       style={{
         height: 60,
         paddingTop: 12

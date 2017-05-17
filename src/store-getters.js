@@ -3,16 +3,16 @@ module.exports = {
   getAlbum,
   getTrack,
   getEntity,
-  getArtistByName,
   getArtistForTrack: getArtistForTrackOrAlbum,
-  getArtistForAlbum: getArtistForTrackOrAlbum
+  getArtistForAlbum: getArtistForTrackOrAlbum,
+  getAlbumForTrack
 }
 
 const entity = require('./entity')
 const store = require('./store')
 
 function getArtist (artistUrl) {
-  return store.artists[artistUrl]
+  return store.artists[artistUrl] || null
 }
 
 function getAlbum (albumUrl) {
@@ -34,14 +34,16 @@ function getEntity (entityUrl) {
   if (ent.type === 'album') return getAlbum(entityUrl)
 }
 
-function getArtistByName (artistName) {
+function getArtistForTrackOrAlbum (trackOrAlbumUrl) {
+  const { artistName } = entity.decode(trackOrAlbumUrl)
   const artistUrl = entity.encode({ type: 'artist', name: artistName })
   return getArtist(artistUrl)
 }
 
-function getArtistForTrackOrAlbum (trackOrAlbumUrl) {
-  const { artistName } = entity.decode(trackOrAlbumUrl)
-  const artistUrl = entity.encode({ type: 'artist', name: artistName })
-  const artist = store.artists[artistUrl]
-  return artist || null
+function getAlbumForTrack (trackUrl) {
+  const track = getTrack(trackUrl)
+  if (!track) return null
+  const { artistName, albumName } = track
+  const albumUrl = entity.encode({ type: 'album', name: albumName, artistName })
+  return getAlbum(albumUrl)
 }
