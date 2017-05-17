@@ -43,7 +43,16 @@ class Controls extends Component {
         <div class='fl w-40 tc'>
           <div>
             <i
-              class='material-icons white-90 hover-white pointer v-top mh2'
+              class='material-icons white-90 hover-white pointer v-top ml2 mr3'
+              style={{
+                fontSize: 20,
+                marginTop: 11
+              }}
+            >
+              shuffle
+            </i>
+            <i
+              class='material-icons white-90 hover-white pointer v-top ml3 mr2'
               style={{
                 fontSize: 24,
                 marginTop: 9
@@ -52,7 +61,7 @@ class Controls extends Component {
               skip_previous
             </i>
             <i
-              class='material-icons white-90 hover-white grow pointer v-top mh2'
+              class='material-icons white-90 hover-white pointer v-top mh2 grow'
               style={{
                 fontSize: 42
               }}
@@ -61,13 +70,22 @@ class Controls extends Component {
               {playPauseIcon}
             </i>
             <i
-              class='material-icons white-90 hover-white pointer v-top mh2'
+              class='material-icons white-90 hover-white pointer v-top ml2 mr3'
               style={{
                 fontSize: 24,
                 marginTop: 9
               }}
             >
               skip_next
+            </i>
+            <i
+              class='material-icons white-90 hover-white pointer v-top ml3 mr2'
+              style={{
+                fontSize: 20,
+                marginTop: 11
+              }}
+            >
+              repeat
             </i>
           </div>
           <div class='cf w-100 mt1'>
