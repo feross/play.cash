@@ -42,7 +42,7 @@ const Header = (props) => {
         paddingTop: 12
       }}
     >
-      <div class='fl w-third v-mid'>
+      <div class='fl w-third v-mid pl1'>
         <Link
           class='dib'
           href='/'

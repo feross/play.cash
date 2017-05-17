@@ -23,6 +23,7 @@ const AlbumList = (props) => {
         class={c('fl pa2 pa2-m pa3-l mb3', cls)}
       >
         <Album
+          class='shadow-2'
           album={album}
           showName={showName}
           showArtistName={showArtistName}

@@ -65,6 +65,7 @@ class AlbumPage extends Component {
           <div class='fl w-third pr4'>
             <div class='mw6 center tc'>
               <Album
+                class='shadow-2'
                 album={album}
                 sizeHint='30vw'
                 showName={false}

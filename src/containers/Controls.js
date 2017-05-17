@@ -45,18 +45,34 @@ class Controls extends Component {
       const track = getTrack(currentTrackUrl)
       const artist = getArtistForTrack(currentTrackUrl)
       const album = getAlbumForTrack(currentTrackUrl)
-      console.log(!!track, !!artist, !!album)
-      if (track && artist && album) {
+
+      let $album = null
+      if (album) {
+        $album = (
+          <Album
+            class='fl h-100 shadow-2'
+            style={{
+              width: 54
+            }}
+            album={album}
+            sizeHint='10vw'
+            showName={false}
+            showArtistName={false}
+          />
+        )
+      }
+
+      if (track && artist) {
         $nowPlaying = (
-          <div class='pv2'>
-            <Album
-              class='fl h-100'
-              album={album}
-              sizeHint='5vw'
-              showName={false}
-              showArtistName={false}
-            />
-            <div>
+          <div class='cf pv2'>
+            {$album}
+            <div
+              class='fl'
+              style={{
+                'margin-top': 3,
+                'margin-left': 13
+              }}
+            >
               <div class='pv1'>
                 <Link
                   class='truncate underline-hover'
@@ -85,7 +101,7 @@ class Controls extends Component {
         class={c('fixed z-2 bottom-0 w-100 shadow-1 ph2 ph3-m ph3-l', cls)}
         style={{
           height: 80,
-          paddingTop: 8
+          paddingTop: 6
         }}
       >
         <div

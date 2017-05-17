@@ -21,7 +21,6 @@ const Album = (props) => {
 
   const $image = (
     <ProgressiveImage
-      class='shadow-2'
       src={images}
       sizes={sizes}
       sizeHint={sizeHint}
@@ -54,12 +53,17 @@ const Album = (props) => {
       <Link
         href={album.url}
         class={c('db tc', props.class)}
+        {...rest}
       >
         {$content}
       </Link>
     )
   } else {
-    return <div {...rest}>{$content}</div>
+    return (
+      <div class={props.class} {...rest}>
+        {$content}
+      </div>
+    )
   }
 }
 
