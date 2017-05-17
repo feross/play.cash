@@ -59,7 +59,7 @@ const TrackList = (props) => {
             fontSize: 28,
             width: 22,
             marginTop: '-0.12rem',
-            marginLeft: '-0.15rem'
+            marginLeft: '-0.22rem'
           }}
         >
           play_arrow
