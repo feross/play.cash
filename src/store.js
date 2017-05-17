@@ -59,11 +59,6 @@ function dispatch (type, data) {
       return
     }
 
-    case 'LOCATION_BACK': {
-      window.loc.back()
-      return
-    }
-
     case 'LOCATION_CHANGE': {
       const location = data
       store.location = location
@@ -140,7 +135,7 @@ function dispatch (type, data) {
       store.lastSearch = q
 
       if (q === '') {
-        store.dispatch('LOCATION_BACK')
+        store.dispatch('LOCATION_REPLACE', '/')
       } else if (store.location.name === 'search') {
         const searchUrl = entity.encode({ type: 'search', q })
         if (q !== lastSearch) store.dispatch('LOCATION_REPLACE', searchUrl)
