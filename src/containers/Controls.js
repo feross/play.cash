@@ -22,7 +22,7 @@ class Controls extends Component {
       ? 'animate-slide-in-up animate--fast'
       : 'animate-slide-out-down animate--normal'
 
-    const progress = player.time / player.duration
+    const progress = player.time / (player.duration || Infinity)
 
     const playPauseIcon = player.playing
       ? 'pause_circle_outline'
@@ -43,7 +43,7 @@ class Controls extends Component {
         <div class='fl w-40 tc'>
           <div>
             <i
-              class='material-icons pointer v-top mh2'
+              class='material-icons white-90 hover-white pointer v-top mh2'
               style={{
                 fontSize: 24,
                 marginTop: 9
@@ -52,7 +52,7 @@ class Controls extends Component {
               skip_previous
             </i>
             <i
-              class='material-icons pointer grow v-top mh2'
+              class='material-icons white-90 hover-white grow pointer v-top mh2'
               style={{
                 fontSize: 42
               }}
@@ -61,7 +61,7 @@ class Controls extends Component {
               {playPauseIcon}
             </i>
             <i
-              class='material-icons pointer v-top mh2'
+              class='material-icons white-90 hover-white pointer v-top mh2'
               style={{
                 fontSize: 24,
                 marginTop: 9
@@ -72,7 +72,7 @@ class Controls extends Component {
           </div>
           <div class='cf w-100 mt1'>
             <div
-              class='fl f7 pr2 tr'
+              class='fl f7 white-90 pr2 tr'
               style={{
                 width: 40
               }}
@@ -80,20 +80,22 @@ class Controls extends Component {
               {formatTime(player.time)}
             </div>
             <div
-              class='fl bg-white br-pill mt1'
+              class='fl bg-white-50 br-pill mt1 overflow-hidden'
               style={{
                 width: 'calc(100% - 80px)',
                 height: 4
               }}
             >
               <div
+                class='bg-white br-pill'
                 style={{
-                  width: (progress * 100) + '%'
+                  width: (progress * 100) + '%',
+                  height: 4
                 }}
               />
             </div>
             <div
-              class='fl f7 pl2 tl'
+              class='fl f7 white-90 pl2 tl'
               style={{
                 width: 40
               }}
