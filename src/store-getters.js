@@ -45,6 +45,7 @@ function getAlbumForTrack (trackUrl) {
   const track = getTrack(trackUrl)
   if (!track) return null
   const { artistName, albumName } = track
+  if (!albumName) return null
   const albumUrl = entity.encode({ type: 'album', name: albumName, artistName })
   return getAlbum(albumUrl)
 }
