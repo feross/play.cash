@@ -9,7 +9,12 @@ class Controls extends Component {
   constructor (props) {
     super(props)
 
-    this._onPlayPause = this._onPlayPause.bind(this)
+    this._onClickShuffle = this._onClickShuffle.bind(this)
+    this._onClickPrevious = this._onClickPrevious.bind(this)
+    this._onClickPlayPause = this._onClickPlayPause.bind(this)
+    this._onClickNext = this._onClickNext.bind(this)
+    this._onClickRepeat = this._onClickRepeat.bind(this)
+    this._onClickSeek = this._onClickSeek.bind(this)
   }
 
   render (props) {
@@ -48,6 +53,7 @@ class Controls extends Component {
                 fontSize: 20,
                 marginTop: 11
               }}
+              onClick={this._onClickShuffle}
             >
               shuffle
             </i>
@@ -57,6 +63,7 @@ class Controls extends Component {
                 fontSize: 24,
                 marginTop: 9
               }}
+              onClick={this._onClickPrevious}
             >
               skip_previous
             </i>
@@ -65,7 +72,7 @@ class Controls extends Component {
               style={{
                 fontSize: 42
               }}
-              onClick={this._onPlayPause}
+              onClick={this._onClickPlayPause}
             >
               {playPauseIcon}
             </i>
@@ -75,6 +82,7 @@ class Controls extends Component {
                 fontSize: 24,
                 marginTop: 9
               }}
+              onClick={this._onClickNext}
             >
               skip_next
             </i>
@@ -84,6 +92,7 @@ class Controls extends Component {
                 fontSize: 20,
                 marginTop: 11
               }}
+              onClick={this._onClickRepeat}
             >
               repeat
             </i>
@@ -103,6 +112,7 @@ class Controls extends Component {
                 width: 'calc(100% - 80px)',
                 height: 4
               }}
+              onClick={this._onClickSeek}
             >
               <div
                 class='bg-white br-pill'
@@ -127,9 +137,30 @@ class Controls extends Component {
     )
   }
 
-  _onPlayPause (e) {
+  _onClickShuffle () {
+    window.alert('TODO')
+  }
+
+  _onClickPrevious () {
+    window.alert('TODO')
+  }
+
+  _onClickPlayPause (e) {
     const { player } = store
     store.dispatch('PLAYER_PLAYING', !player.playing)
+  }
+
+  _onClickNext () {
+    window.alert('TODO')
+  }
+
+  _onClickRepeat () {
+    window.alert('TODO')
+  }
+
+  _onClickSeek (e) {
+    console.log(e.offsetX)
+    console.log(e.target.offsetWidth)
   }
 }
 
