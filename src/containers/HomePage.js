@@ -37,10 +37,10 @@ class HomePage extends Component {
       <Sheet>
         <div class='nt3'>
           <Heading class='tc'>Top Artists</Heading>
+          {$topArtists}
         </div>
-        {$topArtists}
-        <Heading class='tc'>Top Songs</Heading>
         <div class='mw7 center'>
+          <Heading class='tc'>Top Songs</Heading>
           {$topTracks}
         </div>
       </Sheet>
