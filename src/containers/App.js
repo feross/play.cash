@@ -36,7 +36,7 @@ class App extends Component {
     this._onVisibilityChange = this._onVisibilityChange.bind(this)
     this._onResizeThrottled = throttle(this._onResize.bind(this), 500)
     this._onMouseMoveThrottled = throttle(this._onMouseMove.bind(this), 500)
-    this._onKeyPress = this._onKeyPress.bind(this)
+    this._onKeyUp = this._onKeyUp.bind(this)
   }
 
   componentWillMount () {
@@ -49,14 +49,14 @@ class App extends Component {
     window.addEventListener('visibilitychange', this._onVisibilityChange)
     window.addEventListener('resize', this._onResizeThrottled)
     window.addEventListener('mousemove', this._onMouseMoveThrottled)
-    window.addEventListener('keypress', this._onKeyPress)
+    window.addEventListener('keyup', this._onKeyUp)
   }
 
   componentWillUnmount () {
     window.removeEventListener('visibilitychange', this._onVisibilityChange)
     window.removeEventListener('resize', this._onResizeThrottled)
     window.removeEventListener('mousemove', this._onMouseMoveThrottled)
-    window.removeEventListener('keypress', this._onKeyPress)
+    window.removeEventListener('keyup', this._onKeyUp)
   }
 
   render (props) {
@@ -112,11 +112,14 @@ class App extends Component {
     store.dispatch('APP_IDLE', true)
   }
 
-  _onKeyPress (e) {
-    const { currentTrackUrl, player } = store
+  _onKeyUp (e) {
+    const { location, player, currentTrackUrl } = store
     if (e.key === ' ' && currentTrackUrl) {
       store.dispatch('PLAYER_PLAYING', !player.playing)
       e.preventDefault()
+    }
+    if (e.key === 'Escape' && currentTrackUrl && location.name !== 'track') {
+      store.dispatch('LOCATION_PUSH', currentTrackUrl)
     }
   }
 }
