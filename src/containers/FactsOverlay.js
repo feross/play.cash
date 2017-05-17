@@ -6,13 +6,16 @@ const store = require('../store')
 const FACT_OFFSET = 8 // Offset at beginning/end of video during which no facts are shown
 const FACT_GAP = 0.8 // Time to wait between facts
 
-const BASE_DURATION = 3
+const BASE_DURATION = 4
 const SECONDS_PER_CHAR = 1 / 20
 
 const BUBBLE_WIDTH = 450
-const BUBBLE_HEIGHT = 125 // Actual height depends on text (this is just an estimate)
+const BUBBLE_HEIGHT = 125 // Height depends on text (this is just an estimate)
 const BUBBLE_HORIZ_OFFSET = 25
 const BUBBLE_VERT_OFFSET = 100
+
+const MIN_SPEED_FACTOR = 0.75
+const MAX_SPEED_FACTOR = 1.25
 
 class FactsOverlay extends Component {
   constructor (props) {
@@ -97,9 +100,9 @@ class FactsOverlay extends Component {
     const totalFactDuration = facts.reduce((acc, fact) => acc + getFactDuration(fact), 0)
 
     const speedFactor = Math.max(
-      0.80,
+      MIN_SPEED_FACTOR,
       Math.min(
-        1.3,
+        MAX_SPEED_FACTOR,
         totalFactDuration / (duration - (FACT_OFFSET * 2))
       )
     )
