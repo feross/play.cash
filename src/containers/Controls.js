@@ -67,21 +67,22 @@ class Controls extends Component {
             <div
               class='fl'
               style={{
-                'margin-top': 4,
-                'margin-left': 13
+                'padding-top': 4,
+                'padding-left': 13,
+                width: 'calc(100% - 54px)'
               }}
             >
-              <div class='pv1'>
+              <div class='truncate pv1'>
                 <Link
-                  class='truncate underline-hover'
+                  class='underline-hover'
                   href={track.url}
                 >
                   {track.name}
                 </Link>
               </div>
-              <div class='white-70'>
+              <div class='truncate white-70'>
                 <Link
-                  class='truncate underline-hover f7'
+                  class='underline-hover f7'
                   href={artist.url}
                 >
                   {artist.name}
