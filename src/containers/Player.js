@@ -19,6 +19,7 @@ class Player extends Component {
   constructor (props) {
     super(props)
 
+    this._ref = this._ref.bind(this)
     this._onError = this._onError.bind(this)
     this._onUnplayable = this._onUnplayable.bind(this)
     this._onEnded = this._onEnded.bind(this)
@@ -45,6 +46,7 @@ class Player extends Component {
           onClick={this._onClick}
         >
           <YouTubePlayer
+            ref={this._ref}
             videoId={player.videoId}
             playing={player.playing}
             volume={player.volume}
@@ -85,6 +87,11 @@ class Player extends Component {
     )
   }
 
+  _ref (elem) {
+    // Expose player instance as global variable so seek(), etc. can be called
+    window.player = elem.player
+  }
+
   _onError (err) {
     store.dispatch('PLAYER_ERROR', err)
   }
@@ -94,7 +101,7 @@ class Player extends Component {
   }
 
   _onEnded () {
-    // TODO
+    store.dispatch('PLAYER_ENDED')
   }
 
   _onPlaying () {

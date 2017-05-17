@@ -9,10 +9,14 @@ store.update = update
 
 let root = null
 
-window.loc = new Location(routes, (loc, source) => {
+const loc = new Location(routes, (loc, source) => {
   store.dispatch('LOCATION_CHANGE', loc)
   if (source === 'push') window.scroll(0, 0)
 })
+
+// Global variables
+window.loc = loc
+window.player = null
 
 function update () {
   root = render(<App />, document.body, root)

@@ -26,7 +26,7 @@ class Controls extends Component {
   }
 
   render (props) {
-    const { player, currentTrackUrl } = store
+    const { player, playlist, currentTrackUrl } = store
 
     const cls = getControlsVisible()
       ? 'animate-slide-in-up animate--fast'
@@ -94,6 +94,14 @@ class Controls extends Component {
       }
     }
 
+    const iconCls = 'material-icons hover-white grow-large pointer v-top'
+    const shuffleCls = playlist.shuffle
+      ? 'bg-white-20 br-pill pa2'
+      : 'ma2'
+    const repeatCls = playlist.repeat
+      ? 'bg-white-20 br-pill pa2'
+      : 'ma2'
+
     return (
       <div
         id='controls'
@@ -112,56 +120,59 @@ class Controls extends Component {
           {$nowPlaying}
         </div>
         <div class='fl w-40 tc mt1'>
-          <div>
+          <div class='mt1'>
+            <span class='mr3'>
+              <i
+                class={c(iconCls, shuffleCls)}
+                style={{
+                  fontSize: 20
+                }}
+                onClick={this._onClickShuffle}
+              >
+                shuffle
+              </i>
+            </span>
             <i
-              class='material-icons hover-white grow-large pointer v-top ml2 mr3'
-              style={{
-                fontSize: 20,
-                marginTop: 11
-              }}
-              onClick={this._onClickShuffle}
-            >
-              shuffle
-            </i>
-            <i
-              class='material-icons hover-white grow-large pointer v-top ml3 mr2'
+              class={c('mh2', iconCls)}
               style={{
                 fontSize: 24,
-                marginTop: 9
+                marginTop: 6
               }}
               onClick={this._onClickPrevious}
             >
               skip_previous
             </i>
             <i
-              class='material-icons hover-white grow-large pointer v-top mh2'
+              class={c('mh2', iconCls)}
               style={{
-                fontSize: 42
+                fontSize: 42,
+                marginTop: -3
               }}
               onClick={this._onClickPlayPause}
             >
               {playPauseIcon}
             </i>
             <i
-              class='material-icons hover-white grow-large pointer v-top ml2 mr3'
+              class={c('mh2', iconCls)}
               style={{
                 fontSize: 24,
-                marginTop: 9
+                marginTop: 6
               }}
               onClick={this._onClickNext}
             >
               skip_next
             </i>
-            <i
-              class='material-icons hover-white grow-large pointer v-top ml3 mr2'
-              style={{
-                fontSize: 20,
-                marginTop: 11
-              }}
-              onClick={this._onClickRepeat}
-            >
-              repeat
-            </i>
+            <span class='ml3'>
+              <i
+                class={c(iconCls, repeatCls)}
+                style={{
+                  fontSize: 20
+                }}
+                onClick={this._onClickRepeat}
+              >
+                repeat
+              </i>
+            </span>
           </div>
           <div class='cf w-100 mt1'>
             <div
@@ -204,7 +215,7 @@ class Controls extends Component {
   }
 
   _onClickShuffle () {
-    window.alert('TODO')
+    store.dispatch('PLAYLIST_SHUFFLE', !store.playlist.shuffle)
   }
 
   _onClickPrevious () {
@@ -221,7 +232,7 @@ class Controls extends Component {
   }
 
   _onClickRepeat () {
-    window.alert('TODO')
+    store.dispatch('PLAYLIST_REPEAT', !store.playlist.repeat)
   }
 
   _onClickSeek (e) {

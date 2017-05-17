@@ -30,6 +30,10 @@ const store = {
     // extra state
     fetchingTrack: false
   },
+  playlist: {
+    shuffle: false,
+    repeat: false
+  },
   artists: {},
   searches: {},
   lastSearch: '',
@@ -60,9 +64,8 @@ function dispatch (type, data) {
     }
 
     case 'LOCATION_CHANGE': {
-      const location = data
-      store.location = location
-      store.entity = entity.decode(location.pathname)
+      store.location = data
+      store.entity = entity.decode(store.location.pathname)
       return update()
     }
 
@@ -71,14 +74,12 @@ function dispatch (type, data) {
      */
 
     case 'APP_TITLE': {
-      const title = data
-      store.app.title = title
+      store.app.title = data
       return update()
     }
 
     case 'APP_HIDDEN': {
-      const hidden = data
-      store.app.hidden = hidden
+      store.app.hidden = data
       return update()
     }
 
@@ -89,8 +90,7 @@ function dispatch (type, data) {
     }
 
     case 'APP_IDLE': {
-      const idle = data
-      store.app.idle = idle
+      store.app.idle = data
       return update()
     }
 
@@ -101,6 +101,13 @@ function dispatch (type, data) {
     case 'PLAYER_ERROR': {
       const err = data
       return addError(err)
+    }
+
+    case 'PLAYER_ENDED': {
+      if (store.playlist.repeat) {
+        window.player.seek(0)
+      }
+      return update()
     }
 
     case 'PLAYER_PLAYING': {
@@ -121,6 +128,20 @@ function dispatch (type, data) {
     case 'PLAYER_TIMEUPDATE': {
       store.player.time = data
       store.player.buffering = false
+      return update()
+    }
+
+    /**
+     * PLAYLIST
+     */
+
+    case 'PLAYLIST_SHUFFLE': {
+      store.playlist.shuffle = data
+      return update()
+    }
+
+    case 'PLAYLIST_REPEAT': {
+      store.playlist.repeat = data
       return update()
     }
 

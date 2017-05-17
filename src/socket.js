@@ -47,18 +47,10 @@ function init (game, update) {
       onMessageReady()
     }
 
-    if (message.type === 'friends-list') {
-      onFriendsList(message.friendsList)
-    }
-
     update()
   }
 
   function onMessageReady () {
-    send({ type: 'want-peer' })
-  }
-
-  function onFriendsList (friendsList) {
-    game.friendsList = friendsList
+    send({ type: 'todo' })
   }
 }
