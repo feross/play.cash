@@ -22,7 +22,7 @@ exports.name = 'Play'
 /**
  * Description of the site
  */
-exports.description = 'Next-gen music video player'
+exports.description = 'Music lovers, rejoice.'
 
 /**
  * Website hostname + port
