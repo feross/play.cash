@@ -12,6 +12,7 @@ let root = null
 const loc = new Location(routes, (loc, source) => {
   store.dispatch('LOCATION_CHANGE', loc)
   if (source === 'push') window.scroll(0, 0)
+  window.ga('send', 'pageview', loc.pathname)
 })
 
 // Global variables

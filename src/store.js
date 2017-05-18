@@ -124,6 +124,7 @@ function dispatch (type, data) {
       } else {
         store.dispatch('PLAYLIST_NEXT')
       }
+      window.ga('send', 'event', 'video', 'ended')
       return update()
     }
 
@@ -427,6 +428,7 @@ function dispatch (type, data) {
         store.player.duration = 0
         store.player.buffering = true
         store.player.playing = true
+        window.ga('send', 'event', 'video', 'play')
       }
       store.player.fetchingTrack = false
       return update()
