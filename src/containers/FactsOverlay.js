@@ -80,7 +80,7 @@ class FactsOverlay extends Component {
         class={c('fact fact-font absolute black bg-white-90 lh-title', animateCls)}
         style={{
           maxWidth: BUBBLE_WIDTH,
-          'animation-duration': animationDuration,
+          animationDuration,
           ...timedFact.position
         }}
       >

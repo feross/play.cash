@@ -39,7 +39,7 @@ class Player extends Component {
       : 'animate-fade-out animate--normal'
 
     return (
-      <div class='fixed absolute--fill ' style={{ 'z-index': -1 }}>
+      <div class='fixed absolute--fill ' style={{ zIndex: -1 }}>
         <div
           id='player'
           class='absolute top-0 w-100 vh-100'
@@ -63,14 +63,14 @@ class Player extends Component {
             onDuration={this._onDuration}
             onTimeupdate={this._onTimeupdate}
             style={{
-              'pointer-events': 'none'
+              pointerEvents: 'none'
             }}
           />
         </div>
         <video
           class={c('absolute top-0 vh-100', loadingCls)}
           style={{
-            'pointer-events': 'none',
+            pointerEvents: 'none',
             width: '177.77777778vh', /* 100 * 16 / 9 */
             minWidth: '100%',
             minHeight: '56.25vw' /* 100 * 9 / 16 */

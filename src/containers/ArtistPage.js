@@ -104,7 +104,7 @@ class ArtistPage extends Component {
         <div
           class='artist-page-cover relative cover nl4 nr4 nt6 mb3 text-outline shadow-2'
           style={{
-            'background-image': `url(${coverImage}), linear-gradient(#AAA, #999)`
+            backgroundImage: `url(${coverImage}), linear-gradient(#AAA, #999)`
           }}
         >
           <div class='absolute bottom-2 left-2 w-80'>

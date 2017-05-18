@@ -78,8 +78,8 @@ class App extends Component {
     return (
       <div
         style={{
-          'user-select': 'none',
-          cursor: cursor
+          userSelect: 'none',
+          cursor
         }}
       >
         <Title title={title} />
