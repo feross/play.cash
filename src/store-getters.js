@@ -59,7 +59,12 @@ function getControlsVisible () {
 
 function getCurrentTrack () {
   const { playlist } = store
-  if (playlist.index === playlist.tracks.length) return null
-  const trackUrl = playlist.tracks[playlist.index]
+  const tracks = playlist.shuffle
+    ? playlist.tracksShuffled
+    : playlist.tracks
+
+  if (tracks.length === 0) return null
+
+  const trackUrl = tracks[playlist.index]
   return getTrack(trackUrl)
 }

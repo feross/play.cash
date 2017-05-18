@@ -50,7 +50,7 @@ class Controls extends Component {
               width: 56
             }}
             album={album}
-            sizeHint='10vw'
+            sizeHint='4vw'
             showName={false}
             showArtistName={false}
           />
@@ -236,7 +236,7 @@ class Controls extends Component {
   }
 
   _onClickPrevious () {
-    window.alert('TODO')
+    store.dispatch('PLAYLIST_PREVIOUS')
   }
 
   _onClickPlayPause (e) {
@@ -245,7 +245,7 @@ class Controls extends Component {
   }
 
   _onClickNext () {
-    window.alert('TODO')
+    store.dispatch('PLAYLIST_NEXT')
   }
 
   _onClickRepeat () {

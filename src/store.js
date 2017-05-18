@@ -1,5 +1,7 @@
-const api = require('./api')
+const arrayShuffle = require('array-shuffle')
 const debug = require('debug')('store')
+
+const api = require('./api')
 const entity = require('./entity')
 
 const store = {
@@ -33,8 +35,11 @@ const store = {
   playlist: {
     shuffle: false,
     repeat: false,
+    index: 0,
     tracks: [], // track urls
-    index: 0
+
+    // not settable (generated from playlist.tracks)
+    tracksShuffled: []
   },
   artists: {},
   searches: {},
@@ -116,6 +121,8 @@ function dispatch (type, data) {
     case 'PLAYER_ENDED': {
       if (store.playlist.repeat) {
         window.player.seek(0)
+      } else {
+        store.dispatch('PLAYLIST_NEXT')
       }
       return update()
     }
@@ -151,7 +158,28 @@ function dispatch (type, data) {
      * PLAYLIST
      */
 
+    case 'PLAYLIST_SET': {
+      store.playlist.tracks = data
+      store.playlist.tracksShuffled = arrayShuffle(store.playlist.tracks.slice(0))
+      store.playlist.index = 0
+      store.dispatch('PLAYLIST_PLAY_CURRENT')
+      return update()
+    }
+
     case 'PLAYLIST_SHUFFLE': {
+      let oldTracks
+      let newTracks
+
+      if (store.playlist.shuffle) {
+        oldTracks = store.playlist.tracksShuffled
+        newTracks = store.playlist.tracks
+      } else {
+        oldTracks = store.playlist.tracks
+        newTracks = store.playlist.tracksShuffled
+      }
+
+      const currentTrackUrl = oldTracks[store.playlist.index]
+      store.playlist.index = newTracks.indexOf(currentTrackUrl)
       store.playlist.shuffle = data
       return update()
     }
@@ -159,6 +187,34 @@ function dispatch (type, data) {
     case 'PLAYLIST_REPEAT': {
       store.playlist.repeat = data
       return update()
+    }
+
+    case 'PLAYLIST_PREVIOUS': {
+      store.playlist.index -= 1
+      store.playlist.index %= store.playlist.tracks.length
+      store.dispatch('PLAYLIST_PLAY_CURRENT')
+      return update()
+    }
+
+    case 'PLAYLIST_NEXT': {
+      store.playlist.index += 1
+      store.playlist.index %= store.playlist.tracks.length
+      store.dispatch('PLAYLIST_PLAY_CURRENT')
+      return update()
+    }
+
+    case 'PLAYLIST_PLAY_CURRENT': {
+      const tracks = store.playlist.shuffle
+        ? store.playlist.tracksShuffled
+        : store.playlist.tracks
+
+      const trackUrl = tracks[store.playlist.index]
+      const track = entity.decode(trackUrl)
+      addTrack(track)
+
+      store.dispatch('FETCH_VIDEO', track)
+      store.dispatch('FETCH_TRACK_INFO', track)
+      return
     }
 
     /**
@@ -347,7 +403,6 @@ function dispatch (type, data) {
       api.video({ name, artistName }, (err, result) => {
         dispatch('FETCH_VIDEO_DONE', { err, result })
       })
-      store.playlist.tracks = [track.url]
       store.player.fetchingTrack = true
       return update()
     }
