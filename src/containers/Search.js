@@ -14,6 +14,14 @@ class Search extends Component {
   render (props) {
     const value = this._getStoreValue()
 
+    let placeholder = 'Search for an Artist, Song, or Album'
+    if (store.app.width < 1000) {
+      placeholder = 'Search for music'
+    }
+    if (store.app.width < 600) {
+      placeholder = 'Search'
+    }
+
     return (
       <input
         type='text'
@@ -22,7 +30,7 @@ class Search extends Component {
           props.class
         )}
         spellCheck='false'
-        placeholder={'Search for an Artist, Song, or Album'}
+        placeholder={placeholder}
         value={value}
         onInput={this._onInput}
         onKeyPress={this._onKeyPress}
