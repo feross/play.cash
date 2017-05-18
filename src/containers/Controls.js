@@ -64,7 +64,7 @@ class Controls extends Component {
             style={{
               paddingTop: 4,
               paddingLeft: 14,
-              width: 'calc(100% - 56px)'
+              width: album ? 'calc(100% - 56px)' : '100%'
             }}
           >
             <div class='truncate pv1'>
@@ -116,14 +116,14 @@ class Controls extends Component {
         }}
       >
         <div
-          class='fl w-30 v-mid'
+          class='fl w-20-m w-30-l dn db-m db-l v-mid'
           style={{
             minHeight: 1
           }}
         >
           {$nowPlaying}
         </div>
-        <div class='fl w-40 tc mt2'>
+        <div class='fl w-100 w-60-m w-40-l tc mt2'>
           <div>
             <span class='mr3'>
               <i
@@ -226,7 +226,7 @@ class Controls extends Component {
             </div>
           </div>
         </div>
-        <div class='fl w-30 v-mid' />
+        <div class='fl w-20-m w-30-l dn db-m db-l v-mid' />
       </div>
     )
   }
