@@ -239,7 +239,8 @@ class Controls extends Component {
 
   _onClickSeek (e) {
     const { player } = store
-    const time = (e.offsetX / e.currentTarget.offsetWidth) * player.duration
+    const progress = e.offsetX / e.currentTarget.offsetWidth
+    const time = Math.round(progress * player.duration * 100) / 100
     store.dispatch('PLAYER_SEEK', time)
   }
 }
