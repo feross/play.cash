@@ -61,7 +61,7 @@ const TrackList = (props) => {
         onClick={onClick}
       >
         <i
-          class='fl play-arrow material-icons absolute mr1 dn'
+          class='play-arrow fl absolute material-icons absolute mr1 o-0 absolute'
           style={{
             fontSize: 28,
             width: 22,
@@ -72,7 +72,7 @@ const TrackList = (props) => {
           play_arrow
         </i>
         <div
-          class='fl absolute track-num mt1 white-50 tr'
+          class='track-num absolute fl mt1 white-50 tr'
           style={{
             width: 22
           }}

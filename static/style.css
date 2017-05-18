@@ -244,12 +244,12 @@
 
 /* TRACK LIST */
 
-.track:hover .track-num {
-  display: none;
+.track:hover .play-arrow {
+  opacity: 1;
 }
 
-.track:hover .play-arrow {
-  display: block;
+.track:hover .track-num {
+  opacity: 0;
 }
 
 /* FACT */
