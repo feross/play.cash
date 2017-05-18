@@ -140,6 +140,12 @@ function dispatch (type, data) {
       return update()
     }
 
+    case 'PLAYER_SEEK': {
+      store.player.time = data
+      window.player.seek(store.player.time)
+      return update()
+    }
+
     /**
      * PLAYLIST
      */
