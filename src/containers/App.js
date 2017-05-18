@@ -37,6 +37,7 @@ class App extends Component {
     this._onResizeThrottled = throttle(this._onResize.bind(this), 500)
     this._onMouseMoveThrottled = throttle(this._onMouseMove.bind(this), 500)
     this._onKeyUp = this._onKeyUp.bind(this)
+    this._onKeyPress = this._onKeyPress.bind(this)
   }
 
   componentWillMount () {
@@ -50,6 +51,7 @@ class App extends Component {
     window.addEventListener('resize', this._onResizeThrottled)
     window.addEventListener('mousemove', this._onMouseMoveThrottled)
     window.addEventListener('keyup', this._onKeyUp)
+    window.addEventListener('keypress', this._onKeyPress)
   }
 
   componentWillUnmount () {
@@ -57,6 +59,7 @@ class App extends Component {
     window.removeEventListener('resize', this._onResizeThrottled)
     window.removeEventListener('mousemove', this._onMouseMoveThrottled)
     window.removeEventListener('keyup', this._onKeyUp)
+    window.removeEventListener('keypress', this._onKeyPress)
   }
 
   render (props) {
@@ -113,13 +116,17 @@ class App extends Component {
   }
 
   _onKeyUp (e) {
-    const { location, player, currentTrackUrl } = store
-    if (e.key === ' ' && currentTrackUrl) {
-      store.dispatch('PLAYER_PLAYING', !player.playing)
-      e.preventDefault()
-    }
+    const { location, currentTrackUrl } = store
     if (e.key === 'Escape' && currentTrackUrl && location.name !== 'track') {
       store.dispatch('LOCATION_PUSH', currentTrackUrl)
+    }
+  }
+
+  _onKeyPress (e) {
+    const { player, currentTrackUrl } = store
+    if (e.key === ' ' && currentTrackUrl) {
+      e.preventDefault() // prevent default page scroll
+      store.dispatch('PLAYER_PLAYING', !player.playing)
     }
   }
 }
