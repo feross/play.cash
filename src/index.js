@@ -9,10 +9,9 @@ store.update = update
 
 let root = null
 
-const loc = new Location(routes, (loc, source) => {
-  store.dispatch('LOCATION_CHANGE', loc)
+const loc = new Location(routes, (location, source) => {
+  store.dispatch('LOCATION_CHANGE', location)
   if (source === 'push') window.scroll(0, 0)
-  window.ga('send', 'pageview', loc.pathname)
 })
 
 // Global variables

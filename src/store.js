@@ -82,8 +82,10 @@ function dispatch (type, data) {
     }
 
     case 'LOCATION_CHANGE': {
-      store.location = data
-      store.entity = entity.decode(store.location.pathname)
+      const location = data
+      store.location = location
+      store.entity = entity.decode(location.pathname)
+      window.ga('send', 'pageview', location.pathname)
       return update()
     }
 
