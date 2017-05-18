@@ -69,12 +69,14 @@ function dispatch (type, data) {
      */
 
     case 'LOCATION_PUSH': {
-      window.loc.push(data)
+      const pathname = data
+      if (pathname !== store.location.pathname) window.loc.push(pathname)
       return
     }
 
     case 'LOCATION_REPLACE': {
-      window.loc.replace(data)
+      const pathname = data
+      if (pathname !== store.location.pathname) window.loc.replace(pathname)
       return
     }
 
