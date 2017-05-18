@@ -34,8 +34,8 @@ class Player extends Component {
   render (props) {
     const { app, player, playlist } = store
 
-    const loadingCls = (player.fetchingTrack ||
-        (player.buffering && !player.seeking && playlist.tracks.length === 0))
+    const loadingCls = (player.fetchingTrack || playlist.tracks.length === 0 ||
+        (player.buffering && !player.seeking))
       ? 'animate-fade-in animate--fast'
       : 'animate-fade-out animate--fast'
 
