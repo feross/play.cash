@@ -28,22 +28,17 @@ class Controls extends Component {
   render (props) {
     const { player, playlist, currentTrackUrl } = store
 
-    const cls = getControlsVisible()
-      ? 'animate-slide-in-up animate--fast'
-      : 'animate-slide-out-down animate--normal'
+    if (!currentTrackUrl) {
+      return null
+    }
 
-    const progress = player.time / (player.duration || Infinity)
-
-    const playPauseIcon = player.playing
-      ? 'pause_circle_outline'
-      : 'play_circle_outline'
+    const track = getTrack(currentTrackUrl)
+    const artist = getArtistForTrack(currentTrackUrl)
+    const album = getAlbumForTrack(currentTrackUrl)
 
     let $nowPlaying = null
-    if (currentTrackUrl) {
-      const track = getTrack(currentTrackUrl)
-      const artist = getArtistForTrack(currentTrackUrl)
-      const album = getAlbumForTrack(currentTrackUrl)
 
+    if (track && artist) {
       let $album = null
       if (album) {
         $album = (
@@ -59,48 +54,55 @@ class Controls extends Component {
           />
         )
       }
-
-      if (track && artist) {
-        $nowPlaying = (
-          <div class='cf pv2'>
-            {$album}
-            <div
-              class='fl'
-              style={{
-                'padding-top': 4,
-                'padding-left': 13,
-                width: 'calc(100% - 54px)'
-              }}
-            >
-              <div class='truncate pv1'>
-                <Link
-                  class='underline-hover'
-                  href={track.url}
-                >
-                  {track.name}
-                </Link>
-              </div>
-              <div class='truncate white-70'>
-                <Link
-                  class='underline-hover f7'
-                  href={artist.url}
-                >
-                  {artist.name}
-                </Link>
-              </div>
+      $nowPlaying = (
+        <div class='cf pv2'>
+          {$album}
+          <div
+            class='fl'
+            style={{
+              'padding-top': 4,
+              'padding-left': 13,
+              width: 'calc(100% - 54px)'
+            }}
+          >
+            <div class='truncate pv1'>
+              <Link
+                class='underline-hover'
+                href={track.url}
+              >
+                {track.name}
+              </Link>
+            </div>
+            <div class='truncate white-70'>
+              <Link
+                class='underline-hover f7'
+                href={artist.url}
+              >
+                {artist.name}
+              </Link>
             </div>
           </div>
-        )
-      }
+        </div>
+      )
     }
 
+    const cls = getControlsVisible()
+      ? 'animate-slide-in-up animate--fast'
+      : 'animate-slide-out-down animate--normal'
+
+    const progress = player.time / (player.duration || Infinity)
+
+    const playPauseIcon = player.playing
+      ? 'pause_circle_outline'
+      : 'play_circle_outline'
+
     const iconCls = 'material-icons hover-white grow-large pointer v-top'
-    const shuffleCls = playlist.shuffle
-      ? 'bg-white-20 br-pill pa2'
-      : 'ma2'
-    const repeatCls = playlist.repeat
-      ? 'bg-white-20 br-pill pa2'
-      : 'ma2'
+
+    const iconClsEnabled = 'bg-white-20 br-pill pa2'
+    const iconClsDisabled = 'ma2'
+
+    const shuffleCls = playlist.shuffle ? iconClsEnabled : iconClsDisabled
+    const repeatCls = playlist.repeat ? iconClsEnabled : iconClsDisabled
 
     return (
       <div
