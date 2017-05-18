@@ -13,9 +13,9 @@ const AlbumList = (props) => {
   } = props
 
   let cls
-  if (size === 'large') cls = 'w-100 w-50-m w-33-l'
-  if (size === 'medium') cls = 'w-50 w-33-m w-25-l'
-  if (size === 'small') cls = 'w-25 w-20-m w-sixth-l'
+  if (size === 'large') cls = 'w-100 w-50-m w-third-l'
+  if (size === 'medium') cls = 'w-50 w-third-m w-25-l'
+  if (size === 'small') cls = 'w-50 w-third-m w-sixth-l'
 
   const $albums = albums.map(album => {
     return (
