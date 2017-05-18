@@ -228,6 +228,24 @@
  * Specific styles (minimize the number of these!)
  */
 
+/* SHEET */
+
+.sheet {
+  padding-top: 4.5rem;
+}
+
+@media screen and (min-width: 60em) {
+  .sheet {
+    padding-top: 5.6rem;
+  }
+}
+
+@media screen and (max-width: 60em) and (min-width: 30em) {
+  .sheet {
+    padding-top: 5.6rem;
+  }
+}
+
 /* ARTIST PAGE */
 
 .artist-page-cover {
