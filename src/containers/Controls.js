@@ -45,7 +45,7 @@ class Controls extends Component {
           <Album
             class='fl h-100 shadow-2'
             style={{
-              width: 54
+              width: 56
             }}
             album={album}
             sizeHint='10vw'
@@ -60,9 +60,9 @@ class Controls extends Component {
           <div
             class='fl'
             style={{
-              'padding-top': 4,
-              'padding-left': 13,
-              width: 'calc(100% - 54px)'
+              paddingTop: 4,
+              paddingLeft: 14,
+              width: 'calc(100% - 56px)'
             }}
           >
             <div class='truncate pv1'>
@@ -109,20 +109,20 @@ class Controls extends Component {
         id='controls'
         class={c('fixed z-2 bottom-0 w-100 shadow-1 ph2 ph3-m ph3-l', cls)}
         style={{
-          height: 80,
+          height: 82,
           paddingTop: 6
         }}
       >
         <div
           class='fl w-30 v-mid'
           style={{
-            'min-height': 1
+            minHeight: 1
           }}
         >
           {$nowPlaying}
         </div>
-        <div class='fl w-40 tc mt1'>
-          <div class='mt1'>
+        <div class='fl w-40 tc mt2'>
+          <div>
             <span class='mr3'>
               <i
                 class={c(iconCls, shuffleCls)}
@@ -176,7 +176,12 @@ class Controls extends Component {
               </i>
             </span>
           </div>
-          <div class='cf w-100 mt1'>
+          <div
+            class='cf w-100'
+            style={{
+              marginTop: 5
+            }}
+          >
             <div
               class='fl f7 white-90 pr2 tr'
               style={{
@@ -186,20 +191,28 @@ class Controls extends Component {
               {formatTime(player.time)}
             </div>
             <div
-              class='fl bg-white-50 br-pill mt1 overflow-hidden'
+              class='fl'
               style={{
                 width: 'calc(100% - 80px)',
-                height: 4
+                paddingTop: 5,
+                paddingBottom: 10
               }}
               onClick={this._onClickSeek}
             >
               <div
-                class='bg-white br-pill'
+                class='bg-white-50 br-pill overflow-hidden'
                 style={{
-                  width: (progress * 100) + '%',
                   height: 4
                 }}
-              />
+              >
+                <div
+                  class='bg-white br-pill'
+                  style={{
+                    width: (progress * 100) + '%',
+                    height: 4
+                  }}
+                />
+              </div>
             </div>
             <div
               class='fl f7 white-90 pl2 tl'
