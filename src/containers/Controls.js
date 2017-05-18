@@ -7,7 +7,8 @@ const {
   getTrack,
   getArtistForTrack,
   getAlbumForTrack,
-  getControlsVisible
+  getControlsVisible,
+  getCurrentTrack
 } = require('../store-getters')
 
 const Album = require('../components/Album')
@@ -26,15 +27,16 @@ class Controls extends Component {
   }
 
   render (props) {
-    const { player, playlist, currentTrackUrl } = store
+    const { player, playlist } = store
+    const currentTrack = getCurrentTrack()
 
-    if (!currentTrackUrl) {
+    if (!currentTrack) {
       return null
     }
 
-    const track = getTrack(currentTrackUrl)
-    const artist = getArtistForTrack(currentTrackUrl)
-    const album = getAlbumForTrack(currentTrackUrl)
+    const track = getTrack(currentTrack.url)
+    const artist = getArtistForTrack(currentTrack.url)
+    const album = getAlbumForTrack(currentTrack.url)
 
     let $nowPlaying = null
 

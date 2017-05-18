@@ -2,6 +2,7 @@ const { Component, h } = require('preact') /** @jsx h */
 const c = require('classnames')
 
 const store = require('../store')
+const { getCurrentTrack } = require('../store-getters')
 
 class Sheet extends Component {
   constructor (props) {
@@ -22,15 +23,16 @@ class Sheet extends Component {
   }
 
   _onClick (e) {
-    const { location, currentTrackUrl } = store
+    const { location } = store
+    const currentTrack = getCurrentTrack()
 
-    if (location.name === 'track' || currentTrackUrl == null) return
+    if (location.name === 'track' || currentTrack == null) return
 
     if (e.target !== e.currentTarget &&
         (!e.target.parentElement || e.target.parentElement !== e.currentTarget)) {
       return
     }
-    store.dispatch('LOCATION_PUSH', currentTrackUrl)
+    store.dispatch('LOCATION_PUSH', currentTrack.url)
   }
 }
 

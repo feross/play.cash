@@ -2,7 +2,7 @@ const { h } = require('preact') /** @jsx h */
 const c = require('classnames')
 
 const store = require('../store')
-const { getControlsVisible } = require('../store-getters')
+const { getControlsVisible, getCurrentTrack } = require('../store-getters')
 
 const Button = require('../components/Button')
 const Image = require('../components/Image')
@@ -10,15 +10,16 @@ const Link = require('../components/Link')
 const Search = require('./Search')
 
 const Header = (props) => {
-  const { location, currentTrackUrl } = store
+  const { location } = store
+  const currentTrack = getCurrentTrack()
 
   let $showVideoButton = null
-  if (currentTrackUrl && location.name !== 'track') {
+  if (currentTrack && location.name !== 'track') {
     $showVideoButton = (
       <Button
         fill
         color='blue'
-        href={currentTrackUrl}
+        href={currentTrack.url}
         size='medium'
         class='mb0'
       >

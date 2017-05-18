@@ -6,7 +6,8 @@ module.exports = {
   getArtistForTrack: getArtistForTrackOrAlbum,
   getArtistForAlbum: getArtistForTrackOrAlbum,
   getAlbumForTrack,
-  getControlsVisible
+  getControlsVisible,
+  getCurrentTrack
 }
 
 const entity = require('./entity')
@@ -54,4 +55,11 @@ function getControlsVisible () {
   const { app, player, location } = store
   return !app.idle || !player.playing || player.buffering || player.fetchingTrack ||
     location.name !== 'track'
+}
+
+function getCurrentTrack () {
+  const { playlist } = store
+  if (playlist.index === playlist.tracks.length) return null
+  const trackUrl = playlist.tracks[playlist.index]
+  return getTrack(trackUrl)
 }

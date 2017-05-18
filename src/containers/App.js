@@ -2,7 +2,7 @@ const { Component, h } = require('preact') /** @jsx h */
 const throttle = require('throttleit')
 
 const store = require('../store')
-const { getControlsVisible } = require('../store-getters')
+const { getControlsVisible, getCurrentTrack } = require('../store-getters')
 const config = require('../../config')
 
 // const Footer = require('./Footer') TODO
@@ -28,7 +28,7 @@ const PAGES = {
   'not-found': NotFoundPage
 }
 
-const APP_IDLE_TIMEOUT = 2500
+const APP_IDLE_TIMEOUT = 3000
 
 class App extends Component {
   constructor (props) {
@@ -116,15 +116,19 @@ class App extends Component {
   }
 
   _onKeyUp (e) {
-    const { location, currentTrackUrl } = store
-    if (e.key === 'Escape' && currentTrackUrl && location.name !== 'track') {
-      store.dispatch('LOCATION_PUSH', currentTrackUrl)
+    const { location } = store
+    const currentTrack = getCurrentTrack()
+
+    if (e.key === 'Escape' && currentTrack && location.name !== 'track') {
+      store.dispatch('LOCATION_PUSH', currentTrack.url)
     }
   }
 
   _onKeyPress (e) {
-    const { player, currentTrackUrl } = store
-    if (e.key === ' ' && currentTrackUrl) {
+    const { player } = store
+    const currentTrack = getCurrentTrack()
+
+    if (e.key === ' ' && currentTrack) {
       e.preventDefault() // prevent default page scroll
       store.dispatch('PLAYER_PLAYING', !player.playing)
     }

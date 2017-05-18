@@ -32,7 +32,9 @@ const store = {
   },
   playlist: {
     shuffle: false,
-    repeat: false
+    repeat: false,
+    tracks: [], // track urls
+    index: 0
   },
   artists: {},
   searches: {},
@@ -41,7 +43,6 @@ const store = {
     topArtistUrls: [],
     topTrackUrls: []
   },
-  currentTrackUrl: null,
   errors: []
 }
 
@@ -346,7 +347,7 @@ function dispatch (type, data) {
       api.video({ name, artistName }, (err, result) => {
         dispatch('FETCH_VIDEO_DONE', { err, result })
       })
-      store.currentTrackUrl = track.url
+      store.playlist.tracks = [track.url]
       store.player.fetchingTrack = true
       return update()
     }
