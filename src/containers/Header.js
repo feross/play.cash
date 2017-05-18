@@ -1,6 +1,7 @@
 const { h } = require('preact') /** @jsx h */
 const c = require('classnames')
 
+const detect = require('../detect')
 const store = require('../store')
 const { getControlsVisible, getCurrentTrack } = require('../store-getters')
 
@@ -28,6 +29,10 @@ const Header = (props) => {
     )
   }
 
+  const statusBarHeight = detect.isSafariHomeApp
+    ? 14
+    : 0
+
   const cls = getControlsVisible()
     ? 'animate-slide-in-down animate--fast'
     : 'animate-slide-out-up animate--normal'
@@ -37,8 +42,8 @@ const Header = (props) => {
       id='header'
       class={c('fixed z-2 top-0 w-100 shadow-1 cf ph2 ph3-m ph3-l', cls)}
       style={{
-        height: 60,
-        paddingTop: 12
+        height: 60 + statusBarHeight,
+        paddingTop: 12 + statusBarHeight
       }}
     >
       <div class='fl w-third v-mid pl1'>
