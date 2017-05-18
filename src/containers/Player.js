@@ -32,11 +32,12 @@ class Player extends Component {
   }
 
   render (props) {
-    const { app, player } = store
+    const { app, player, playlist } = store
 
-    const loadingCls = ((player.buffering && !player.seeking) || player.fetchingTrack)
-      ? 'animate-fade-in animate--normal'
-      : 'animate-fade-out animate--normal'
+    const loadingCls = (player.fetchingTrack ||
+        (player.buffering && !player.seeking && playlist.tracks.length === 0))
+      ? 'animate-fade-in animate--fast'
+      : 'animate-fade-out animate--fast'
 
     return (
       <div class='fixed absolute--fill ' style={{ zIndex: -1 }}>

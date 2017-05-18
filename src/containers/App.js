@@ -38,6 +38,7 @@ class App extends Component {
     this._onMouseMoveThrottled = throttle(this._onMouseMove.bind(this), 500)
     this._onKeyUp = this._onKeyUp.bind(this)
     this._onKeyPress = this._onKeyPress.bind(this)
+    this._onTouchEnd = this._onTouchEnd.bind(this)
   }
 
   componentWillMount () {
@@ -52,6 +53,7 @@ class App extends Component {
     window.addEventListener('mousemove', this._onMouseMoveThrottled)
     window.addEventListener('keyup', this._onKeyUp)
     window.addEventListener('keypress', this._onKeyPress)
+    window.addEventListener('touchend', this._onTouchEnd)
   }
 
   componentWillUnmount () {
@@ -60,6 +62,7 @@ class App extends Component {
     window.removeEventListener('mousemove', this._onMouseMoveThrottled)
     window.removeEventListener('keyup', this._onKeyUp)
     window.removeEventListener('keypress', this._onKeyPress)
+    window.removeEventListener('touchend', this._onTouchEnd)
   }
 
   render (props) {
@@ -131,6 +134,14 @@ class App extends Component {
     if (e.key === ' ' && currentTrack) {
       e.preventDefault() // prevent default page scroll
       store.dispatch('PLAYER_PLAYING', !player.playing)
+    }
+  }
+
+  _onTouchEnd () {
+    // TODO: Only run this on mobile Safari
+    if (store.player.time === 0 && store.player.playing &&
+        store.player.buffering) {
+      window.player.play()
     }
   }
 }

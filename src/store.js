@@ -19,8 +19,8 @@ const store = {
     idle: false
   },
   player: {
-    videoId: null,
-    playing: false,
+    videoId: 'GlCmAC4MHek', // TODO: only use this on iOS, null everywhere else
+    playing: true,
     volume: 100,
     playbackRate: 1,
 
@@ -197,6 +197,7 @@ function dispatch (type, data) {
     }
 
     case 'PLAYLIST_PREVIOUS': {
+      if (store.playlist.tracks.length === 0) return
       store.playlist.index -= 1
       store.playlist.index %= store.playlist.tracks.length
       store.dispatch('PLAYLIST_PLAY_CURRENT')
@@ -204,6 +205,7 @@ function dispatch (type, data) {
     }
 
     case 'PLAYLIST_NEXT': {
+      if (store.playlist.tracks.length === 0) return
       store.playlist.index += 1
       store.playlist.index %= store.playlist.tracks.length
       store.dispatch('PLAYLIST_PLAY_CURRENT')
