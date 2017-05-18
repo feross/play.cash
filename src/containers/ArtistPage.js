@@ -52,15 +52,15 @@ class ArtistPage extends Component {
       if (summary) {
         $extra = (
           <div class='cf'>
-            <div class='fl w-50 pl3 pr4'>
+            <div class='fr w-100 w-50-m w-50-l'>
+              {$similarHeading}
+              <ArtistList artists={similar} />
+            </div>
+            <div class='fl w-100 w-50-m w-50-l pl0 pl3-m pl3-l pr0 pr4-m pr4-l'>
               <div class='center lh-copy mw7'>
                 <Heading class='tc'>Who is {artist.name}?</Heading>
                 <div class='f4 white-80' dangerouslySetInnerHTML={{ __html: summary }} />
               </div>
-            </div>
-            <div class='fl w-50'>
-              {$similarHeading}
-              <ArtistList artists={similar} />
             </div>
           </div>
         )
@@ -68,7 +68,7 @@ class ArtistPage extends Component {
         $extra = (
           <div>
             {$similarHeading}
-            <ArtistList artists={similar} size='medium' />
+            <ArtistList artists={similar} size='small' />
           </div>
         )
       }
@@ -93,7 +93,7 @@ class ArtistPage extends Component {
     if (artist.listeners) {
       const listeners = formatInt(artist.listeners)
       $listeners = (
-        <div class='absolute bottom-2 right-2 mb3'>
+        <div class='absolute bottom-2 right-2 mb3 dn dn-m db-l'>
           <div class='f6 mv0 tracked ttu white-80'>{listeners} listeners</div>
         </div>
       )
@@ -102,7 +102,7 @@ class ArtistPage extends Component {
     return (
       <Sheet>
         <div
-          class='artist-page-cover relative cover nl4 nr4 nt6 mb3 text-outline shadow-2'
+          class='artist-page-cover relative cover nl3 nl3-m nl4-l nr3 nr3-m nr4-l nt6 mb3 text-outline shadow-2'
           style={{
             backgroundImage: `url(${coverImage}), linear-gradient(#AAA, #999)`
           }}

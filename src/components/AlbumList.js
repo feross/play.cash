@@ -20,7 +20,7 @@ const AlbumList = (props) => {
   const $albums = albums.map(album => {
     return (
       <div
-        class={c('fl pa2 pa2-m pa3-l mb3', cls)}
+        class={c('fl pa2 pa2-m pa3-l mb0 mb2-m mb3-l', cls)}
       >
         <Album
           class='shadow-2'
