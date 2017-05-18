@@ -78,7 +78,8 @@ class Player extends Component {
           playbackRate={0.4}
           autoplay
           loop
-          volume='0'
+          playsinline
+          muted
         >
           <source src='/glitch.webm' type='video/webm; codecs=vp9' />
           <source src='/glitch.mp4' type='video/mp4' />
