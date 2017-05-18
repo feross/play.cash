@@ -34,7 +34,8 @@ class Player extends Component {
   render (props) {
     const { app, player } = store
 
-    const loadingCls = (player.buffering || player.fetchingTrack)
+    console.log(player.buffering, player.seeking, player.fetchingTrack)
+    const loadingCls = ((player.buffering && !player.seeking) || player.fetchingTrack)
       ? 'animate-fade-in animate--normal'
       : 'animate-fade-out animate--normal'
 

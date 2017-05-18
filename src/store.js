@@ -30,6 +30,7 @@ const store = {
     buffering: true,
 
     // extra state
+    seeking: false,
     fetchingTrack: false
   },
   playlist: {
@@ -148,12 +149,14 @@ function dispatch (type, data) {
     case 'PLAYER_TIMEUPDATE': {
       store.player.time = data
       store.player.buffering = false
+      store.player.seeking = false
       return update()
     }
 
     case 'PLAYER_SEEK': {
       store.player.time = data
       window.player.seek(store.player.time)
+      store.player.seeking = true
       return update()
     }
 
