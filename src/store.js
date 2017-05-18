@@ -45,8 +45,17 @@ const store = {
   errors: []
 }
 
+const SKIP_DEBUG = [
+  'PLAYER_TIMEUPDATE',
+  'APP_IDLE',
+  'APP_HIDDEN',
+  'APP_RESIZE'
+]
+
 function dispatch (type, data) {
-  if (type !== 'PLAYER_TIMEUPDATE') debug('%s %o', type, data)
+  if (!SKIP_DEBUG.includes(type)) {
+    debug('%s %o', type, data)
+  }
 
   switch (type) {
     /**
