@@ -78,7 +78,7 @@ class SearchPage extends Component {
 
     return (
       <Sheet class='cf'>
-        <div class='nt3'>
+        <div class='nt3 dn db-m db-l'>
           <Heading class='tc'>
             <span class='white-50'>Showing results for </span>
             <span>{q}</span>
