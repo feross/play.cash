@@ -13,7 +13,7 @@ const Link = (props) => {
       href={href}
       onClick={e => {
         if (href === '#') e.preventDefault()
-        onClick()
+        onClick(e)
       }}
       style={props.style}
     >

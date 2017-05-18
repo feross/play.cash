@@ -1,6 +1,7 @@
 const { h } = require('preact') /** @jsx h */
 const c = require('classnames')
 
+const store = require('../store')
 const { getArtistForTrack } = require('../store-getters')
 const { formatTime } = require('../format')
 
@@ -48,10 +49,16 @@ const TrackList = (props) => {
       )
     }
 
+    const onClick = (e) => {
+      const playlist = tracks.map(track => track.url)
+      store.dispatch('PLAYLIST_SET', { index: i, tracks: playlist })
+    }
+
     return (
       <Link
         class='cf track db pa3 color-inherit hover-bg-black-50 bg-animate'
         href={track.url}
+        onClick={onClick}
       >
         <i
           class='fl play-arrow material-icons absolute mr1 dn'

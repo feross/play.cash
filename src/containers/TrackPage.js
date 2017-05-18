@@ -20,8 +20,12 @@ class TrackPage extends Component {
   _load () {
     const { entity } = store
     store.dispatch('APP_TITLE', entity.name + ' by ' + entity.artistName)
-    store.dispatch('PLAYLIST_SET', [entity.url])
     store.dispatch('FETCH_FACTS', entity)
+
+    // Set a single track playlist if nothing is already set
+    if (store.playlist.tracks.length === 0) {
+      store.dispatch('PLAYLIST_SET', { index: 0, tracks: [entity.url] })
+    }
   }
 
   render (props) {

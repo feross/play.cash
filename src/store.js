@@ -159,9 +159,10 @@ function dispatch (type, data) {
      */
 
     case 'PLAYLIST_SET': {
-      store.playlist.tracks = data
+      const { index, tracks } = data
+      store.playlist.index = index
+      store.playlist.tracks = tracks
       store.playlist.tracksShuffled = arrayShuffle(store.playlist.tracks.slice(0))
-      store.playlist.index = 0
       store.dispatch('PLAYLIST_PLAY_CURRENT')
       return update()
     }
@@ -211,6 +212,10 @@ function dispatch (type, data) {
       const trackUrl = tracks[store.playlist.index]
       const track = entity.decode(trackUrl)
       addTrack(track)
+
+      if (store.location.name === 'track') {
+        store.dispatch('LOCATION_REPLACE', track.url)
+      }
 
       store.dispatch('FETCH_VIDEO', track)
       store.dispatch('FETCH_TRACK_INFO', track)
