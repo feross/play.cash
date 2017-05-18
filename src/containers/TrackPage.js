@@ -34,7 +34,7 @@ class TrackPage extends Component {
 
     const facts = track && track.facts
 
-    const $bufferingLoader = player.buffering
+    const $bufferingLoader = (player.buffering || player.fetchingTrack)
       ? <Sheet><Loader center /></Sheet>
       : null
 
