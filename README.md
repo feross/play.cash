@@ -1,4 +1,10 @@
-# [Play](https://play.cash) (https://play.cash)
+# [Play](https://play.cash) ([play.cash](https://play.cash))
+
+### Music lovers, rejoice.
+
+Music videos with insider song facts.
+
+### Live site: [https://play.cash](https://play.cash)
 
 ## Contributing
 
