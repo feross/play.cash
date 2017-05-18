@@ -8,8 +8,8 @@ class SongFacts {
   }
 
   getFacts (opts, cb) {
-    if (!opts.name) throw new Error('missing `name` param')
-    if (!opts.artistName) throw new Error('missing `artistName` param')
+    if (!opts.name) return cb(new Error('missing `name` param'))
+    if (!opts.artistName) return cb(new Error('missing `artistName` param'))
 
     const urlBase = 'https://apiv3.songfacts.com/?go=' + this._key
 
