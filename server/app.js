@@ -1,3 +1,5 @@
+/* global opbeat */
+
 module.exports = {
   init
 }
@@ -10,7 +12,6 @@ const http = require('http')
 const mustache = require('mustache')
 const path = require('path')
 const session = require('express-session')
-const url = require('url')
 
 const api = require('./api')
 const config = require('../config')
@@ -131,6 +132,8 @@ function init (server, sessionStore) {
     res.locals.initialStore.error = `404: ${http.STATUS_CODES[404]}`
     res.status(404).render('index')
   })
+
+  app.use(opbeat.middleware.express())
 
   app.use((err, req, res, next) => {
     console.error(err.stack)

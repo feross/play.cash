@@ -43,6 +43,7 @@
     "last-fm": "^5.0.0",
     "memo-async-lru": "^1.0.1",
     "mustache": "^2.3.0",
+    "opbeat": "^4.14.0",
     "path-to-regexp": "^1.7.0",
     "preact": "^8.1.0",
     "sbd": "^1.0.12",
