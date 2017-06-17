@@ -1,5 +1,5 @@
 const secret = require('../secret')
-global.opbeat = require('opbeat').start(Object.assign({timeout: false}, secret.opbeat))
+global.opbeat = require('opbeat').start(secret.opbeat)
 
 const ConnectSQLite = require('connect-sqlite3')
 const downgrade = require('downgrade')
