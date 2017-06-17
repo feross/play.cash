@@ -12,7 +12,6 @@ const session = require('express-session')
 const unlimited = require('unlimited')
 
 const app = require('./app')
-const config = require('../config')
 const socket = require('./socket')
 
 unlimited() // Upgrade the max file descriptor limit
