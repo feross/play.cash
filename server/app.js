@@ -114,6 +114,10 @@ function init (server, sessionStore) {
     })
   })
 
+  app.get('/500', (req, res, next) => {
+    next(new Error('Manually visited /500'))
+  })
+
   // TODO: Return 404 error when there is no song match!
   app.get('*', (req, res) => {
     // Canonicalize URLs that come from Open Search, or are typed in by users
@@ -121,10 +125,6 @@ function init (server, sessionStore) {
       return res.redirect(301, config.httpOrigin + req.url.replace(/%20/g, '-'))
     }
     res.render('index', { config: config })
-  })
-
-  app.get('/500', (req, res, next) => {
-    next(new Error('Manually visited /500'))
   })
 
   app.get('*', (req, res) => {
