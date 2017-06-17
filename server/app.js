@@ -35,13 +35,6 @@ function init (server, sessionStore) {
 
   // Add headers
   app.use((req, res, next) => {
-    const extname = path.extname(url.parse(req.url).pathname)
-
-    // Add cross-domain header for fonts, required by spec, Firefox, and IE.
-    if (['.eot', '.ttf', '.otf', '.woff', '.woff2'].includes(extname)) {
-      res.header('Access-Control-Allow-Origin', '*')
-    }
-
     // Disable browser mime-type sniffing. Reduces exposure to drive-by download attacks when
     // serving user uploaded content.
     res.header('X-Content-Type-Options', 'nosniff')
