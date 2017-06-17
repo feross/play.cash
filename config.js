@@ -62,4 +62,4 @@ exports.apiTimeout = 30 * 1000
 /**
  * User agent for API requests
  */
-exports.apiUserAgent = 'Play/1.0.0 (http://play.cash)'
+exports.apiUserAgent = 'Play/1.0.0 (https://play.cash)'
