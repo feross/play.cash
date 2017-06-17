@@ -1,5 +1,8 @@
-const secret = require('../secret')
-global.opbeat = require('opbeat').start(secret.opbeat)
+const config = require('../config')
+if (config.isProd) {
+  const secret = require('../secret')
+  global.opbeat = require('opbeat').start(secret.opbeat)
+}
 
 const ConnectSQLite = require('connect-sqlite3')
 const downgrade = require('downgrade')

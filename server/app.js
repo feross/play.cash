@@ -1,5 +1,3 @@
-/* global opbeat */
-
 module.exports = {
   init
 }
@@ -133,7 +131,7 @@ function init (server, sessionStore) {
     res.status(404).render('index')
   })
 
-  app.use(opbeat.middleware.express())
+  if (global.opbeat) app.use(global.opbeat.middleware.express())
 
   app.use((err, req, res, next) => {
     console.error(err.stack)
