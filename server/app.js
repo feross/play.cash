@@ -90,6 +90,7 @@ function init (server, sessionStore) {
     : ''
 
   app.use((req, res, next) => {
+    res.locals.config = config
     res.locals.initialStore = {
       userName: req.session.user && req.session.user.userName
     }
@@ -123,7 +124,7 @@ function init (server, sessionStore) {
     if (req.url.includes('%20')) {
       return res.redirect(301, config.httpOrigin + req.url.replace(/%20/g, '-'))
     }
-    res.render('index', { config: config })
+    res.render('index')
   })
 
   app.get('*', (req, res) => {
