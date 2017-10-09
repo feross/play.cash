@@ -55,10 +55,10 @@
     "yt-player": "^2.0.0"
   },
   "devDependencies": {
+    "babel-minify": "^0.2.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-plugin-transform-react-jsx": "^6.23.0",
     "babelify": "^7.3.0",
-    "babili": "0.0.12",
     "browserify": "^14.0.0",
     "nodemon": "^1.2.1",
     "standard": "*",
@@ -75,7 +75,7 @@
   },
   "scripts": {
     "build": "npm run build-js && chmod 777 db/",
-    "build-js": "NODE_ENV=production browserify -i preact/devtools src | babili > static/bundle.js",
+    "build-js": "NODE_ENV=production browserify -i preact/devtools src | minify > static/bundle.js",
     "secret-download": "rsync -a -O -v --delete -e \"ssh -p 44444\" feross@future:\"/home/feross/www/play.cash/secret/\" secret/",
     "secret-upload": "rsync -a -O -v --delete -e \"ssh -p 44444\" secret/ feross@future:\"/home/feross/www/play.cash/secret/\"",
     "size": "npm run size-js && npm run size-css",
