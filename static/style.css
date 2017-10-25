@@ -4,10 +4,12 @@
 
 .body-font {
   font-family: 'Roboto', sans-serif;
+  font-display: fallback;
 }
 
 .fact-font {
   font-family: 'Sriracha', sans-serif;
+  font-display: swap;
 }
 
 .text-outline {
