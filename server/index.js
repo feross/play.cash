@@ -14,10 +14,12 @@ const unlimited = require('unlimited')
 const app = require('./app')
 const socket = require('./socket')
 
+const PORT = process.argv[2] || 4000
+
 unlimited() // Upgrade the max file descriptor limit
 
 const server = http.createServer()
-server.listen(config.port, onListening)
+server.listen(PORT, onListening)
 
 function onListening (err) {
   if (err) throw err

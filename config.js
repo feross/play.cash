@@ -8,13 +8,6 @@ const isProd = typeof window !== 'undefined'
 exports.isProd = isProd
 
 /**
- * Server listening port
- */
-exports.port = isProd
-  ? 7700
-  : 4000
-
-/**
  * Name of the site
  */
 exports.name = 'Play'
@@ -29,7 +22,7 @@ exports.description = 'Music lovers, rejoice.'
  */
 exports.host = isProd
   ? 'play.cash'
-  : 'localhost:' + exports.port
+  : 'localhost:4000'
 
 /**
  * HTTP origin
