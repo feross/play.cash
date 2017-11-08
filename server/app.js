@@ -47,6 +47,17 @@ function init (server, sessionStore) {
     res.header('X-XSS-Protection', '1; mode=block')
 
     if (config.isProd) {
+      // Redirect instantfm.com and instant.fm to explainer page
+      const instantFmDomains = [
+        'instant.fm',
+        'www.instant.fm',
+        'instantfm.com',
+        'www.instantfm.com'
+      ]
+      if (req.method === 'GET' && instantFmDomains.includes(req.hostname)) {
+        return res.redirect(301, config.httpOrigin + '/instantfm.html')
+      }
+
       // Redirect to main site url, over https
       if (req.method === 'GET' &&
           (req.protocol !== 'https' || req.hostname !== config.host)) {
