@@ -52,7 +52,7 @@
     "tachyons": "4.8.1",
     "throttleit": "^1.0.0",
     "unlimited": "^1.2.0",
-    "yt-player": "^2.0.0"
+    "yt-player": "^3.0.0"
   },
   "devDependencies": {
     "babel-minify": "^0.2.0",
