@@ -140,6 +140,9 @@ function dispatch (type, data) {
 
     case 'PLAYER_BUFFERING': {
       store.player.buffering = true
+      // HACK: fix player emitting 'paused' when loading a new video and getting
+      // stuck on loading page (race condition, only happens sometimes)
+      dispatch('PLAYER_PLAYING', true)
       return update()
     }
 
