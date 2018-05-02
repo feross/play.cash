@@ -48,7 +48,6 @@
     "preact": "^8.1.0",
     "sbd": "^1.0.12",
     "simple-get": "^3.0.2",
-    "simple-websocket": "^5.0.0",
     "tachyons": "4.8.1",
     "throttleit": "^1.0.0",
     "unlimited": "^1.2.0",

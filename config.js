@@ -30,11 +30,6 @@ exports.host = isProd
 exports.httpOrigin = (isProd ? 'https' : 'http') + '://' + exports.host
 
 /**
- * Websocket origin
- */
-exports.wsOrigin = (isProd ? 'wss' : 'ws') + '://' + exports.host
-
-/**
  * Root path of project
  */
 exports.root = __dirname

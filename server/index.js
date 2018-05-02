@@ -12,7 +12,6 @@ const session = require('express-session')
 const unlimited = require('unlimited')
 
 const app = require('./app')
-const socket = require('./socket')
 
 const PORT = process.argv[2] || 4000
 
@@ -32,5 +31,4 @@ function onListening (err) {
   const sessionStore = new SQLiteStore({ dir: path.join(config.root, 'db') })
 
   app.init(server, sessionStore)
-  socket.init(server, sessionStore)
 }
