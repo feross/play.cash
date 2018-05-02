@@ -55,7 +55,7 @@
     "yt-player": "^3.0.0"
   },
   "devDependencies": {
-    "babel-minify": "^0.2.0",
+    "babel-minify": "^0.4.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-plugin-transform-react-jsx": "^6.23.0",
     "babelify": "^7.3.0",
