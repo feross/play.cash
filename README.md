@@ -1,4 +1,9 @@
-# [Play](https://play.cash) ([play.cash](https://play.cash))
+# [Play](https://play.cash) [![travis][travis-image]][travis-url] [![javascript style guide][standard-image]][standard-url]
+
+[travis-image]: https://img.shields.io/travis/feross/play.cash/master.svg
+[travis-url]: https://travis-ci.org/feross/play.cash
+[standard-image]: https://img.shields.io/badge/code_style-standard-brightgreen.svg
+[standard-url]: https://standardjs.com
 
 ### Music lovers, rejoice.
 
