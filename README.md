@@ -24,7 +24,6 @@ npm install
 Run the server:
 
 ```bash
-npm run build
 npm start
 ```
 
