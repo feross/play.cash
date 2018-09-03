@@ -2,7 +2,7 @@ const Rollbar = require('rollbar')
 const { isProd } = require('../config')
 const { rollbar: rollbarSecret } = require('../secret')
 
-if (true || isProd) {
+if (isProd) {
   global.rollbar = new Rollbar({
     accessToken: rollbarSecret.accessToken,
     captureUncaught: true,
