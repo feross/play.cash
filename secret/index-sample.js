@@ -11,8 +11,6 @@ exports.lastfm = {
 
 exports.songfacts = ''
 
-exports.opbeat = {
-  appId: '',
-  organizationId: '',
-  secretToken: ''
+exports.rollbar = {
+  accessToken: 'TODO'
 }

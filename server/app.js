@@ -143,7 +143,7 @@ function init (server, sessionStore) {
     res.status(404).render('index')
   })
 
-  if (global.opbeat) app.use(global.opbeat.middleware.express())
+  if (global.rollbar) app.use(global.rollbar.errorHandler())
 
   app.use((err, req, res, next) => {
     console.error(err.stack)

@@ -1,8 +1,4 @@
-const config = require('../config')
-if (config.isProd) {
-  const secret = require('../secret')
-  global.opbeat = require('opbeat').start(secret.opbeat)
-}
+require('./rollbar')
 
 const ConnectSQLite = require('connect-sqlite3')
 const downgrade = require('downgrade')
@@ -12,6 +8,7 @@ const session = require('express-session')
 const unlimited = require('unlimited')
 
 const app = require('./app')
+const config = require('../config')
 
 const PORT = process.argv[2] || 4000
 
