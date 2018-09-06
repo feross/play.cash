@@ -37,8 +37,8 @@ class SongFacts {
       1
     ]
 
-    const name = opts.name.replace(/:/g, '')
-    const artistName = opts.artistName.replace(/:/g, '')
+    const name = encodeURIComponent(opts.name.replace(/:/g, ''))
+    const artistName = encodeURIComponent(opts.artistName.replace(/:/g, ''))
 
     const url = [urlBase, switches.join(':'), artistName, name].join(':')
 
