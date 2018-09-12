@@ -5,7 +5,7 @@
 module.exports = simpleFetch
 
 function simpleFetch (opts, cb) {
-  opts = typeof opts === 'string' ? {url: opts} : Object.assign({}, opts)
+  opts = typeof opts === 'string' ? { url: opts } : Object.assign({}, opts)
 
   if (opts.headers == null) opts.headers = {}
 
@@ -60,7 +60,7 @@ function simpleFetch (opts, cb) {
 
 ;['get', 'post', 'put', 'patch', 'head', 'delete'].forEach(function (method) {
   simpleFetch[method] = function (opts, cb) {
-    if (typeof opts === 'string') opts = {url: opts}
+    if (typeof opts === 'string') opts = { url: opts }
     opts.method = method.toUpperCase()
     return simpleFetch(opts, cb)
   }
