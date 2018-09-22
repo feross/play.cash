@@ -75,7 +75,7 @@ class SongFacts {
       const meta = { query: opts }
 
       // No match found
-      if (code === '0') {
+      if (code === '0' || info == null) {
         cb(null, {
           meta,
           info: {},
