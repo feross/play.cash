@@ -21,7 +21,7 @@ const Button = (props) => {
     onClick = () => {}
   } = props
 
-  let cls = ['link bw2 dib grow ttu fw6']
+  const cls = ['link bw2 dib grow ttu fw6']
 
   if (size === 'small') cls.push('f6 ph3 pv2')
   if (size === 'medium') cls.push('f5 ph3 pv2')

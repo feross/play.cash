@@ -20,11 +20,11 @@ const AlbumPage = require('./AlbumPage')
 const NotFoundPage = require('./NotFoundPage')
 
 const PAGES = {
-  'home': HomePage,
-  'search': SearchPage,
-  'artist': ArtistPage,
-  'track': TrackPage,
-  'album': AlbumPage,
+  home: HomePage,
+  search: SearchPage,
+  artist: ArtistPage,
+  track: TrackPage,
+  album: AlbumPage,
   'not-found': NotFoundPage
 }
 

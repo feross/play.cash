@@ -7,7 +7,7 @@ module.exports = {
  * Format a time (in secs).
  */
 function formatTime (time) {
-  let hours = Math.floor(time / 3600)
+  const hours = Math.floor(time / 3600)
   let mins = Math.floor((time - hours * 3600) / 60)
   let secs = Math.floor(time - (hours * 3600) - (mins * 60))
 

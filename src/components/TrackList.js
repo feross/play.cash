@@ -100,7 +100,7 @@ const TrackList = (props) => {
     )
   })
 
-  let $content = []
+  const $content = []
   if (columns === 1) {
     $content.push(<div class={props.class}>{$tracks}</div>)
   } else if (columns === 2) {
