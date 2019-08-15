@@ -31,7 +31,7 @@
     "last-fm": "^5.0.0",
     "memo-async-lru": "^1.0.1",
     "mustache": "^3.0.1",
-    "path-to-regexp": "^2.0.0",
+    "path-to-regexp": "^3.0.0",
     "preact": "^8.1.0",
     "rollbar": "^2.4.5",
     "sbd": "^1.0.12",
