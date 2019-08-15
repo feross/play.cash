@@ -1,7 +1,5 @@
 # [Play](https://play.cash) [![travis][travis-image]][travis-url] [![javascript style guide][standard-image]][standard-url]
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/feross/play.cash.svg)](https://greenkeeper.io/)
-
 [travis-image]: https://img.shields.io/travis/feross/play.cash/master.svg
 [travis-url]: https://travis-ci.org/feross/play.cash
 [standard-image]: https://img.shields.io/badge/code_style-standard-brightgreen.svg
