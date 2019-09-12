@@ -7,7 +7,7 @@ const { getCurrentTrack } = require('../store-getters')
 class Sheet extends Component {
   constructor (props) {
     super(props)
-    this._onClick = this._onClick.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   render (props) {
@@ -17,14 +17,14 @@ class Sheet extends Component {
           'sheet relative pb4 pb5-m pb6-l ph3 ph3-m ph4-l min-vh-100 bg-black-50',
           props.class
         )}
-        onClick={this._onClick}
+        onClick={this.handleClick}
       >
         {props.children}
       </div>
     )
   }
 
-  _onClick (e) {
+  handleClick (e) {
     const { location } = store
     const currentTrack = getCurrentTrack()
 

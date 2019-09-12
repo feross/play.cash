@@ -18,12 +18,12 @@ class Controls extends Component {
   constructor (props) {
     super(props)
 
-    this._onClickShuffle = this._onClickShuffle.bind(this)
-    this._onClickPrevious = this._onClickPrevious.bind(this)
-    this._onClickPlayPause = this._onClickPlayPause.bind(this)
-    this._onClickNext = this._onClickNext.bind(this)
-    this._onClickRepeat = this._onClickRepeat.bind(this)
-    this._onClickSeek = this._onClickSeek.bind(this)
+    this.handleClickShuffle = this.handleClickShuffle.bind(this)
+    this.handleClickPrevious = this.handleClickPrevious.bind(this)
+    this.handleClickPlayPause = this.handleClickPlayPause.bind(this)
+    this.handleClickNext = this.handleClickNext.bind(this)
+    this.handleClickRepeat = this.handleClickRepeat.bind(this)
+    this.handleClickSeek = this.handleClickSeek.bind(this)
   }
 
   render (props) {
@@ -131,7 +131,7 @@ class Controls extends Component {
                 style={{
                   fontSize: 20
                 }}
-                onClick={this._onClickShuffle}
+                onClick={this.handleClickShuffle}
               >
                 shuffle
               </i>
@@ -142,7 +142,7 @@ class Controls extends Component {
                 fontSize: 24,
                 marginTop: 6
               }}
-              onClick={this._onClickPrevious}
+              onClick={this.handleClickPrevious}
             >
               skip_previous
             </i>
@@ -152,7 +152,7 @@ class Controls extends Component {
                 fontSize: 42,
                 marginTop: -3
               }}
-              onClick={this._onClickPlayPause}
+              onClick={this.handleClickPlayPause}
             >
               {playPauseIcon}
             </i>
@@ -162,7 +162,7 @@ class Controls extends Component {
                 fontSize: 24,
                 marginTop: 6
               }}
-              onClick={this._onClickNext}
+              onClick={this.handleClickNext}
             >
               skip_next
             </i>
@@ -172,7 +172,7 @@ class Controls extends Component {
                 style={{
                   fontSize: 20
                 }}
-                onClick={this._onClickRepeat}
+                onClick={this.handleClickRepeat}
               >
                 repeat
               </i>
@@ -199,7 +199,7 @@ class Controls extends Component {
                 paddingTop: 5,
                 paddingBottom: 10
               }}
-              onClick={this._onClickSeek}
+              onClick={this.handleClickSeek}
             >
               <div
                 class='bg-white-50 br-pill overflow-hidden'
@@ -231,28 +231,28 @@ class Controls extends Component {
     )
   }
 
-  _onClickShuffle () {
+  handleClickShuffle () {
     store.dispatch('PLAYLIST_SHUFFLE', !store.playlist.shuffle)
   }
 
-  _onClickPrevious () {
+  handleClickPrevious () {
     store.dispatch('PLAYLIST_PREVIOUS')
   }
 
-  _onClickPlayPause (e) {
+  handleClickPlayPause (e) {
     const { player } = store
     store.dispatch('PLAYER_PLAYING', !player.playing)
   }
 
-  _onClickNext () {
+  handleClickNext () {
     store.dispatch('PLAYLIST_NEXT')
   }
 
-  _onClickRepeat () {
+  handleClickRepeat () {
     store.dispatch('PLAYLIST_REPEAT', !store.playlist.repeat)
   }
 
-  _onClickSeek (e) {
+  handleClickSeek (e) {
     const { player } = store
     const progress = e.offsetX / e.currentTarget.offsetWidth
     const time = Math.round(progress * player.duration * 100) / 100

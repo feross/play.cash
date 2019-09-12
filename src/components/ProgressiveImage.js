@@ -11,7 +11,7 @@ class ProgressiveImage extends Component {
       thumbLoaded: false
     }
 
-    this._onThumbLoad = this._onThumbLoad.bind(this)
+    this.handleThumbLoad = this.handleThumbLoad.bind(this)
   }
 
   render (props) {
@@ -42,14 +42,14 @@ class ProgressiveImage extends Component {
           style={props.style}
           src={sources[0]}
           alt={alt}
-          onLoad={this._onThumbLoad}
+          onLoad={this.handleThumbLoad}
         />
         {$finalImage}
       </div>
     )
   }
 
-  _onThumbLoad () {
+  handleThumbLoad () {
     this.setState({ thumbLoaded: true })
   }
 }

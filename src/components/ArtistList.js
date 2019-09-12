@@ -16,7 +16,10 @@ const ArtistList = (props) => {
 
   const $artists = artists.map(artist => {
     return (
-      <div class={c('fl pa2 pa2-m pa3-l mb0 mb2-m mb3-l', cls)}>
+      <div
+        class={c('fl pa2 pa2-m pa3-l mb0 mb2-m mb3-l', cls)}
+        key={artist.url}
+      >
         <Artist
           artist={artist}
         />

@@ -6,9 +6,9 @@ const store = require('../store')
 class Search extends Component {
   constructor (props) {
     super(props)
-    this._onInput = this._onInput.bind(this)
-    this._onKeyPress = this._onKeyPress.bind(this)
-    this._onFocus = this._onFocus.bind(this)
+    this.handleInput = this.handleInput.bind(this)
+    this.handleKeyPress = this.handleKeyPress.bind(this)
+    this.handleFocus = this.handleFocus.bind(this)
   }
 
   render (props) {
@@ -32,9 +32,9 @@ class Search extends Component {
         spellCheck='false'
         placeholder={placeholder}
         value={value}
-        onInput={this._onInput}
-        onKeyPress={this._onKeyPress}
-        onFocus={this._onFocus}
+        onInput={this.handleInput}
+        onKeyPress={this.handleKeyPress}
+        onFocus={this.handleFocus}
       />
     )
   }
@@ -51,13 +51,13 @@ class Search extends Component {
     return e.target.value
   }
 
-  _onInput (e) {
+  handleInput (e) {
     const inputValue = this._getInputValue(e)
     const storeValue = this._getStoreValue()
     if (inputValue !== storeValue) this._dispatch(inputValue)
   }
 
-  _onKeyPress (e) {
+  handleKeyPress (e) {
     if (e.key === 'Enter') {
       const value = this._getInputValue(e)
       if (value.trim() !== '') this._dispatch(value)
@@ -65,7 +65,7 @@ class Search extends Component {
     e.stopPropagation()
   }
 
-  _onFocus (e) {
+  handleFocus (e) {
     const value = this._getInputValue(e)
     if (value.trim() !== '') this._dispatch(value)
   }

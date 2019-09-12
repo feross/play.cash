@@ -20,15 +20,15 @@ class Player extends Component {
     super(props)
 
     this._ref = this._ref.bind(this)
-    this._onError = this._onError.bind(this)
-    this._onUnplayable = this._onUnplayable.bind(this)
-    this._onEnded = this._onEnded.bind(this)
-    this._onPlaying = this._onPlaying.bind(this)
-    this._onPaused = this._onPaused.bind(this)
-    this._onBuffering = this._onBuffering.bind(this)
-    this._onDuration = this._onDuration.bind(this)
-    this._onTimeupdate = this._onTimeupdate.bind(this)
-    this._onClick = this._onClick.bind(this)
+    this.handleError = this.handleError.bind(this)
+    this.handleUnplayable = this.handleUnplayable.bind(this)
+    this.handleEnded = this.handleEnded.bind(this)
+    this.handlePlaying = this.handlePlaying.bind(this)
+    this.handlePaused = this.handlePaused.bind(this)
+    this.handleBuffering = this.handleBuffering.bind(this)
+    this.handleDuration = this.handleDuration.bind(this)
+    this.handleTimeupdate = this.handleTimeupdate.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   render (props) {
@@ -44,7 +44,7 @@ class Player extends Component {
         <div
           id='player'
           class='absolute top-0 w-100 vh-100'
-          onClick={this._onClick}
+          onClick={this.handleClick}
         >
           <YouTubePlayer
             ref={this._ref}
@@ -55,14 +55,14 @@ class Player extends Component {
             width={app.width}
             height={app.height}
             playerOpts={PLAYER_OPTS}
-            onError={this._onError}
-            onUnplayable={this._onUnplayable}
-            onEnded={this._onEnded}
-            onPlaying={this._onPlaying}
-            onPaused={this._onPaused}
-            onBuffering={this._onBuffering}
-            onDuration={this._onDuration}
-            onTimeupdate={this._onTimeupdate}
+            onError={this.handleError}
+            onUnplayable={this.handleUnplayable}
+            onEnded={this.handleEnded}
+            onPlaying={this.handlePlaying}
+            onPaused={this.handlePaused}
+            onBuffering={this.handleBuffering}
+            onDuration={this.handleDuration}
+            onTimeupdate={this.handleTimeupdate}
             style={{
               pointerEvents: 'none'
             }}
@@ -94,41 +94,41 @@ class Player extends Component {
     window.player = elem.player
   }
 
-  _onError (err) {
+  handleError (err) {
     store.dispatch('PLAYER_ERROR', err)
   }
 
-  _onUnplayable (videoId) {
+  handleUnplayable (videoId) {
     store.dispatch('PLAYER_ERROR', new Error('Unplayable video ' + videoId))
   }
 
-  _onEnded () {
+  handleEnded () {
     store.dispatch('PLAYER_ENDED')
   }
 
-  _onPlaying () {
+  handlePlaying () {
     const { player } = store
     if (!player.playing) store.dispatch('PLAYER_PLAYING', true)
   }
 
-  _onPaused () {
+  handlePaused () {
     const { player } = store
     if (player.playing) store.dispatch('PLAYER_PLAYING', false)
   }
 
-  _onBuffering () {
+  handleBuffering () {
     store.dispatch('PLAYER_BUFFERING')
   }
 
-  _onDuration (duration) {
+  handleDuration (duration) {
     store.dispatch('PLAYER_DURATION', duration)
   }
 
-  _onTimeupdate (time) {
+  handleTimeupdate (time) {
     store.dispatch('PLAYER_TIMEUPDATE', time)
   }
 
-  _onClick () {
+  handleClick () {
     const { player } = store
     store.dispatch('PLAYER_PLAYING', !player.playing)
   }

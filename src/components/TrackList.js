@@ -59,6 +59,7 @@ const TrackList = (props) => {
         class='cf track db pa3 color-inherit hover-bg-black-50 bg-animate'
         href={track.url}
         onClick={onClick}
+        key={track.url}
       >
         <i
           class='play-arrow fl absolute material-icons absolute mr1 o-0 absolute'
