@@ -1,3 +1,6 @@
+// React Developer Tools (Excluded in production)
+if (process.env.NODE_ENV !== 'production') require('preact/debug')
+
 const { h, render } = require('preact') /** @jsx h */
 
 const App = require('./containers/App')
@@ -7,7 +10,7 @@ const store = require('./store')
 
 store.update = update
 
-let root = null
+const root = document.body
 
 const loc = new Location(routes, (location, source) => {
   store.dispatch('LOCATION_CHANGE', location)
@@ -19,7 +22,7 @@ window.loc = loc
 window.player = null
 
 function update () {
-  root = render(<App />, document.body, root)
+  render(<App />, root)
 }
 
 /**
@@ -33,6 +36,3 @@ window.update = update
 // Measure page speed
 console.timeEnd('render')
 window.addEventListener('load', () => console.timeEnd('load'))
-
-// React Developer Tools (Excluded in production)
-require('preact/devtools')

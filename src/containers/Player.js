@@ -91,7 +91,11 @@ class Player extends Component {
 
   _ref (elem) {
     // Expose player instance as global variable so seek(), etc. can be called
-    window.player = elem.player
+    Object.defineProperty(window, 'player', {
+      get () {
+        return elem.player
+      }
+    })
   }
 
   handleError (err) {
