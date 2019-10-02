@@ -49,6 +49,7 @@
     "nodemon": "^1.19.3",
     "standard": "^14.3.1",
     "tape": "^4.11.0",
+    "tinyify": "^2.5.1",
     "watchify": "^3.11.1"
   },
   "homepage": "https://play.cash",
@@ -61,7 +62,7 @@
   },
   "scripts": {
     "build": "npm run build-js && chmod 777 db/",
-    "build-js": "NODE_ENV=production browserify -i preact/devtools src | minify > static/bundle.js",
+    "build-js": "NODE_ENV=production browserify --plugin tinyify src | minify > static/bundle.js",
     "deploy": "git push",
     "secret-download": "rsync -a -O -v --delete -e \"ssh -p 44444\" feross@future:\"/home/feross/www/play.cash/secret/\" secret/",
     "secret-upload": "rsync -a -O -v --delete -e \"ssh -p 44444\" secret/ feross@future:\"/home/feross/www/play.cash/secret/\"",
