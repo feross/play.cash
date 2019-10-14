@@ -11,7 +11,6 @@ const PLAYER_OPTS = {
   fullscreen: false,
   annotations: false,
   related: false,
-  info: false,
   modestBranding: true
 }
 
