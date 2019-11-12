@@ -1,6 +1,6 @@
 // TODO: publish to npm
 
-const pathToRegexp = require('path-to-regexp')
+const { pathToRegexp, compile } = require('path-to-regexp')
 
 class Router {
   constructor (routes) {
@@ -14,7 +14,7 @@ class Router {
     this._compilers = {}
     routes.forEach(route => {
       const [name, path] = route
-      this._compilers[name] = pathToRegexp.compile(path)
+      this._compilers[name] = compile(path)
     })
   }
 
