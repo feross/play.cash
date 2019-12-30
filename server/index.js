@@ -11,7 +11,7 @@ const config = require('../config')
 const PORT = process.argv[2] || 4000
 
 const server = http.createServer()
-server.listen(PORT, onListening)
+server.listen(PORT, '127.0.0.1', onListening)
 
 function onListening (err) {
   if (err) throw err
