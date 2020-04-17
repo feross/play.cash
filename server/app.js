@@ -114,7 +114,7 @@ function init (server, sessionStore) {
   })
 
   const CORS_OPTS = {
-    origin: 'https://ytinstant.com'
+    origin: ['https://ytinstant.com']
   }
 
   app.get('/api/:method', cors(CORS_OPTS), (req, res, next) => {
