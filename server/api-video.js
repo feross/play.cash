@@ -16,15 +16,18 @@ const FULL_ALBUM_REGEX = /[([](.*\s)?full album(\s.*)?[)\]]/
  * parameters.
  *
  * Options:
- *   - name: The song name (required)
- *   - artistName: The song artist (required)
+ *   Either `q` OR (`name` and `artistName`) options are REQUIRED.
+ *   - q: The query
+ *   - name: The song name
+ *   - artistName: The song artist
+ *   - raw: Skip custom music-specific sorting? (default: false)
  *   - maxResults: Max number of items in the result set, 0 to 50 (default: 5)
  *
  * Docs: https://developers.google.com/youtube/v3/docs/search/list
  */
 function apiVideo (opts, cb) {
-  if (!opts.name) return cb(new Error('Missing required `name` key'))
-  if (!opts.artistName) return cb(new Error('Missing required `artistName` key'))
+  if (!opts.q && (!opts.name || !opts.artistName)) return cb(new Error('Missing required `q` or (name` and `artistName`) key'))
+  if (opts.q && (opts.name || opts.artistName)) return cb(new Error('Do not include `q` and (`name` or `artistName`) key'))
 
   if (typeof opts.maxResults === 'string') opts.maxResults = Number(opts.maxResults)
 
@@ -69,14 +72,14 @@ function apiVideo (opts, cb) {
     // The q parameter specifies the query term to search for. Your request can
     // also use the Boolean NOT (-) and OR (|) operators to exclude videos or to
     // find videos that are associated with one of several search terms. (string)
-    q: opts.name + ' ' + opts.artistName
+    q: opts.q || (opts.name + ' ' + opts.artistName)
   }
 
   sendRequest(url, params, onResponse)
 
   function onResponse (err, data) {
     if (err) return cb(err)
-    const videos = data.items
+    let videos = data.items
       .map(item => {
         return {
           id: item.id.videoId,
@@ -84,39 +87,43 @@ function apiVideo (opts, cb) {
           channelTitle: item.snippet.channelTitle
         }
       })
-      .map((item, i) => {
-        // Use YouTube's search rank as initial rank value (0-500)
-        item.rank = item.ytRank = 500 - (i * 10)
 
-        const title = item.title.toLowerCase()
-        const channelTitle = item.channelTitle.toLowerCase()
+    if (!opts.raw) {
+      videos = videos
+        .map((item, i) => {
+          // Use YouTube's search rank as initial rank value (0-500)
+          item.rank = item.ytRank = 500 - (i * 10)
 
-        const artistName = opts.artistName.toLowerCase()
+          const title = item.title.toLowerCase()
+          const channelTitle = item.channelTitle.toLowerCase()
 
-        // Promote "official version" videos (e.g. with "(Official)" in the title)
-        if (OFFICIAL_REGEX.test(title)) item.rank += 7
+          const artistName = opts.artistName.toLowerCase()
 
-        // Demote "live version" videos (e.g. with "(Live)" in the title)
-        if (LIVE_REGEX.test(title)) item.rank -= 7
+          // Promote "official version" videos (e.g. with "(Official)" in the title)
+          if (OFFICIAL_REGEX.test(title)) item.rank += 7
 
-        // Demote "full album" videos (e.g. with "(Full Album)" in the title)
-        if (FULL_ALBUM_REGEX.test(title)) item.rank -= 15
+          // Demote "live version" videos (e.g. with "(Live)" in the title)
+          if (LIVE_REGEX.test(title)) item.rank -= 7
 
-        // Promote videos from channels with the artist's name (e.g. "Michael Jackson" or
-        // "MichaelJackson")
-        if (channelTitle.includes(artistName)) item.rank += 15
-        if (artistName.includes(' ') &&
-            channelTitle.includes(artistName.replace(/ /g, ''))) item.rank += 15
+          // Demote "full album" videos (e.g. with "(Full Album)" in the title)
+          if (FULL_ALBUM_REGEX.test(title)) item.rank -= 15
 
-        // Promote videos from a VEVO account, since it's likely official
-        if (channelTitle.endsWith('vevo')) item.rank += 15
+          // Promote videos from channels with the artist's name (e.g. "Michael Jackson" or
+          // "MichaelJackson")
+          if (channelTitle.includes(artistName)) item.rank += 15
+          if (artistName.includes(' ') &&
+              channelTitle.includes(artistName.replace(/ /g, ''))) item.rank += 15
 
-        // Promote videos from channels with "official" in the title
-        if (channelTitle.includes('official')) item.rank += 7
+          // Promote videos from a VEVO account, since it's likely official
+          if (channelTitle.endsWith('vevo')) item.rank += 15
 
-        return item
-      })
-      .sort((a, b) => b.rank - a.rank)
+          // Promote videos from channels with "official" in the title
+          if (channelTitle.includes('official')) item.rank += 7
+
+          return item
+        })
+        .sort((a, b) => b.rank - a.rank)
+    }
 
     const result = {
       meta: {
