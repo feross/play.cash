@@ -2,6 +2,7 @@ module.exports = {
   init
 }
 
+const cors = require('cors')
 const compress = require('compression')
 const crypto = require('crypto')
 const express = require('express')
@@ -112,7 +113,11 @@ function init (server, sessionStore) {
     next()
   })
 
-  app.get('/api/:method', (req, res, next) => {
+  const CORS_OPTS = {
+    origin: 'https://ytinstant.com'
+  }
+
+  app.get('/api/:method', cors(CORS_OPTS), (req, res, next) => {
     const method = api[req.params.method]
     if (!method) return next()
 
