@@ -20,7 +20,6 @@ const FULL_ALBUM_REGEX = /[([](.*\s)?full album(\s.*)?[)\]]/
  *   - q: The query
  *   - name: The song name
  *   - artistName: The song artist
- *   - raw: Skip custom music-specific sorting? (default: false)
  *   - maxResults: Max number of items in the result set, 0 to 50 (default: 5)
  *
  * Docs: https://developers.google.com/youtube/v3/docs/search/list
@@ -88,7 +87,7 @@ function apiVideo (opts, cb) {
         }
       })
 
-    if (!opts.raw) {
+    if (!opts.q) {
       videos = videos
         .map((item, i) => {
           // Use YouTube's search rank as initial rank value (0-500)
