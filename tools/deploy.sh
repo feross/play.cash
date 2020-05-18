@@ -16,7 +16,7 @@ cp -R /home/feross/www/play.cash /home/feross/www/build-play.cash
 
 cd /home/feross/www/build-play.cash && git pull
 cd /home/feross/www/build-play.cash && rm -rf node_modules
-cd /home/feross/www/build-play.cash && npm install --no-progress
+cd /home/feross/www/build-play.cash && npm ci --no-progress
 cd /home/feross/www/build-play.cash && npm run build
 cd /home/feross/www/build-play.cash && npm prune --production --no-progress
 
