@@ -130,9 +130,9 @@ function init (server, sessionStore) {
     })
   })
 
-  app.get('/500', (req, res, next) => {
-    next(new Error('Manually visited /500'))
-  })
+  // app.get('/500', (req, res, next) => {
+  //   next(new Error('Manually visited /500'))
+  // })
 
   // TODO: Return 404 error when there is no song match!
   app.get('*', (req, res) => {
