@@ -1,6 +1,6 @@
 const isProd = typeof window !== 'undefined'
   ? window.location.hostname !== 'localhost'
-  : require('pro' + 'cess').env.NODE_ENV === 'production'
+  : process.env.NODE_ENV === 'production'
 
 /**
  * Is site running in production?
