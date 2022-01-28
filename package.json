@@ -35,7 +35,7 @@
     "preact": "^10.4.6",
     "rollbar": "^2.18.0",
     "sbd": "^1.0.18",
-    "simple-get": "^4.0.0",
+    "simple-get": "^4.0.1",
     "tachyons": "^4.12.0",
     "throttleit": "^1.0.0",
     "yt-player": "^3.4.3"
