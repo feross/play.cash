@@ -26,7 +26,7 @@
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "debug": "^4.1.1",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "express-session": "^1.17.1",
     "last-fm": "^5.2.2",
     "memo-async-lru": "^1.0.3",
